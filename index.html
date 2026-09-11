@@ -3,594 +3,447 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Malhar Patel — Marketing Analytics</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<title>Malhar Patel — Marketing Analytics Specialist</title>
+<meta name="description" content="Marketing Analytics graduate student (Rutgers, STEM) — SQL, Tableau, R, GA4. Built a paid-acquisition engine from zero to 19,600+ leads." />
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
   :root {
-    --bg: #1c1c1a;
-    --bg-alt: #201f1c;
-    --paper: #f4f2ec;
-    --paper-dim: #c9c7bf;
-    --line: #3a3a37;
-    --accent: #7fd1a8;
-    --accent-dim: #4f8a6c;
-    --gold: #e0a458;
-    --muted: #8f8d86;
-    --font-mono: 'IBM Plex Mono', monospace;
-    --font-sans: 'IBM Plex Sans', sans-serif;
+    --bg: #ffffff;
+    --bg-soft: #f6f7f9;
+    --card: #ffffff;
+    --text: #14161a;
+    --text-2: #565b66;
+    --border: #e3e5e9;
+    --accent: #2554f2;
+    --accent-soft: #e9edfe;
+    --accent-2: #0f9d6c;
+    --shadow: 0 1px 2px rgba(20,22,26,0.04), 0 8px 24px rgba(20,22,26,0.06);
+    --radius: 16px;
+    --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   }
 
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
-
   body {
     background: var(--bg);
-    color: var(--paper);
-    font-family: var(--font-sans);
-    line-height: 1.6;
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
   }
-
   a { color: inherit; text-decoration: none; }
+  ul { list-style: none; }
 
-  /* ===== NAV ===== */
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+
   nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--bg);
-    border-bottom: 1px solid var(--line);
-    padding: 0 32px;
-    height: 56px;
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
   }
-  .nav-mark {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--accent);
-    letter-spacing: 0.02em;
-  }
-  .nav-links {
-    display: flex;
-    gap: 0;
-    list-style: none;
-    height: 100%;
-  }
-  .nav-links li { display: flex; align-items: center; border-left: 1px solid var(--line); }
-  .nav-links a {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    letter-spacing: 0.03em;
-    color: var(--paper-dim);
-    padding: 0 20px;
-    transition: color 0.15s;
-  }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 58px; }
+  .nav-logo { font-weight: 700; font-size: 15px; letter-spacing: -0.01em; }
+  .nav-links { display: flex; gap: 28px; }
+  .nav-links a { font-size: 13.5px; color: var(--text-2); font-weight: 500; }
   .nav-links a:hover { color: var(--accent); }
-  .nav-social { display: flex; gap: 16px; align-items: center; }
-  .nav-social a { font-family: var(--font-mono); font-size: 12px; color: var(--muted); }
-  .nav-social a:hover { color: var(--accent); }
+  .nav-cta {
+    font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 100px;
+    background: var(--accent); color: #fff;
+  }
+  @media (max-width: 720px) { .nav-links { display: none; } }
 
-  /* ===== SECTION SCAFFOLD ===== */
-  section {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 96px 32px;
-    border-bottom: 1px solid var(--line);
+  .hero { padding: 72px 0 56px; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12.5px; font-weight: 600; color: var(--accent-2);
+    background: var(--bg-soft); border: 1px solid var(--border);
+    padding: 6px 12px; border-radius: 100px; margin-bottom: 20px;
   }
-  .row-label {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--accent);
-    letter-spacing: 0.03em;
-    margin-bottom: 8px;
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent-2); }
+  h1.headline {
+    font-size: clamp(32px, 5vw, 48px); font-weight: 800; letter-spacing: -0.025em;
+    line-height: 1.08; max-width: 780px;
   }
-  h2 {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: clamp(28px, 4vw, 40px);
-    color: var(--paper);
-    margin-bottom: 40px;
+  h1.headline .accent { color: var(--accent); }
+  .subhead {
+    font-size: 17.5px; color: var(--text-2); max-width: 620px; margin-top: 18px; line-height: 1.65;
   }
 
-  /* ===== HERO ===== */
-  .hero {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 72px 32px 0;
-    border-bottom: none;
-  }
-  .hero-meta {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--muted);
-    letter-spacing: 0.03em;
-    margin-bottom: 24px;
-  }
-  .hero-name {
-    font-family: var(--font-sans);
-    font-weight: 700;
-    font-size: clamp(40px, 7vw, 68px);
-    line-height: 1.05;
-    letter-spacing: -0.01em;
-  }
-  .hero-tag {
-    font-size: 17px;
-    color: var(--paper-dim);
-    max-width: 640px;
-    margin-top: 20px;
-    line-height: 1.7;
-  }
-  .hero-tag strong { color: var(--paper); font-weight: 500; }
-
-  .ledger-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    border: 1px solid var(--line);
-    margin-top: 48px;
-  }
-  .ledger-cell {
-    padding: 20px 18px;
-    border-left: 1px solid var(--line);
-  }
-  .ledger-cell:first-child { border-left: none; }
-  .ledger-cell .val {
-    font-family: var(--font-mono);
-    font-size: 24px;
-    font-weight: 500;
-    color: var(--accent);
-  }
-  .ledger-cell .lbl {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.03em;
-    margin-top: 6px;
+  .stack-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .stack-tag {
+    font-size: 12.5px; font-weight: 600; color: var(--text-2);
+    border: 1px solid var(--border); background: var(--bg-soft);
+    padding: 6px 12px; border-radius: 8px;
   }
 
-  /* ===== AI NOTE ===== */
-  .ai-note {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 28px 32px;
-    border-bottom: 1px solid var(--line);
-    display: flex;
-    gap: 16px;
-    align-items: baseline;
-    font-family: var(--font-mono);
-    font-size: 12.5px;
-    color: var(--muted);
-    line-height: 1.7;
-  }
-  .ai-note .tag {
-    color: var(--gold);
-    flex-shrink: 0;
-  }
-
-  /* ===== ABOUT ===== */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 220px 1fr;
-    gap: 48px;
-  }
-  .about-meta {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--muted);
-  }
-  .about-meta div { margin-bottom: 14px; }
-  .about-meta .k { color: var(--accent); display: block; margin-bottom: 2px; }
-  .about-body p {
-    font-size: 16px;
-    color: var(--paper-dim);
-    margin-bottom: 18px;
-    max-width: 640px;
-  }
-  .about-body strong { color: var(--paper); font-weight: 600; }
-
-  /* ===== TRACK RECORD ===== */
-  .ledger-row {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    gap: 24px;
-    padding: 22px 0;
-    border-top: 1px solid var(--line);
-  }
-  .ledger-row:last-child { border-bottom: 1px solid var(--line); }
-  .ledger-date {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    color: var(--accent);
-    padding-top: 3px;
-  }
-  .ledger-role { font-weight: 600; font-size: 16px; color: var(--paper); }
-  .ledger-org { font-family: var(--font-mono); font-size: 12px; color: var(--muted); margin-top: 3px; margin-bottom: 8px; }
-  .ledger-desc { font-size: 14.5px; color: var(--paper-dim); max-width: 640px; }
-
-  /* ===== WORK ===== */
-  .work-item {
-    border: 1px solid var(--line);
-    margin-bottom: 20px;
-  }
-  .work-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    padding: 22px 24px;
-    border-bottom: 1px solid var(--line);
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .work-title { font-size: 19px; font-weight: 600; color: var(--paper); }
-  .work-type { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.03em; margin-bottom: 6px; }
-  .work-body { padding: 22px 24px; }
-  .work-desc { font-size: 14.5px; color: var(--paper-dim); max-width: 640px; margin-bottom: 18px; }
-  .figures {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1px;
-    background: var(--line);
-    border: 1px solid var(--line);
-  }
-  .figure { background: var(--bg-alt); padding: 14px 16px; }
-  .figure .val { font-family: var(--font-mono); font-size: 17px; color: var(--gold); font-weight: 500; }
-  .figure .lbl { font-family: var(--font-mono); font-size: 10.5px; color: var(--muted); margin-top: 4px; }
-
-  /* ===== SKILLS ===== */
-  .skill-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    border: 1px solid var(--line);
-  }
-  .skill-cell {
-    padding: 22px 22px;
-    border-left: 1px solid var(--line);
-    border-top: 1px solid var(--line);
-  }
-  .skill-cell:nth-child(3n+1) { border-left: none; }
-  .skill-cell:nth-child(-n+3) { border-top: none; }
-  .skill-cat { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.03em; margin-bottom: 8px; }
-  .skill-list { font-size: 13.5px; color: var(--paper-dim); line-height: 1.8; }
-
-  .cert-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-  .cert-pill {
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--paper-dim);
-    border: 1px solid var(--line);
-    padding: 6px 12px;
-  }
-
-  /* ===== CONTACT ===== */
-  #contact { border-bottom: none; }
-  .contact-row {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    margin-top: 32px;
-  }
+  .hero-cta { display: flex; gap: 12px; margin-top: 32px; flex-wrap: wrap; }
   .btn {
-    font-family: var(--font-mono);
-    font-size: 13px;
-    padding: 14px 24px;
-    border: 1px solid var(--line);
-    transition: all 0.15s;
+    font-size: 14.5px; font-weight: 600; padding: 13px 24px; border-radius: 10px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .btn-primary { background: var(--accent); color: var(--bg); border-color: var(--accent); }
-  .btn-primary:hover { background: var(--accent-dim); border-color: var(--accent-dim); }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(37,84,242,0.28); }
+  .btn-ghost { border: 1px solid var(--border); color: var(--text); }
 
-  footer {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 24px 32px 48px;
-    display: flex;
-    justify-content: space-between;
-    font-family: var(--font-mono);
-    font-size: 11px;
-    color: var(--muted);
+  .impact-row {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+    background: var(--border); border: 1px solid var(--border); border-radius: var(--radius);
+    overflow: hidden; margin-top: 44px;
   }
+  .impact-cell { background: var(--card); padding: 22px 20px; }
+  .impact-cell .num { font-size: 26px; font-weight: 800; color: var(--accent); letter-spacing: -0.02em; }
+  .impact-cell .cap { font-size: 12.5px; color: var(--text-2); margin-top: 4px; font-weight: 500; }
+  @media (max-width: 620px) { .impact-row { grid-template-columns: 1fr; } }
 
-  @media (max-width: 760px) {
-    .nav-links { display: none; }
-    .ledger-grid { grid-template-columns: repeat(2, 1fr); }
-    .ledger-cell:nth-child(2n+1) { border-left: none; }
-    .ledger-cell:nth-child(n+3) { border-top: 1px solid var(--line); }
-    .about-grid { grid-template-columns: 1fr; }
-    .ledger-row { grid-template-columns: 1fr; }
-    .skill-grid { grid-template-columns: 1fr; }
-    .skill-cell { border-left: none !important; }
-    .skill-cell:nth-child(n+1) { border-top: 1px solid var(--line); }
-    .skill-cell:first-child { border-top: none; }
+  section { padding: 84px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+  .sec-label { font-size: 12.5px; font-weight: 700; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; margin-bottom: 10px; }
+  .sec-title { font-size: clamp(26px, 3.5vw, 34px); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 40px; }
+
+  .matrix { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 760px) { .matrix { grid-template-columns: 1fr; } }
+  .matrix-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 22px; box-shadow: var(--shadow);
   }
+  .matrix-cat { font-size: 12.5px; font-weight: 700; color: var(--accent-2); margin-bottom: 12px; }
+  .matrix-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 12.5px; color: var(--text-2); background: var(--bg-soft); border: 1px solid var(--border); padding: 5px 10px; border-radius: 7px; }
+
+  .proj-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+  .proj-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 30px; box-shadow: var(--shadow);
+  }
+  .proj-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+  .proj-title { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
+  .proj-badge { font-size: 11.5px; font-weight: 700; color: var(--accent); background: var(--accent-soft); padding: 5px 10px; border-radius: 6px; white-space: nowrap; }
+  .proj-block { margin-bottom: 14px; }
+  .proj-block .lbl { font-size: 11.5px; font-weight: 700; color: var(--text-2); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 4px; }
+  .proj-block .val { font-size: 14.5px; color: var(--text); line-height: 1.6; }
+  .proj-tools { display: flex; flex-wrap: wrap; gap: 6px; }
+  .result-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+  .result-pill {
+    background: var(--bg-soft); border: 1px solid var(--border); border-radius: 10px;
+    padding: 10px 16px;
+  }
+  .result-pill .num { font-size: 16.5px; font-weight: 800; color: var(--accent-2); }
+  .result-pill .lbl { font-size: 10.5px; color: var(--text-2); margin-top: 2px; }
+
+  .tl { position: relative; padding-left: 28px; }
+  .tl::before { content: ""; position: absolute; left: 4px; top: 4px; bottom: 4px; width: 2px; background: var(--border); }
+  .tl-item { position: relative; padding-bottom: 36px; }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-item::before {
+    content: ""; position: absolute; left: -28px; top: 4px; width: 10px; height: 10px;
+    border-radius: 50%; background: var(--accent); border: 2px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent);
+  }
+  .tl-date { font-size: 12px; font-weight: 600; color: var(--accent); margin-bottom: 4px; }
+  .tl-role { font-size: 16.5px; font-weight: 700; }
+  .tl-org { font-size: 13.5px; color: var(--text-2); margin: 2px 0 8px; }
+  .tl-desc { font-size: 14px; color: var(--text-2); line-height: 1.65; max-width: 620px; }
+
+  .edu-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 24px; box-shadow: var(--shadow); margin-bottom: 14px;
+  }
+  .edu-degree { font-size: 16px; font-weight: 700; }
+  .edu-school { font-size: 13.5px; color: var(--accent); margin: 2px 0 6px; }
+  .edu-date { font-size: 12.5px; color: var(--text-2); }
+  .cert-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .cert-pill { font-size: 12px; font-weight: 600; color: var(--text-2); border: 1px solid var(--border); border-radius: 100px; padding: 7px 14px; }
+
+  #contact { text-align: center; }
+  #contact .sec-title { max-width: 560px; margin-left: auto; margin-right: auto; }
+  #contact p { font-size: 16px; color: var(--text-2); max-width: 520px; margin: 0 auto 32px; line-height: 1.7; }
+  .cta-row { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+  footer { padding: 32px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: var(--text-2); flex-wrap: wrap; gap: 12px; }
+  footer .foot-links { display: flex; gap: 18px; }
+  footer .foot-links a:hover { color: var(--accent); }
 </style>
 </head>
 <body>
 
 <nav>
-  <div class="nav-mark">MP</div>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#record">Track Record</a></li>
-    <li><a href="#work">Work</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <div class="nav-social">
-    <a href="https://linkedin.com/in/malharpatel0911" target="_blank">LinkedIn</a>
-    <a href="mailto:malharpatel78@gmail.com">Email</a>
+  <div class="wrap nav-inner">
+    <div class="nav-logo">Malhar Patel</div>
+    <ul class="nav-links">
+      <li><a href="#projects">Case Studies</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#education">Education</a></li>
+    </ul>
+    <a href="mailto:malharpatel78@gmail.com" class="nav-cta">Get In Touch</a>
   </div>
 </nav>
 
-<section class="hero">
-  <div class="hero-meta">MS Marketing Analytics &amp; Insights · Rutgers Business School (STEM) · Class of 2027</div>
-  <h1 class="hero-name">Malhar Patel</h1>
-  <p class="hero-tag">
-    I've run <strong>500+ ad campaigns</strong> on a lean budget, co-founded a consultancy from
-    zero, and now I'm adding the analytical layer — SQL, Tableau, R, regression — behind
-    decisions I used to make on instinct. <strong>Open to full-time roles starting mid-2027.</strong>
+<header class="wrap hero">
+  <div class="eyebrow"><span class="dot"></span> Open to full-time roles — Mid-2027 start</div>
+  <h1 class="headline">Marketing Analytics Specialist turning <span class="accent">campaign data into revenue decisions.</span></h1>
+  <p class="subhead">
+    MS Marketing Analytics &amp; Insights candidate (Rutgers, STEM-designated) who has taken a brand
+    from zero to a working go-to-market engine before touching a regression model — now bringing
+    SQL, Tableau, and R to the product marketing and GTM instincts that already generated 19,600+ leads.
   </p>
 
-  <div class="ledger-grid">
-    <div class="ledger-cell"><div class="val">500+</div><div class="lbl">CAMPAIGNS RUN</div></div>
-    <div class="ledger-cell"><div class="val">19.6K</div><div class="lbl">LEADS GENERATED</div></div>
-    <div class="ledger-cell"><div class="val">₹1.50</div><div class="lbl">BEST COST/LEAD</div></div>
-    <div class="ledger-cell"><div class="val">1.81M</div><div class="lbl">USERS REACHED</div></div>
+  <div class="stack-tags">
+    <span class="stack-tag">SQL</span>
+    <span class="stack-tag">Tableau</span>
+    <span class="stack-tag">R</span>
+    <span class="stack-tag">GA4</span>
+    <span class="stack-tag">Meta Ads</span>
+    <span class="stack-tag">A/B Testing</span>
+    <span class="stack-tag">Customer Segmentation</span>
+    <span class="stack-tag">Go-to-Market Strategy</span>
+    <span class="stack-tag">Product Marketing</span>
   </div>
-</section>
 
-<div class="ai-note">
-  <span class="tag">// BUILD NOTE</span>
-  <span>This site's code was built by directing an AI agent (Claude) — layout, styling, and implementation.
-  The content, data, positioning, and every design decision are mine; I reviewed and edited the output line by line.
-  Same approach I bring to marketing execution: use the tools that get it shipped, own the judgment calls.</span>
-</div>
-
-<section id="about">
-  <div class="row-label">About</div>
-  <h2>From spending ₹3.35L to reading regression output.</h2>
-  <div class="about-grid">
-    <div class="about-meta">
-      <div><span class="k">BASED IN</span>Edison, NJ / NYC Metro</div>
-      <div><span class="k">STATUS</span>MS student, Rutgers</div>
-      <div><span class="k">TARGETING</span>Marketing Analytics,<br />Business Analyst,<br />Data Analyst roles</div>
-      <div><span class="k">AVAILABLE</span>Full-time, mid-2027</div>
-    </div>
-    <div class="about-body">
-      <p>
-        I'm a Marketing Analytics graduate student at Rutgers Business School (STEM-designated,
-        Class of 2027), moving from hands-on marketing operations into data-driven analytics.
-      </p>
-      <p>
-        Before Rutgers, I co-founded a visa and education consultancy and built its online
-        marketing function from the ground up — planning and running <strong>500+ Meta Ads
-        campaigns</strong> over three years, reaching <strong>1.81M users</strong> and generating
-        <strong>19,600+ leads</strong> at a best cost-per-lead of ₹1.50, through systematic A/B
-        testing and audience segmentation on a lean budget.
-      </p>
-      <p>
-        At Rutgers, I'm adding the technical layer behind that experience: SQL, Tableau, R, GA4
-        attribution, regression and cluster analysis. Coursework has included a Tableau/R-based
-        marketing analytics project on MyByk and a brand repositioning capstone for Khadi. As a
-        Course Assistant, I help build datasets and case studies for a 40+ student Marketing
-        Analytics cohort each semester.
-      </p>
-      <p>
-        I'm looking for work where the job is turning campaign, customer, or business data into
-        a decision — not just a report.
-      </p>
-    </div>
+  <div class="hero-cta">
+    <a href="#projects" class="btn btn-primary">View Case Studies</a>
+    <a href="#contact" class="btn btn-ghost">Get In Touch</a>
   </div>
-</section>
 
-<section id="record">
-  <div class="row-label">Experience</div>
-  <h2>Track record.</h2>
+  <div class="impact-row">
+    <div class="impact-cell"><div class="num">19,600+</div><div class="cap">Leads generated across 500+ campaigns</div></div>
+    <div class="impact-cell"><div class="num">1.81M</div><div class="cap">Users reached on a ~$4K total ad budget</div></div>
+    <div class="impact-cell"><div class="num">₹1.50</div><div class="cap">Best cost-per-lead achieved via A/B testing</div></div>
+  </div>
+</header>
 
-  <div class="ledger-row">
-    <div class="ledger-date">JAN 2026 —<br />PRESENT</div>
-    <div>
-      <div class="ledger-role">Course Assistant</div>
-      <div class="ledger-org">Rutgers Business School · Newark, NJ</div>
-      <div class="ledger-desc">
-        Support a professor teaching Brand Management — building course datasets, case studies,
-        and assignment materials for a 40+ student undergraduate cohort each semester. Partner
-        with faculty to translate brand management and marketing strategy concepts into case
-        studies and grading rubrics.
+<section id="skills" class="wrap">
+  <div class="sec-label">Skills &amp; Stack</div>
+  <h2 class="sec-title">The toolkit behind the numbers.</h2>
+  <div class="matrix">
+    <div class="matrix-card">
+      <div class="matrix-cat">Databases &amp; Querying</div>
+      <div class="matrix-list">
+        <span class="chip">SQL (MySQL)</span>
+        <span class="chip">SQL Server</span>
+        <span class="chip">Excel (Pivot Tables)</span>
+        <span class="chip">VLOOKUP</span>
       </div>
     </div>
-  </div>
-
-  <div class="ledger-row">
-    <div class="ledger-date">SEP 2024 —<br />AUG 2025</div>
-    <div>
-      <div class="ledger-role">Sales &amp; Marketing Executive</div>
-      <div class="ledger-org">DJ Networks P. Ltd · Gandhinagar</div>
-      <div class="ledger-desc">
-        Owned relationship strategy for 15+ enterprise accounts (Adani Power, Amneal Pharma,
-        ONGC), running quarterly business reviews that drove a 20% lift in client engagement and
-        repeat purchase rates. Redesigned outreach targeting using account segmentation and
-        engagement data. Built and delivered 50+ tailored sales presentations to C-suite and IT
-        decision-makers, and coordinated end-to-end delivery for 30+ B2B technology installation
-        projects.
+    <div class="matrix-card">
+      <div class="matrix-cat">Data Visualization &amp; BI</div>
+      <div class="matrix-list">
+        <span class="chip">Tableau</span>
+        <span class="chip">R</span>
+        <span class="chip">Data Storytelling</span>
+        <span class="chip">Dashboard Design</span>
       </div>
     </div>
-  </div>
-
-  <div class="ledger-row">
-    <div class="ledger-date">JAN 2022 —<br />AUG 2024</div>
-    <div>
-      <div class="ledger-role">Co-Founder · Brand Strategy &amp; Growth</div>
-      <div class="ledger-org">Uniq Synergy · Gandhinagar</div>
-      <div class="ledger-desc">
-        Co-founded a visa and education consultancy and built its full-funnel paid social
-        acquisition engine from zero. Planned and optimized 500+ Meta Ads campaigns over 3 years,
-        reaching 1.81M users and generating 19,600+ leads at a best cost-per-lead of ₹1.50, on a
-        lean ₹3.35L (~$4K) total ad budget. Established brand identity end-to-end and managed
-        client relationships from inquiry through successful visa application.
+    <div class="matrix-card">
+      <div class="matrix-cat">Marketing Analytics</div>
+      <div class="matrix-list">
+        <span class="chip">GA4 Attribution</span>
+        <span class="chip">A/B Testing</span>
+        <span class="chip">Customer Segmentation</span>
+        <span class="chip">Regression &amp; Cluster Analysis</span>
       </div>
     </div>
-  </div>
-
-  <div class="ledger-row">
-    <div class="ledger-date">JUL 2023 —<br />JUN 2024</div>
-    <div>
-      <div class="ledger-role">Charter President</div>
-      <div class="ledger-org">Rotaract Club of Gandhinagar Gift City</div>
-      <div class="ledger-desc">
-        Founded and led Gandhinagar Gift City's Rotaract chapter — mobilizing 40+ members across
-        blood donation drives, cleanliness campaigns, tree planting, and road safety programs.
-        Planned and executed 10+ community service events.
+    <div class="matrix-card">
+      <div class="matrix-cat">Campaign Execution</div>
+      <div class="matrix-list">
+        <span class="chip">Meta Ads</span>
+        <span class="chip">Google Ads</span>
+        <span class="chip">Campaign Manager 360</span>
+        <span class="chip">Mailchimp</span>
+        <span class="chip">SEO</span>
       </div>
     </div>
-  </div>
-
-  <div class="ledger-row">
-    <div class="ledger-date">JUN 2023 —<br />NOV 2023</div>
-    <div>
-      <div class="ledger-role">Marketing Analyst Intern</div>
-      <div class="ledger-org">Gratify Solution · Gandhinagar</div>
-      <div class="ledger-desc">
-        Generated weekly campaign performance reports tracking ROI, CPA, and engagement KPIs.
-        Conducted competitive research across 3 industry verticals that directly shaped quarterly
-        campaign strategy. Implemented SEO best practices and monitored live ad dashboards,
-        flagging optimization opportunities on a weekly cadence.
+    <div class="matrix-card">
+      <div class="matrix-cat">Product Marketing &amp; GTM</div>
+      <div class="matrix-list">
+        <span class="chip">Go-to-Market Strategy</span>
+        <span class="chip">0-to-1 Launch</span>
+        <span class="chip">Brand Positioning</span>
+        <span class="chip">Messaging Strategy</span>
+        <span class="chip">Market Research</span>
       </div>
     </div>
-  </div>
-
-  <div class="ledger-row">
-    <div class="ledger-date">MAY 2021 —<br />MAY 2023</div>
-    <div>
-      <div class="ledger-role">Social Media Manager</div>
-      <div class="ledger-org">The Good Human Being Foundation · Gandhinagar</div>
-      <div class="ledger-desc">
-        Managed end-to-end social media operations for a non-profit — content, scheduling,
-        community engagement, and performance tracking. Produced SEO-optimized content that grew
-        organic reach and supported the foundation's digital fundraising campaigns.
+    <div class="matrix-card">
+      <div class="matrix-cat">Strategy &amp; Execution</div>
+      <div class="matrix-list">
+        <span class="chip">B2B Sales</span>
+        <span class="chip">Stakeholder Presentations</span>
+        <span class="chip">Account Management</span>
+      </div>
+    </div>
+    <div class="matrix-card">
+      <div class="matrix-cat">Certifications</div>
+      <div class="matrix-list">
+        <span class="chip">Google Analytics</span>
+        <span class="chip">Google Ads Measurement</span>
+        <span class="chip">MarTech Foundations</span>
+        <span class="chip">AI-Powered Performance Ads</span>
       </div>
     </div>
   </div>
 </section>
 
-<section id="work">
-  <div class="row-label">Selected Work</div>
-  <h2>Case studies.</h2>
+<section id="projects" class="wrap">
+  <div class="sec-label">Featured Work</div>
+  <h2 class="sec-title">Case studies.</h2>
+  <div class="proj-grid">
 
-  <div class="work-item">
-    <div class="work-head">
-      <div>
-        <div class="work-type">GROWTH · PAID SOCIAL · 3-YEAR PROGRAM</div>
-        <div class="work-title">Uniq Synergy — Full-Funnel Acquisition Engine</div>
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-title">Uniq Synergy — 0-to-1 Go-to-Market Build</div>
+        <div class="proj-badge">GTM · 3-YEAR PROGRAM</div>
+      </div>
+      <div class="proj-block">
+        <div class="lbl">The Problem</div>
+        <div class="val">A newly co-founded visa &amp; education consultancy had no go-to-market plan, no brand, and a near-zero marketing budget to build one on.</div>
+      </div>
+      <div class="proj-block">
+        <div class="lbl">Tools Used</div>
+        <div class="proj-tools">
+          <span class="chip">GTM Strategy</span><span class="chip">Brand Positioning</span><span class="chip">Meta Ads</span><span class="chip">A/B Testing</span><span class="chip">Audience Segmentation</span>
+        </div>
+      </div>
+      <div class="proj-block">
+        <div class="lbl">Approach</div>
+        <div class="val">Owned go-to-market end to end: defined the brand identity and messaging, then built the acquisition funnel underneath it — creative testing, audience segmentation, and landing page optimization — so positioning and performance were designed together, not bolted on after.</div>
+      </div>
+      <div class="result-row">
+        <div class="result-pill"><div class="num">500+</div><div class="lbl">CAMPAIGNS</div></div>
+        <div class="result-pill"><div class="num">1.81M</div><div class="lbl">REACH</div></div>
+        <div class="result-pill"><div class="num">19,600+</div><div class="lbl">LEADS</div></div>
+        <div class="result-pill"><div class="num">₹1.50</div><div class="lbl">BEST CPL</div></div>
       </div>
     </div>
-    <div class="work-body">
-      <p class="work-desc">
-        Built a visa and education consultancy's paid social acquisition function from zero.
-        Owned everything from creative testing to landing page optimization to the brand identity
-        the ads pointed back to, on a total ad spend of roughly $4,000 across three years.
-      </p>
-      <div class="figures">
-        <div class="figure"><div class="val">500+</div><div class="lbl">CAMPAIGNS</div></div>
-        <div class="figure"><div class="val">1.81M</div><div class="lbl">USERS REACHED</div></div>
-        <div class="figure"><div class="val">19,600+</div><div class="lbl">LEADS</div></div>
-        <div class="figure"><div class="val">₹1.50</div><div class="lbl">BEST CPL</div></div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-title">MyByk — Marketing Analytics Project</div>
+        <div class="proj-badge">RUTGERS COURSEWORK</div>
+      </div>
+      <div class="proj-block">
+        <div class="lbl">The Problem</div>
+        <div class="val">Determine which customer segments and campaigns were actually driving MyByk's growth versus which were consuming budget without return.</div>
+      </div>
+      <div class="proj-block">
+        <div class="lbl">Tools Used</div>
+        <div class="proj-tools"><span class="chip">Tableau</span><span class="chip">R</span><span class="chip">Segmentation</span></div>
+      </div>
+      <div class="proj-block">
+        <div class="lbl">Result</div>
+        <div class="val">Built segmentation and performance-visualization models in Tableau and R, translating raw campaign data into growth recommendations for a graduate marketing analytics course.</div>
       </div>
     </div>
+
+    <div class="proj-card">
+      <div class="proj-top">
+        <div class="proj-title">Khadi — Brand Repositioning Capstone</div>
+        <div class="proj-badge">PRODUCT MARKETING · CAPSTONE</div>
+      </div>
+      <div class="proj-block">
+        <div class="lbl">The Problem</div>
+        <div class="val">India's heritage textile brand Khadi was losing relevance with a modern consumer base despite strong brand heritage.</div>
+      </div>
+      <div class="proj-block">
+        <div class="lbl">Tools Used</div>
+        <div class="proj-tools"><span class="chip">Market Research</span><span class="chip">Positioning Strategy</span><span class="chip">Messaging Strategy</span><span class="chip">Brand Frameworks</span></div>
+      </div>
+      <div class="proj-block">
+        <div class="lbl">Result</div>
+        <div class="val">Diagnosed the positioning gap and proposed a data-informed repositioning strategy to re-engage a modern audience without diluting Khadi's core brand equity.</div>
+      </div>
+    </div>
+
   </div>
+</section>
 
-  <div class="work-item">
-    <div class="work-head">
-      <div>
-        <div class="work-type">RUTGERS COURSEWORK · TABLEAU · R</div>
-        <div class="work-title">MyByk — Marketing Analytics Project</div>
-      </div>
+<section id="experience" class="wrap">
+  <div class="sec-label">Experience</div>
+  <h2 class="sec-title">Track record.</h2>
+  <div class="tl">
+    <div class="tl-item">
+      <div class="tl-date">Jan 2026 — Present</div>
+      <div class="tl-role">Course Assistant</div>
+      <div class="tl-org">Rutgers Business School · Newark, NJ</div>
+      <div class="tl-desc">Built course datasets and case studies for a Brand Management professor, translating strategy concepts into gradable materials for a 40+ student cohort each semester.</div>
     </div>
-    <div class="work-body">
-      <p class="work-desc">
-        A Tableau- and R-based marketing analytics project analyzing MyByk's customer and
-        campaign data — segmentation, performance visualization, and recommendations built for a
-        graduate marketing analytics course.
-      </p>
+    <div class="tl-item">
+      <div class="tl-date">Sep 2024 — Aug 2025</div>
+      <div class="tl-role">Sales &amp; Marketing Executive</div>
+      <div class="tl-org">DJ Networks P. Ltd · Gandhinagar</div>
+      <div class="tl-desc">Directed account strategy for 15+ enterprise clients (Adani Power, Amneal Pharma, ONGC) using segmented quarterly business reviews, lifting client engagement and repeat purchase rates by 20%. Delivered 50+ C-suite sales presentations.</div>
     </div>
-  </div>
-
-  <div class="work-item">
-    <div class="work-head">
-      <div>
-        <div class="work-type">RUTGERS CAPSTONE · BRAND STRATEGY</div>
-        <div class="work-title">Khadi — Brand Repositioning Capstone</div>
-      </div>
+    <div class="tl-item">
+      <div class="tl-date">Jan 2022 — Aug 2024</div>
+      <div class="tl-role">Co-Founder, Brand Strategy &amp; Growth</div>
+      <div class="tl-org">Uniq Synergy · Gandhinagar</div>
+      <div class="tl-desc">Owned go-to-market from zero — brand positioning, messaging, and a full-funnel paid-social acquisition engine using Meta Ads and systematic A/B testing — generating 19,600+ leads at a best CPL of ₹1.50 on a ~$4K total budget over 3 years.</div>
     </div>
-    <div class="work-body">
-      <p class="work-desc">
-        A brand repositioning capstone for Khadi, India's heritage textile brand — diagnosing
-        where the brand's positioning was losing relevance and proposing a data-informed strategy
-        to re-engage a modern audience without losing what makes it Khadi.
-      </p>
+    <div class="tl-item">
+      <div class="tl-date">Jul 2023 — Jun 2024</div>
+      <div class="tl-role">Charter President</div>
+      <div class="tl-org">Rotaract Club of Gandhinagar Gift City</div>
+      <div class="tl-desc">Founded and led a 40-member chapter, executing 10+ community service events end-to-end.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">Jun 2023 — Nov 2023</div>
+      <div class="tl-role">Marketing Analyst Intern</div>
+      <div class="tl-org">Gratify Solution · Gandhinagar</div>
+      <div class="tl-desc">Delivered weekly ROI/CPA performance reports across paid social channels and competitive research across 3 industry verticals that directly shaped quarterly campaign strategy.</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-date">May 2021 — May 2023</div>
+      <div class="tl-role">Social Media Manager</div>
+      <div class="tl-org">The Good Human Being Foundation · Gandhinagar</div>
+      <div class="tl-desc">Produced SEO-optimized content and managed paid social campaigns for a non-profit, growing organic reach and supporting digital fundraising goals.</div>
     </div>
   </div>
 </section>
 
-<section id="skills">
-  <div class="row-label">Toolkit</div>
-  <h2>What I work with.</h2>
+<section id="education" class="wrap">
+  <div class="sec-label">Education</div>
+  <h2 class="sec-title">Academic background.</h2>
 
-  <div class="skill-grid">
-    <div class="skill-cell">
-      <div class="skill-cat">DATA &amp; ANALYTICS</div>
-      <div class="skill-list">SQL (MySQL, SQL Server) · Tableau · R · Excel (pivot tables, VLOOKUP) · Regression &amp; cluster analysis · Data visualization</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-cat">MARKETING ANALYTICS</div>
-      <div class="skill-list">Customer segmentation · A/B testing · GA4 attribution · Campaign performance analysis · Competitive research</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-cat">GROWTH &amp; ACQUISITION</div>
-      <div class="skill-list">Meta Ads · Google Ads · Campaign Manager 360 · SEO · Landing page optimization · Full-funnel strategy</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-cat">SALES &amp; STRATEGY</div>
-      <div class="skill-list">B2B sales · Account segmentation · Stakeholder presentations · Brand identity &amp; positioning</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-cat">TOOLS</div>
-      <div class="skill-list">Microsoft Office · Google Analytics · Mailchimp · Notion</div>
-    </div>
-    <div class="skill-cell">
-      <div class="skill-cat">AI &amp; AGENTS</div>
-      <div class="skill-list">AI-powered performance ads · Prompt-directed implementation (Claude) · Using AI agents to execute while I own the strategy and review</div>
-    </div>
+  <div class="edu-card">
+    <div class="edu-degree">M.S. Marketing Analytics &amp; Insights (STEM-designated)</div>
+    <div class="edu-school">Rutgers Business School</div>
+    <div class="edu-date">January 2026 — May 2027</div>
+  </div>
+  <div class="edu-card">
+    <div class="edu-degree">B.B.A. Marketing</div>
+    <div class="edu-school">Ahmedabad University</div>
+    <div class="edu-date">June 2019 — May 2023</div>
   </div>
 
   <div class="cert-row">
-    <div class="cert-pill">Google Analytics Certification</div>
-    <div class="cert-pill">Google Ads Measurement Certification</div>
-    <div class="cert-pill">MarTech Foundations Certificate</div>
-    <div class="cert-pill">Campaign Manager 360 Certification</div>
-    <div class="cert-pill">AI-Powered Performance Ads Certification</div>
+    <span class="cert-pill">Google Analytics Certification</span>
+    <span class="cert-pill">Google Ads Measurement Certification</span>
+    <span class="cert-pill">MarTech Foundations Certificate Program</span>
+    <span class="cert-pill">Campaign Manager 360 Certification Exam</span>
+    <span class="cert-pill">AI-Powered Performance Ads Certification</span>
   </div>
 </section>
 
-<section id="contact">
-  <div class="row-label">Get In Touch</div>
-  <h2>Let's talk.</h2>
-  <p style="font-size:16px;color:var(--paper-dim);max-width:560px;">
-    I'm targeting Marketing Analytics, Business Analyst, and Data Analyst roles for full-time
-    positions starting mid-2027. If something in here is relevant to what you're building, I'd
+<section id="contact" class="wrap">
+  <div class="sec-label">Let's Talk</div>
+  <h2 class="sec-title">Open to Marketing Analytics, Business Analyst, and Data Analyst roles.</h2>
+  <p>
+    Graduating May 2027, available for full-time work starting mid-2027. If you're hiring for a
+    role where the job is turning campaign, customer, or business data into a decision — I'd
     like to hear about it.
   </p>
-  <div class="contact-row">
-    <a href="mailto:malharpatel78@gmail.com" class="btn btn-primary">Email me →</a>
+  <div class="cta-row">
+    <a href="mailto:malharpatel78@gmail.com" class="btn btn-primary">Email Me</a>
     <a href="https://linkedin.com/in/malharpatel0911" target="_blank" class="btn btn-ghost">LinkedIn ↗</a>
+    <a href="resume.pdf" class="btn btn-ghost">Download Resume</a>
   </div>
 </section>
 
-<footer>
-  <div>© 2026 Malhar Patel</div>
-  <div>Edison, NJ · Open to mid-2027 start</div>
+<footer class="wrap">
+  <div>© 2026 Malhar Patel · Edison, NJ</div>
+  <div class="foot-links">
+    <a href="mailto:malharpatel78@gmail.com">malharpatel78@gmail.com</a>
+    <a href="https://linkedin.com/in/malharpatel0911" target="_blank">LinkedIn</a>
+  </div>
 </footer>
 
 </body>
