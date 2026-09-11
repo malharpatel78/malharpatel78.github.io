@@ -162,9 +162,30 @@
   footer { padding: 32px 0; display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; color: var(--text-2); flex-wrap: wrap; gap: 12px; }
   footer .foot-links { display: flex; gap: 18px; }
   footer .foot-links a:hover { color: var(--accent); }
+
+  /* --- CURSOR CIRCLE STYLES --- */
+  .cursor-circle {
+    width: 28px;
+    height: 28px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease-out, width 0.2s ease, height 0.2s ease;
+    z-index: 9999;
+    opacity: 0.6;
+  }
+  @media (max-width: 768px) {
+    .cursor-circle { display: none; } /* Hide on mobile screens */
+  }
 </style>
 </head>
 <body>
+
+<div class="cursor-circle"></div>
 
 <nav>
   <div class="wrap nav-inner">
@@ -445,6 +466,14 @@
     <a href="https://linkedin.com/in/malharpatel0911" target="_blank">LinkedIn</a>
   </div>
 </footer>
+
+<script>
+  const cursor = document.querySelector('.cursor-circle');
+  window.addEventListener('mousemove', (e) => {
+    cursor.style.left = `${e.clientX}px`;
+    cursor.style.top = `${e.clientY}px`;
+  });
+</script>
 
 </body>
 </html>
