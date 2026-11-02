@@ -122,11 +122,11 @@ h1 .r{color:var(--red)}
 .ps .n{font-family:var(--f-d);font-size:clamp(32px,4.4vw,52px);line-height:1}.ps .c{font-size:14.5px;font-weight:600;margin-top:4px}
 .chips{display:flex;flex-wrap:wrap;gap:8px;padding:18px 24px;border-top:var(--bd)}
 .chip{font-family:var(--f-m);font-size:12.5px;background:#fff;border:2px solid var(--ink);padding:5px 12px;border-radius:100px}
-.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}.three{grid-template-columns:repeat(3,1fr)}.three .mini-top h3{font-size:clamp(24px,2.6vw,32px);overflow-wrap:anywhere}@media(max-width:1000px){.three{grid-template-columns:1fr 1fr}}
 @media(max-width:820px){.two{grid-template-columns:1fr}}
 .mini{background:#fff;border:var(--bd);border-radius:22px;box-shadow:var(--sh);overflow:hidden}
 .mini-top{padding:22px 26px;border-bottom:var(--bd)}.mini:nth-child(1) .mini-top{background:var(--blue);color:#fff}.mini:nth-child(2) .mini-top{background:var(--yellow)}
-.mini-top .tg{font-family:var(--f-m);font-size:12px;text-transform:uppercase;letter-spacing:.1em}
+.mini:nth-child(3) .mini-top{background:var(--peach)}.mini-top .tg{font-family:var(--f-m);font-size:12px;text-transform:uppercase;letter-spacing:.1em}
 .mini-top h3{font-family:var(--f-d);font-weight:400;text-transform:uppercase;font-size:clamp(28px,3.6vw,40px);line-height:1;margin-top:8px}
 .mini p{padding:20px 26px 6px;font-size:16.5px;color:var(--ink-2)}.mini .chips{border-top:0;padding-top:12px}
 
@@ -340,13 +340,13 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
 <section class="band" id="work"><div class="page"><div class="win reveal wb "><div class="win-bar"><span><i class="sp-k">✦</i>creative/</span><span class="dots"><i></i><i></i><i></i></span></div><div class="win-body">
     <div class="kicker"><b>03</b> The creative</div>
     <h2>From zero to a working <mark>go-to-market engine.</mark></h2>
-    <p class="sub">The flagship campaign, then the coursework where I'm applying the analytics layer.</p>
+    <p class="sub">The flagship campaign, then the analytics and strategy projects behind it.</p>
     <article class="poster">
       <div class="poster-top"><span class="tg">Featured · Uniq Synergy</span><h3>Building a go-to-market from scratch</h3></div>
       <div class="triple">
         <div class="tc"><div class="l">The problem</div><p>A newly co-founded visa and education consultancy had no brand, no acquisition channel and almost no budget.</p></div>
         <div class="tc"><div class="l">The move</div><p>Defined the brand identity and messaging first, then built the funnel beneath it: systematic A/B creative testing, audience segmentation and landing page optimization across 500+ campaigns.</p></div>
-        <div class="tc"><div class="l">The result</div><p>Consistent month-over-month growth in inbound inquiries, and a pipeline that turned a ₹3.35L (~$4K) ad budget into 19,600+ leads.</p></div>
+        <div class="tc"><div class="l">The result</div><p>Consistent month-over-month growth in inbound inquiries, and a pipeline that turned a ₹3.35L (~$4K) ad budget into 19,600+ leads. Website traffic grew 40% and sign-ups rose 30%.</p></div>
       </div>
       <div class="poster-stats">
         <div class="ps"><div class="n">500+</div><div class="c">campaigns run</div></div>
@@ -356,9 +356,10 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
       </div>
       <div class="chips"><span class="chip">Meta Ads</span><span class="chip">A/B testing</span><span class="chip">Audience segmentation</span><span class="chip">Landing page optimization</span><span class="chip">Brand positioning</span></div>
     </article>
-    <div class="two">
-      <article class="mini"><div class="mini-top"><span class="tg">Rutgers coursework</span><h3>MyByk: marketing analytics</h3></div><p>A Tableau and R marketing analytics project on MyByk, completed as part of my MS coursework at Rutgers.</p><div class="chips"><span class="chip">Tableau</span><span class="chip">R</span></div></article>
-      <article class="mini"><div class="mini-top"><span class="tg">Rutgers capstone</span><h3>Khadi: brand repositioning</h3></div><p>A brand repositioning capstone for Khadi, completed as part of my MS coursework at Rutgers.</p><div class="chips"><span class="chip">Positioning</span><span class="chip">Messaging</span><span class="chip">Brand strategy</span></div></article>
+    <div class="two three">
+      <article class="mini"><div class="mini-top"><span class="tg">Dec 2024 · Customer analytics</span><h3>MyByk: retention analytics</h3></div><p>Queried and modelled ride-sharing data in SQL and R, then built Tableau dashboards that identified high-value user segments and retention gaps, projecting a 15% lift in repeat rides.</p><div class="chips"><span class="chip">SQL</span><span class="chip">R</span><span class="chip">Tableau</span></div></article>
+      <article class="mini"><div class="mini-top"><span class="tg">Apr 2023 · Marketing capstone</span><h3>Khadi: brand repositioning</h3></div><p>Built a go-to-market and influencer strategy from consumer insights and competitive analysis to reposition Khadi for a youth audience, projecting a 25% lift in brand recall.</p><div class="chips"><span class="chip">Brand strategy</span><span class="chip">Digital marketing</span><span class="chip">Market research</span></div></article>
+      <article class="mini"><div class="mini-top"><span class="tg">Nov 2022 · Research</span><h3>Consumer behavior study</h3></div><p>Designed and fielded a survey of 350+ respondents, then used multivariate regression to isolate the top drivers of brand loyalty and purchase decisions. Presented to a faculty panel.</p><div class="chips"><span class="chip">Survey design</span><span class="chip">Regression</span><span class="chip">SPSS</span><span class="chip">Excel</span></div></article>
     </div></div></div></div></section>
 
 <section class="band" id="why"><div class="page"><div class="win reveal wy fillpeach"><div class="win-bar"><span><i class="sp-k">✦</i>value_props.md</span><span class="dots"><i></i><i></i><i></i></span></div><div class="win-body">
@@ -377,6 +378,7 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
     <div class="plan">
       <div class="axis"><div></div><div class="yrs"><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span><span>2027</span></div></div>
 <div class="gr"><div class="gl"><b>Social Media Manager</b><span>Good Human Being Foundation</span></div><div class="gt"><i class="gb c-y" style="left:4.76%;width:29.76%"></i></div></div>
+<div class="gr"><div class="gl"><b>Marketing Intern</b><span>Sakha Solutions</span></div><div class="gt"><i class="gb c-y" style="left:5.95%;width:2.38%"></i></div></div>
 <div class="gr"><div class="gl"><b>Co-Founder, Brand & Growth</b><span>Uniq Synergy</span></div><div class="gt"><i class="gb c-r" style="left:14.29%;width:38.10%"></i></div></div>
 <div class="gr"><div class="gl"><b>Marketing Analyst Intern</b><span>Gratify Solution</span></div><div class="gt"><i class="gb c-b" style="left:34.52%;width:7.14%"></i></div></div>
 <div class="gr"><div class="gl"><b>Charter President</b><span>Rotaract Club</span></div><div class="gt"><i class="gb c-y" style="left:35.71%;width:14.29%"></i></div></div>
@@ -389,10 +391,11 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
     <div class="rcp">
       <details><summary><span>Course Assistant · Rutgers Business School</span><span class="dt">Jan 2026 to present</span></summary><p>Build datasets, case studies and rubrics for a Brand Management course, turning strategy concepts into materials for a 40+ student cohort each semester.</p></details>
       <details><summary><span>Sales and Marketing Executive · DJ Networks</span><span class="dt">Sep 2024 to Aug 2025</span></summary><p>Owned strategy for 15+ enterprise accounts (Adani Power, Amneal Pharma, ONGC). Quarterly business reviews drove a 20% lift in client engagement and repeat purchases. Built 50+ tailored C-suite presentations and coordinated 30+ technology installation projects.</p></details>
-      <details><summary><span>Co-Founder, Brand Strategy and Growth · Uniq Synergy</span><span class="dt">Jan 2022 to Aug 2024</span></summary><p>Built the brand and its paid-social engine from zero. 500+ Meta campaigns, 1.81M reached, 19,600+ leads at a best CPL of ₹1.50 on a ~$4K budget, supported by A/B testing and segmentation.</p></details>
+      <details><summary><span>Co-Founder, Brand Strategy and Growth · Uniq Synergy</span><span class="dt">Jan 2022 to Aug 2024</span></summary><p>Built the brand and its paid-social engine from zero. 500+ Meta campaigns, 1.81M reached, 19,600+ leads at a best CPL of ₹1.50 on a ~$4K budget, supported by A/B testing and segmentation. Website traffic grew 40% and sign-ups rose 30%.</p></details>
       <details><summary><span>Charter President · Rotaract Club of Gandhinagar Gift City</span><span class="dt">Jul 2023 to Jun 2024</span></summary><p>Founded the chapter and led 40+ members through 10+ community service events.</p></details>
       <details><summary><span>Marketing Analyst Intern · Gratify Solution</span><span class="dt">Jun 2023 to Nov 2023</span></summary><p>Reported weekly on ROI, CPA and engagement across digital channels, and ran competitive research in 3 verticals that shaped quarterly strategy and budget reallocation.</p></details>
       <details><summary><span>Social Media Manager · The Good Human Being Foundation</span><span class="dt">May 2021 to May 2023</span></summary><p>Ran content, community and paid social for a non-profit, growing organic reach and supporting its fundraising campaigns.</p></details>
+      <details><summary><span>Marketing Intern · Sakha Solutions</span><span class="dt">Jun 2021 to Jul 2021</span></summary><p>Developed creative assets for retail and local-service clients across Instagram, Facebook and Google, and tracked CTR and engagement to iterate and improve campaign performance.</p></details>
     </div></div></div></div></section>
 
 <section class="band" id="lab"><div class="page"><div class="win reveal wr fillcream"><div class="win-bar"><span><i class="sp-k">✦</i>lab.exe</span><span class="dots"><i></i><i></i><i></i></span></div><div class="win-body">
@@ -500,14 +503,14 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
     <div class="kicker"><b>08</b> The toolkit</div>
     <h2>What's in <mark>the stack.</mark></h2>
     <div class="skills">
-      <div class="sk"><h4>Analytics and data</h4><ul><li>SQL (MySQL, SQL Server)</li><li>Tableau and R</li><li>Regression and cluster analysis</li><li>GA4 attribution</li><li>Excel (pivot tables, VLOOKUP)</li></ul></div>
-      <div class="sk"><h4>Growth and campaigns</h4><ul><li>Meta Ads and Google Ads</li><li>Campaign Manager 360</li><li>A/B testing</li><li>Customer segmentation</li><li>SEO and Mailchimp</li></ul></div>
+      <div class="sk"><h4>Analytics and data</h4><ul><li>SQL (MySQL, SQL Server)</li><li>Tableau and R</li><li>Regression and survey analysis (SPSS)</li><li>GA4 attribution</li><li>Excel (pivot tables, VLOOKUP)</li></ul></div>
+      <div class="sk"><h4>Growth and campaigns</h4><ul><li>Meta Ads and Google Ads</li><li>Campaign Manager 360</li><li>A/B testing</li><li>Customer segmentation</li><li>SEO/SEM and influencer marketing</li><li>HubSpot and Canva</li></ul></div>
       <div class="sk"><h4>Strategy and GTM</h4><ul><li>Go-to-market strategy</li><li>Brand positioning and messaging</li><li>Competitive and market research</li><li>B2B sales and account management</li><li>Executive presentations</li></ul></div>
     </div>
     <div class="certs"><span class="chip">Google Analytics</span><span class="chip">Google Ads Measurement</span><span class="chip">MarTech Foundations</span><span class="chip">Campaign Manager 360</span><span class="chip">AI-Powered Performance Ads</span></div>
     <div class="edu">
       <div class="ed"><b>M.S. Marketing Analytics and Insights</b>Rutgers Business School (STEM-designated)<br><span>Jan 2026 to May 2027</span></div>
-      <div class="ed"><b>B.B.A. Marketing</b>Ahmedabad University<br><span>Jun 2019 to May 2023</span></div>
+      <div class="ed"><b>B.B.A. (Honors) Marketing</b>Ahmedabad University<br><span>Jul 2019 to May 2023</span></div>
     </div></div></div></div></section>
 
 <section class="band" id="contact"><div class="page"><div class="win reveal wb fillyellow"><div class="win-bar"><span><i class="sp-k">✦</i>cta.sh</span><span class="dots"><i></i><i></i><i></i></span></div><div class="win-body">
@@ -664,7 +667,7 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
     help:'commands:\n  brief      the campaign brief\n  proof      my numbers\n  work       case studies\n  skills     the stack\n  hire       the call to action\n  clear      clear screen\n  exit       close',
     brief:'product    malhar patel\naudience   hiring teams in marketing analytics, product marketing, gtm\npromise    i build the campaign and read the data that proves it worked',
     proof:'budget     ~$4K (₹3.35L)\ncampaigns  500+\nreached    1.81M\nleads      19,600+\nbest CPL   ₹1.50\nb2b lift   20% engagement and repeat purchases',
-    work:'01 uniq synergy: go-to-market from scratch\n02 mybyk: tableau + r project (rutgers)\n03 khadi: brand repositioning capstone (rutgers)',
+    work:'01 uniq synergy: go-to-market from scratch\n02 mybyk: retention analytics (sql, r, tableau)\n03 khadi: brand repositioning capstone\n04 consumer behavior study (350+ respondents)',
     skills:'analytics  sql, tableau, r, ga4, regression\ngrowth     meta ads, google ads, a/b testing\nstrategy   gtm, positioning, b2b account mgmt',
     hire:'great call.\nemail     malharpatel78@gmail.com\nlinkedin  linkedin.com/in/malharpatel0911\navailable full-time from mid-2027'
   };
