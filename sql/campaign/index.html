@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Marketing Campaign Response Analysis</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: analyst's workbook. Header, KPI strip, then two-column panels; each panel flips between chart, table and the SQL that produced it. */
+:root {
+  --page: #f4f5f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #7d7b75;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --line: rgba(11,11,11,0.10);
+  --accent: #2a78d6;
+  --code-bg: #eef1f5;
+  --code-kw: #1c5cab;
+  --code-str: #8a4b12;
+  --code-cm: #6f7a6a;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --font-ui: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #0f0f0e; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #95938c;
+    --grid: #2c2c2a; --axis: #383835; --line: rgba(255,255,255,0.10); --accent: #3987e5;
+    --code-bg: #141a22; --code-kw: #86b6ef; --code-str: #e8a86b; --code-cm: #8c9688;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --page: #0f0f0e; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #95938c;
+  --grid: #2c2c2a; --axis: #383835; --line: rgba(255,255,255,0.10); --accent: #3987e5;
+  --code-bg: #141a22; --code-kw: #86b6ef; --code-str: #e8a86b; --code-cm: #8c9688;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font: 15px/1.5 var(--font-ui);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 28px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 0; font-size: clamp(26px, 4vw, 38px); line-height: 1.12; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; }
+.sub { margin: 0; max-width: 68ch; color: var(--ink-2); font-size: 16px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--ink-2); }
+.meta a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+.meta a:hover { border-bottom-color: var(--accent); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 12px/1 var(--font-mono); padding: 6px 8px; border-radius: 4px; background: var(--code-bg); color: var(--ink-2); }
+section { display: grid; gap: 14px; }
+h2 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); padding-bottom: 8px; border-bottom: 1px solid var(--grid); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 4px; }
+.kpi .label { font-size: 13px; color: var(--ink-2); }
+.kpi .value { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); gap: 14px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 10px; min-width: 0; align-content: start; }
+.panel.full { grid-column: 1 / -1; }
+.panel-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; flex-wrap: wrap; }
+.panel h3 { margin: 0; font-size: 16px; font-weight: 600; text-wrap: balance; }
+.insight { margin: 0; color: var(--ink-2); font-size: 14px; max-width: 70ch; }
+.tabs { display: inline-flex; gap: 2px; background: var(--code-bg); padding: 2px; border-radius: 6px; }
+.tabs button { font: 500 12px/1 var(--font-ui); border: 0; background: transparent; color: var(--ink-2); padding: 6px 10px; border-radius: 4px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.view { min-width: 0; }
+.chart-box { position: relative; width: 100%; }
+.table-box, .sql-box { overflow-x: auto; max-height: 420px; overflow-y: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+th { font-weight: 600; color: var(--ink-2); position: sticky; top: 0; background: var(--surface); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+pre { margin: 0; background: var(--code-bg); border-radius: 6px; padding: 12px 14px; font: 12.5px/1.55 var(--font-mono); color: var(--ink); white-space: pre; }
+.kw { color: var(--code-kw); font-weight: 500; } .str { color: var(--code-str); } .cm { color: var(--code-cm); font-style: italic; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--grid); padding-top: 14px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const DATA = {"title": "Marketing Campaign Response Analysis", "subtitle": "Six direct-marketing campaigns sent to the customers of a food and drinks retailer: who responds, which campaigns paid off, and how much better the last campaign would have done if it had targeted the right customers.", "dataset": {"name": "Customer Personality Analysis (Kaggle, Akash Patel)", "url": "https://www.kaggle.com/datasets/imakash3011/customer-personality-analysis", "rows": "2,240 customers, 6 campaigns"}, "author": "Malhar Patel", "repo": "https://github.com/malharpatel78/marketing-campaign-sql-analysis", "currency": "$", "stack": ["SQLite", "Campaign ROI", "Lift and gains (NTILE)", "Window functions", "CTEs", "Chart.js"], "panels": [{"name": "overview", "section": "At a glance", "title": "Headline numbers", "insight": "2,058 unique customers after removing 182 duplicates. 28% have accepted at least one of the six campaigns; the last one drew a 15.2% response.", "chart": {"type": "kpi", "money": ["avg_income", "avg_two_year_spend"]}, "sql": "SELECT COUNT(*)                                                    AS customers,\n       ROUND(AVG(income), 0)                                       AS avg_income,\n       ROUND(AVG(total_spend), 0)                                  AS avg_two_year_spend,\n       ROUND(100.0 * AVG(responded_last), 1)                       AS last_campaign_response_pct,\n       ROUND(100.0 * AVG(prior_acceptances + responded_last > 0), 1) AS accepted_any_campaign_pct,\n       ROUND(100.0 * AVG(complained), 1)                           AS complaint_pct\nFROM customers;", "columns": ["customers", "avg_income", "avg_two_year_spend", "last_campaign_response_pct", "accepted_any_campaign_pct", "complaint_pct"], "rows": [[2058, 52056.0, 606.0, 15.2, 27.6, 1.0]]}, {"name": "campaign_rates", "section": "Campaign performance", "title": "Acceptance rate by campaign", "insight": "The last campaign doubled the response of every earlier one (15.2% vs 1.3% to 7.7%). Campaign 2 barely registered.", "chart": {"type": "bar", "x": "campaign", "y": ["acceptance_pct"]}, "sql": "SELECT 'Campaign ' || campaign || CASE WHEN campaign = 6 THEN ' (last)' ELSE '' END AS campaign,\n       SUM(accepted)                         AS responses,\n       ROUND(100.0 * AVG(accepted), 1)       AS acceptance_pct\nFROM campaign_responses\nGROUP BY campaign\nORDER BY campaign;", "columns": ["campaign", "responses", "acceptance_pct"], "rows": [["Campaign 1", 135, 6.6], ["Campaign 2", 26, 1.3], ["Campaign 3", 151, 7.3], ["Campaign 4", 158, 7.7], ["Campaign 5", 148, 7.2], ["Campaign 6 (last)", 313, 15.2]]}, {"name": "campaign_economics", "section": "Campaign performance", "title": "Campaign profit and loss at $3 per contact and $11 per response", "insight": "At $3 per contact and $11 per response, a campaign needs a 27.3% response rate to break even. None got there: all six lost money when sent to every customer, the last one by $2,731.", "chart": {"type": "table", "money": ["cost", "revenue", "profit"]}, "sql": "SELECT 'Campaign ' || r.campaign                                       AS campaign,\n       COUNT(*)                                                         AS contacts,\n       SUM(r.accepted)                                                  AS responses,\n       ROUND(100.0 * AVG(r.accepted), 1)                                AS response_pct,\n       COUNT(*) * MAX(c.cost_per_contact)                               AS cost,\n       SUM(r.accepted) * MAX(c.revenue_per_response)                    AS revenue,\n       SUM(r.accepted) * MAX(c.revenue_per_response) - COUNT(*) * MAX(c.cost_per_contact) AS profit,\n       ROUND(100.0 * (SUM(r.accepted) * MAX(c.revenue_per_response) - COUNT(*) * MAX(c.cost_per_contact))\n             / (COUNT(*) * MAX(c.cost_per_contact)), 1)                 AS roi_pct\nFROM campaign_responses r\nJOIN customers c ON c.customer_id = r.customer_id\nGROUP BY r.campaign\nORDER BY r.campaign;", "columns": ["campaign", "contacts", "responses", "response_pct", "cost", "revenue", "profit", "roi_pct"], "rows": [["Campaign 1", 2058, 135, 6.6, 6174.0, 1485.0, -4689.0, -75.9], ["Campaign 2", 2058, 26, 1.3, 6174.0, 286.0, -5888.0, -95.4], ["Campaign 3", 2058, 151, 7.3, 6174.0, 1661.0, -4513.0, -73.1], ["Campaign 4", 2058, 158, 7.7, 6174.0, 1738.0, -4436.0, -71.8], ["Campaign 5", 2058, 148, 7.2, 6174.0, 1628.0, -4546.0, -73.6], ["Campaign 6", 2058, 313, 15.2, 6174.0, 3443.0, -2731.0, -44.2]]}, {"name": "response_by_history", "section": "Who responds", "title": "Last-campaign response rate by number of earlier campaigns accepted", "insight": "Past behaviour is the strongest signal. Customers who accepted none of the earlier campaigns responded at 8.5%; those who accepted three or more responded at 82%.", "chart": {"type": "bar", "x": "earlier_acceptances", "y": ["response_pct"]}, "sql": "SELECT CASE WHEN prior_acceptances >= 3 THEN '3 or more' ELSE CAST(prior_acceptances AS TEXT) END AS earlier_acceptances,\n       COUNT(*)                                AS customers,\n       ROUND(100.0 * AVG(responded_last), 1)   AS response_pct\nFROM customers\nGROUP BY earlier_acceptances\nORDER BY MIN(prior_acceptances);", "columns": ["earlier_acceptances", "customers", "response_pct"], "rows": [["0", 1627, 8.5], ["1", 304, 31.3], ["2", 77, 50.6], ["3 or more", 50, 82.0]]}, {"name": "response_by_recency", "section": "Who responds", "title": "Response rate by days since last purchase", "insight": "Recent buyers respond far more: 29% of customers who bought in the last 20 days responded, against 6% of those whose last purchase was 80+ days ago.", "chart": {"type": "bar", "x": "days_since_purchase", "y": ["response_pct"]}, "sql": "SELECT CASE WHEN recency_days < 20 THEN '0-19'\n            WHEN recency_days < 40 THEN '20-39'\n            WHEN recency_days < 60 THEN '40-59'\n            WHEN recency_days < 80 THEN '60-79'\n            ELSE '80-99' END                    AS days_since_purchase,\n       COUNT(*)                                 AS customers,\n       ROUND(100.0 * AVG(responded_last), 1)    AS response_pct\nFROM customers\nGROUP BY days_since_purchase\nORDER BY MIN(recency_days);", "columns": ["days_since_purchase", "customers", "response_pct"], "rows": [["0-19", 427, 29.0], ["20-39", 412, 16.5], ["40-59", 410, 12.2], ["60-79", 398, 11.3], ["80-99", 411, 6.3]]}, {"name": "response_by_income", "section": "Who responds", "title": "Response rate by income quartile", "insight": "Only the top income quartile stands out, responding at 27% against 11% to 12% for the rest. It also spends 16 times as much as the bottom quartile.", "chart": {"type": "bar", "x": "income_quartile", "y": ["response_pct"]}, "sql": "WITH q AS (\n    SELECT *, NTILE(4) OVER (ORDER BY income) AS quartile\n    FROM customers WHERE income IS NOT NULL\n)\nSELECT 'Q' || quartile || ' ($' || CAST(ROUND(MIN(income) / 1000) AS INTEGER) || 'K-' || CAST(ROUND(MAX(income) / 1000) AS INTEGER) || 'K)' AS income_quartile,\n       COUNT(*)                                AS customers,\n       ROUND(100.0 * AVG(responded_last), 1)   AS response_pct,\n       ROUND(AVG(total_spend), 0)              AS avg_two_year_spend\nFROM q\nGROUP BY quartile\nORDER BY quartile;", "columns": ["income_quartile", "customers", "response_pct", "avg_two_year_spend"], "rows": [["Q1 ($2K-36K)", 509, 10.6, 83.0], ["Q2 ($36K-52K)", 508, 12.4, 234.0], ["Q3 ($52K-68K)", 508, 11.2, 754.0], ["Q4 ($68K-162K)", 508, 27.2, 1362.0]]}, {"name": "response_by_children", "section": "Who responds", "title": "Response rate by children at home", "insight": "Households without children respond at 28%, nearly three times the rate of households with one or more.", "chart": {"type": "bar", "x": "children_at_home", "y": ["response_pct"]}, "sql": "SELECT CASE WHEN children >= 2 THEN '2 or more' ELSE CAST(children AS TEXT) END AS children_at_home,\n       COUNT(*)                                 AS customers,\n       ROUND(100.0 * AVG(responded_last), 1)    AS response_pct\nFROM customers\nGROUP BY children_at_home\nORDER BY MIN(children);", "columns": ["children_at_home", "customers", "response_pct"], "rows": [["0", 577, 27.6], ["1", 1045, 10.3], ["2 or more", 436, 10.6]]}, {"name": "response_by_tenure", "section": "Who responds", "title": "Response rate by year the customer joined", "insight": "Customers who joined in 2012 respond at 27%, three times the rate of those who joined in 2014.", "chart": {"type": "bar", "x": "joined", "y": ["response_pct"]}, "sql": "SELECT SUBSTR(joined_date, 1, 4)              AS joined,\n       COUNT(*)                               AS customers,\n       ROUND(100.0 * AVG(responded_last), 1)  AS response_pct\nFROM customers\nGROUP BY joined\nORDER BY joined;", "columns": ["joined", "customers", "response_pct"], "rows": [["2012", 452, 27.4], ["2013", 1089, 12.9], ["2014", 517, 9.3]]}, {"name": "responder_profile", "section": "Who responds", "title": "Responders vs non-responders to the last campaign", "insight": "Responders earn 19% more, spend 82% more, bought more recently and order from the catalog nearly twice as often as non-responders.", "chart": {"type": "table", "money": ["avg_income", "avg_two_year_spend"]}, "sql": "SELECT CASE responded_last WHEN 1 THEN 'Responded' ELSE 'Did not respond' END AS group_name,\n       COUNT(*)                                AS customers,\n       ROUND(AVG(income), 0)                   AS avg_income,\n       ROUND(AVG(total_spend), 0)              AS avg_two_year_spend,\n       ROUND(AVG(recency_days), 0)             AS avg_days_since_purchase,\n       ROUND(AVG(children), 2)                 AS avg_children,\n       ROUND(AVG(catalog_purchases), 1)        AS avg_catalog_orders,\n       ROUND(AVG(web_purchases), 1)            AS avg_web_orders,\n       ROUND(AVG(store_purchases), 1)          AS avg_store_orders,\n       ROUND(AVG(prior_acceptances), 2)        AS avg_earlier_acceptances\nFROM customers\nGROUP BY responded_last\nORDER BY responded_last DESC;", "columns": ["group_name", "customers", "avg_income", "avg_two_year_spend", "avg_days_since_purchase", "avg_children", "avg_catalog_orders", "avg_web_orders", "avg_store_orders", "avg_earlier_acceptances"], "rows": [["Responded", 313, 60155.0, 980.0, 35.0, 0.65, 4.2, 5.1, 6.1, 0.97], ["Did not respond", 1745, 50587.0, 539.0, 51.0, 1.01, 2.4, 3.9, 5.7, 0.18]]}, {"name": "spend_mix", "section": "What customers buy", "title": "Share of two-year spend by product category", "insight": "Wine is half of all spend and meat another 28%. Fruit, sweets and fish together are 15%.", "chart": {"type": "bar", "x": "category", "y": ["share_of_spend_pct"]}, "sql": "WITH totals AS (\n    SELECT SUM(spend_wine) AS wine, SUM(spend_meat) AS meat, SUM(spend_gold) AS gold,\n           SUM(spend_fish) AS fish, SUM(spend_sweets) AS sweets, SUM(spend_fruit) AS fruit,\n           SUM(total_spend) AS total\n    FROM customers\n)\nSELECT 'Wine' AS category, wine AS spend, ROUND(100.0 * wine / total, 1) AS share_of_spend_pct FROM totals\nUNION ALL SELECT 'Meat',   meat,   ROUND(100.0 * meat / total, 1)   FROM totals\nUNION ALL SELECT 'Gold',   gold,   ROUND(100.0 * gold / total, 1)   FROM totals\nUNION ALL SELECT 'Fish',   fish,   ROUND(100.0 * fish / total, 1)   FROM totals\nUNION ALL SELECT 'Sweets', sweets, ROUND(100.0 * sweets / total, 1) FROM totals\nUNION ALL SELECT 'Fruit',  fruit,  ROUND(100.0 * fruit / total, 1)  FROM totals\nORDER BY spend DESC;", "columns": ["category", "spend", "share_of_spend_pct"], "rows": [["Wine", 625471, 50.1], ["Meat", 345136, 27.7], ["Gold", 90291, 7.2], ["Fish", 76824, 6.2], ["Sweets", 55930, 4.5], ["Fruit", 53991, 4.3]]}, {"name": "channel_mix", "section": "What customers buy", "title": "Average purchases per customer by channel: responders vs non-responders", "insight": "The clearest channel difference is the catalog: responders place 4.2 catalog orders against 2.4 for non-responders. Store purchases are similar for both groups.", "chart": {"type": "bar", "x": "channel", "y": ["responders", "non_responders"]}, "sql": "WITH c AS (\n    SELECT responded_last, 'Store' AS channel, store_purchases AS n FROM customers\n    UNION ALL SELECT responded_last, 'Web',     web_purchases     FROM customers\n    UNION ALL SELECT responded_last, 'Catalog', catalog_purchases FROM customers\n    UNION ALL SELECT responded_last, 'Deals',   deal_purchases    FROM customers\n)\nSELECT channel,\n       ROUND(AVG(CASE WHEN responded_last = 1 THEN n END), 1) AS responders,\n       ROUND(AVG(CASE WHEN responded_last = 0 THEN n END), 1) AS non_responders\nFROM c\nGROUP BY channel\nORDER BY responders DESC;", "columns": ["channel", "responders", "non_responders"], "rows": [["Store", 6.1, 5.7], ["Web", 5.1, 3.9], ["Catalog", 4.2, 2.4], ["Deals", 2.3, 2.3]]}, {"name": "targeting_deciles", "section": "Targeting the next campaign", "title": "Response by targeting-score decile (1 = highest score)", "insight": "The top-scored 10% of customers responded at 61%, four times the average, and the top 30% held 72% of all responders. The bottom half of the list produced almost nothing.", "chart": {"type": "table", "money": ["cumulative_profit"]}, "sql": "-- A transparent points score built from the drivers above:\n--   2 points per earlier campaign accepted (max 6), 2 if last purchase < 20 days ago\n--   (1 if 20-39), 1 if no children at home, 1 if income in the top quartile,\n--   1 if a customer since 2012. Customers are ranked by score and cut into deciles.\nWITH params AS (\n    SELECT MIN(income) AS top_quartile_income\n    FROM (SELECT income, NTILE(4) OVER (ORDER BY income) AS q FROM customers WHERE income IS NOT NULL)\n    WHERE q = 4\n),\nscored AS (\n    SELECT c.*,\n           2 * MIN(prior_acceptances, 3)\n         + CASE WHEN recency_days < 20 THEN 2 WHEN recency_days < 40 THEN 1 ELSE 0 END\n         + (children = 0)\n         + (COALESCE(income, 0) >= p.top_quartile_income)\n         + (joined_date < '2013-01-01')                                    AS score\n    FROM customers c CROSS JOIN params p\n),\ndeciles AS (\n    SELECT *, NTILE(10) OVER (ORDER BY score DESC, recency_days, customer_id) AS decile\n    FROM scored\n),\nby_decile AS (\n    SELECT decile, COUNT(*) AS customers, SUM(responded_last) AS responses,\n           MIN(score) AS min_score, MAX(score) AS max_score\n    FROM deciles\n    GROUP BY decile\n)\nSELECT decile,\n       min_score || '-' || max_score                                          AS score_range,\n       customers,\n       responses,\n       ROUND(100.0 * responses / customers, 1)                                AS response_pct,\n       ROUND((1.0 * responses / customers) / (SELECT AVG(responded_last) FROM customers), 2) AS lift,\n       ROUND(100.0 * SUM(responses) OVER (ORDER BY decile) / SUM(responses) OVER (), 1) AS cumulative_responses_pct,\n       11 * SUM(responses) OVER (ORDER BY decile) - 3 * SUM(customers) OVER (ORDER BY decile) AS cumulative_profit\nFROM by_decile\nORDER BY decile;", "columns": ["decile", "score_range", "customers", "responses", "response_pct", "lift", "cumulative_responses_pct", "cumulative_profit"], "rows": [[1, "4-11", 206, 125, 60.7, 3.99, 39.9, 757], [2, "3-4", 206, 57, 27.7, 1.82, 58.1, 766], [3, "2-3", 206, 44, 21.4, 1.4, 72.2, 632], [4, "2-2", 206, 23, 11.2, 0.73, 79.6, 267], [5, "2-2", 206, 24, 11.7, 0.77, 87.2, -87], [6, "1-2", 206, 9, 4.4, 0.29, 90.1, -606], [7, "1-1", 206, 24, 11.7, 0.77, 97.8, -960], [8, "0-1", 206, 3, 1.5, 0.1, 98.7, -1545], [9, "0-0", 205, 2, 1.0, 0.06, 99.4, -2138], [10, "0-0", 205, 2, 1.0, 0.06, 100.0, -2731]]}, {"name": "gains_chart", "section": "Targeting the next campaign", "title": "Cumulative share of responders reached vs share of customers contacted", "insight": "Contacting the top 20% by score would have reached 58% of responders; the top 50% would have reached 87%.", "chart": {"type": "line", "x": "contacted_pct", "y": ["targeted_pct", "random_pct"], "zero": "yes"}, "sql": "WITH params AS (\n    SELECT MIN(income) AS top_quartile_income\n    FROM (SELECT income, NTILE(4) OVER (ORDER BY income) AS q FROM customers WHERE income IS NOT NULL)\n    WHERE q = 4\n),\nscored AS (\n    SELECT c.*,\n           2 * MIN(prior_acceptances, 3)\n         + CASE WHEN recency_days < 20 THEN 2 WHEN recency_days < 40 THEN 1 ELSE 0 END\n         + (children = 0)\n         + (COALESCE(income, 0) >= p.top_quartile_income)\n         + (joined_date < '2013-01-01')                                    AS score\n    FROM customers c CROSS JOIN params p\n),\ndeciles AS (\n    SELECT responded_last, NTILE(10) OVER (ORDER BY score DESC, recency_days, customer_id) AS decile\n    FROM scored\n)\nSELECT 0 AS contacted_pct, 0.0 AS targeted_pct, 0 AS random_pct\nUNION ALL\nSELECT decile * 10                                                                        AS contacted_pct,\n       ROUND(100.0 * SUM(SUM(responded_last)) OVER (ORDER BY decile) / SUM(SUM(responded_last)) OVER (), 1) AS targeted_pct,\n       decile * 10                                                                        AS random_pct\nFROM deciles\nGROUP BY decile\nORDER BY contacted_pct;", "columns": ["contacted_pct", "targeted_pct", "random_pct"], "rows": [[0, 0.0, 0], [10, 39.9, 10], [20, 58.1, 20], [30, 72.2, 30], [40, 79.6, 40], [50, 87.2, 50], [60, 90.1, 60], [70, 97.8, 70], [80, 98.7, 80], [90, 99.4, 90], [100, 100.0, 100]]}, {"name": "profit_by_depth", "section": "Targeting the next campaign", "title": "Profit of the last campaign if only the top-scored customers had been contacted", "insight": "Sending the last campaign only to the top 10% to 20% by score would have turned a $2,731 loss into a profit of about $760, using the same offer.", "chart": {"type": "bar", "x": "contacted", "y": ["profit"], "money": ["profit"]}, "sql": "WITH params AS (\n    SELECT MIN(income) AS top_quartile_income\n    FROM (SELECT income, NTILE(4) OVER (ORDER BY income) AS q FROM customers WHERE income IS NOT NULL)\n    WHERE q = 4\n),\nscored AS (\n    SELECT c.*,\n           2 * MIN(prior_acceptances, 3)\n         + CASE WHEN recency_days < 20 THEN 2 WHEN recency_days < 40 THEN 1 ELSE 0 END\n         + (children = 0)\n         + (COALESCE(income, 0) >= p.top_quartile_income)\n         + (joined_date < '2013-01-01')                                    AS score\n    FROM customers c CROSS JOIN params p\n),\ndeciles AS (\n    SELECT responded_last, NTILE(10) OVER (ORDER BY score DESC, recency_days, customer_id) AS decile\n    FROM scored\n)\nSELECT 'Top ' || (decile * 10) || '%'                                            AS contacted,\n       SUM(COUNT(*)) OVER (ORDER BY decile)                                    AS customers_contacted,\n       SUM(SUM(responded_last)) OVER (ORDER BY decile)                         AS responses,\n       11 * SUM(SUM(responded_last)) OVER (ORDER BY decile)\n         - 3 * SUM(COUNT(*)) OVER (ORDER BY decile)                            AS profit\nFROM deciles\nGROUP BY decile\nORDER BY decile;", "columns": ["contacted", "customers_contacted", "responses", "profit"], "rows": [["Top 10%", 206, 125, 757], ["Top 20%", 412, 182, 766], ["Top 30%", 618, 226, 632], ["Top 40%", 824, 249, 267], ["Top 50%", 1030, 273, -87], ["Top 60%", 1236, 282, -606], ["Top 70%", 1442, 306, -960], ["Top 80%", 1648, 309, -1545], ["Top 90%", 1853, 311, -2138], ["Top 100%", 2058, 313, -2731]]}, {"name": "data_quality", "section": "Data quality", "title": "What the cleaning step found and fixed", "insight": "182 customers appear twice under different IDs with every other field identical. Left in, they inflate counts by 9% and double-count responses.", "chart": {"type": "table"}, "sql": "SELECT check_name, rows_affected, action\nFROM data_quality_log;", "columns": ["check_name", "rows_affected", "action"], "rows": [["Raw customer rows loaded", 2240, "none"], ["Duplicate customer (all fields identical except ID)", 182, "kept the lowest ID"], ["Income missing", 24, "kept, excluded from income analysis"], ["Income of 666,666 (placeholder)", 1, "income set to NULL"], ["Birth year before 1910 (age over 100)", 3, "age set to NULL"], ["Marital status Alone / Absurd / YOLO", 7, "Alone mapped to Single; others to Unknown"], ["Clean customers", 2058, "final table"]]}]};
+const charts = [];
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pretty = c => c.replace(/_/g, " ").replace(/\bpct\b/i, "%").replace(/\bavg\b/i, "avg").replace(/^./, s => s.toUpperCase());
+const CUR = DATA.currency || "";
+
+function fmt(v, col, chart) {
+  if (v === null || v === undefined) return "–";
+  if (typeof v !== "number") return String(v);
+  const money = chart && chart.money && chart.money.includes(col);
+  const pct = /_pct$/i.test(col) || (chart && chart.pct && chart.pct.includes(col));
+  let s;
+  const a = Math.abs(v);
+  if (a >= 1e7 && money && CUR === "₹") s = (v / 1e7).toFixed(2) + " Cr";
+  else if (a >= 1e6) s = (v / 1e6).toFixed(a >= 1e8 ? 0 : 2) + "M";
+  else if (a >= 1e5) s = (v / 1e3).toFixed(0) + "K";
+  else if (a >= 1e4) s = (v / 1e3).toFixed(1) + "K";
+  else if (Number.isInteger(v)) s = v.toLocaleString("en-US");
+  else s = v.toLocaleString("en-US", { maximumFractionDigits: a < 10 ? 2 : 1 });
+  if (money) s = CUR + s;
+  if (pct) s = s + "%";
+  return s;
+}
+function fmtFull(v, col, chart) {
+  if (typeof v !== "number") return v === null ? "–" : String(v);
+  if (/(_id|_year|^year)$/i.test(col)) return String(v);
+  const money = chart && chart.money && chart.money.includes(col);
+  const pct = /_pct$/i.test(col) || (chart && chart.pct && chart.pct.includes(col));
+  const s = v.toLocaleString("en-US", { maximumFractionDigits: Number.isInteger(v) ? 0 : 2 });
+  return (money ? CUR : "") + s + (pct ? "%" : "");
+}
+
+function highlightSQL(sql) {
+  const kw = /\b(WITH|RECURSIVE|SELECT|FROM|WHERE|GROUP BY|ORDER BY|HAVING|LIMIT|JOIN|LEFT JOIN|INNER JOIN|ON|AS|AND|OR|NOT|IN|IS|NULL|CASE|WHEN|THEN|ELSE|END|DISTINCT|OVER|PARTITION BY|UNION ALL|UNION|DESC|ASC|BETWEEN|LIKE|CAST|ROUND|COUNT|SUM|AVG|MIN|MAX|NTILE|RANK|DENSE_RANK|ROW_NUMBER|LAG|LEAD|COALESCE|NULLIF|SUBSTR|INSTR|TRIM|REPLACE|LOWER|UPPER|LENGTH|REAL|INTEGER|TEXT|JULIANDAY|STRFTIME|DATE|PRINTF|IIF|EXISTS|FILTER)\b/g;
+  return sql.split("\n").map(line => {
+    const i = line.indexOf("--");
+    let code = i >= 0 ? line.slice(0, i) : line, cm = i >= 0 ? line.slice(i) : "";
+    code = esc(code).replace(/('[^']*')/g, '<span class="str">$1</span>');
+    code = code.replace(/(<span class="str">.*?<\/span>)|([^<]+)/g, (m, s, t) => s ? s : t.replace(kw, '<span class="kw">$1</span>'));
+    return code + (cm ? `<span class="cm">${esc(cm)}</span>` : "");
+  }).join("\n");
+}
+
+function tableHTML(p) {
+  const numCols = p.columns.map((c, i) => p.rows.some(r => typeof r[i] === "number"));
+  const head = p.columns.map((c, i) => `<th class="${numCols[i] ? "num" : ""}">${esc(pretty(c))}</th>`).join("");
+  const body = p.rows.slice(0, 200).map(r => "<tr>" + r.map((v, i) => `<td class="${numCols[i] ? "num" : ""}">${esc(fmtFull(v, p.columns[i], p.chart))}</td>`).join("") + "</tr>").join("");
+  return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+function renderKPI(p) {
+  const row = p.rows[0] || [];
+  return (p.insight ? `<p class="insight">${esc(p.insight)}</p>` : "") + `<div class="kpis">${p.columns.map((c, i) => `<div class="kpi"><span class="label">${esc(pretty(c))}</span><span class="value">${esc(fmt(row[i], c, p.chart))}</span></div>`).join("")}</div>`;
+}
+
+function panelHTML(p, idx) {
+  const full = p.chart.w === "full" || p.chart.type === "table" ? " full" : "";
+  const hasChart = !["table"].includes(p.chart.type);
+  const ys = p.chart.y || [];
+  const legend = ys.length > 1 ? `<div class="legend">${ys.map((y, i) => `<span><i style="background:var(--s${i + 1})"></i>${esc(pretty(y))}</span>`).join("")}</div>` : "";
+  return `<article class="panel${full}" id="${esc(p.name)}">
+    <div class="panel-head"><h3>${esc(p.title)}</h3>
+      <div class="tabs" role="tablist">
+        ${hasChart ? `<button role="tab" aria-selected="true" data-v="chart">Chart</button>` : ""}
+        <button role="tab" aria-selected="${hasChart ? "false" : "true"}" data-v="table">Table</button>
+        <button role="tab" aria-selected="false" data-v="sql">SQL</button>
+      </div></div>
+    ${p.insight ? `<p class="insight">${esc(p.insight)}</p>` : ""}
+    ${hasChart ? `<div class="view" data-view="chart">${legend}<div class="chart-box" style="height:${chartHeight(p)}px"><canvas id="c${idx}" role="img" aria-label="${esc(p.title)}"></canvas></div></div>` : ""}
+    <div class="view table-box" data-view="table" ${hasChart ? "hidden" : ""}>${tableHTML(p)}</div>
+    <div class="view sql-box" data-view="sql" hidden><pre><code>${highlightSQL(p.sql)}</code></pre></div>
+  </article>`;
+}
+function chartHeight(p) {
+  if (p.chart.type === "hbar") return Math.max(180, p.rows.length * (p.chart.y.length > 1 ? 34 : 28) + 40);
+  return 280;
+}
+
+function build() {
+  const app = document.getElementById("app");
+  const d = DATA.dataset || {};
+  let html = `<header>
+    <span class="eyebrow">SQL portfolio project · ${esc(DATA.author || "")}</span>
+    <h1>${esc(DATA.title)}</h1>
+    <p class="sub">${esc(DATA.subtitle || "")}</p>
+    <div class="meta">
+      ${d.name ? `<span>Data: <a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.name)}</a>${d.rows ? " · " + esc(d.rows) : ""}</span>` : ""}
+      ${DATA.repo ? `<span>Code: <a href="${esc(DATA.repo)}" target="_blank" rel="noopener">GitHub repository</a></span>` : ""}
+    </div>
+    ${DATA.stack ? `<div class="chips">${DATA.stack.map(s => `<span class="chip">${esc(s)}</span>`).join("")}</div>` : ""}
+  </header>`;
+  const sections = [];
+  DATA.panels.forEach((p, i) => {
+    const name = p.section || "Analysis";
+    let s = sections.find(x => x.name === name);
+    if (!s) sections.push(s = { name, items: [] });
+    s.items.push([p, i]);
+  });
+  for (const s of sections) {
+    const kpis = s.items.filter(([p]) => p.chart.type === "kpi");
+    const rest = s.items.filter(([p]) => p.chart.type !== "kpi");
+    html += `<section><h2>${esc(s.name)}</h2>`;
+    html += kpis.map(([p]) => renderKPI(p)).join("");
+    // a section with an odd number of half-width panels lets the last one span the row
+    const half = rest.filter(([p]) => !(p.chart.w === "full" || p.chart.type === "table"));
+    if (half.length % 2 === 1) half[half.length - 1][0].chart.w = "full";
+    if (rest.length) html += `<div class="grid">${rest.map(([p, i]) => panelHTML(p, i)).join("")}</div>`;
+    html += `</section>`;
+  }
+  html += `<footer>Every number on this page comes from the SQL shown in each panel, run against SQLite. Built by ${esc(DATA.author || "")}.</footer>`;
+  app.innerHTML = html;
+  app.addEventListener("click", e => {
+    const b = e.target.closest(".tabs button"); if (!b) return;
+    const panel = b.closest(".panel");
+    panel.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+    panel.querySelectorAll(".view").forEach(v => v.hidden = v.dataset.view !== b.dataset.v);
+  });
+  drawCharts();
+}
+
+function drawCharts() {
+  if (!window.Chart) return;
+  charts.splice(0).forEach(c => c.destroy());
+  const ink2 = css("--ink-2"), muted = css("--muted"), grid = css("--grid"), axis = css("--axis"), surface = css("--surface");
+  const series = [css("--s1"), css("--s2"), css("--s3"), css("--s4")];
+  Chart.defaults.font.family = css("--font-ui");
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = muted;
+  DATA.panels.forEach((p, idx) => {
+    const el = document.getElementById("c" + idx); if (!el) return;
+    const t = p.chart.type, xi = p.columns.indexOf(p.chart.x);
+    const labels = p.rows.map(r => r[xi]);
+    const horiz = t === "hbar";
+    const datasets = (p.chart.y || []).map((y, k) => {
+      const yi = p.columns.indexOf(y);
+      const base = { label: pretty(y), data: p.rows.map(r => r[yi]), backgroundColor: series[k], borderColor: series[k] };
+      if (t === "line") return { ...base, borderWidth: 2, pointRadius: 3, pointHoverRadius: 5, pointBorderColor: surface, pointBorderWidth: 2, tension: 0, fill: (p.chart.y.length === 1) ? { target: "origin", above: series[k] + "1a" } : false };
+      return { ...base, borderWidth: 0, borderRadius: 4, borderSkipped: "start", maxBarThickness: 22, categoryPercentage: 0.8, barPercentage: 0.9 };
+    });
+    const valueAxis = { grid: { color: grid, drawTicks: false }, border: { display: false }, ticks: { color: muted, padding: 6, maxRotation: 0, autoSkipPadding: 14, callback: v => fmt(v, p.chart.y[0], p.chart) }, beginAtZero: t !== "line" || p.chart.zero === "yes" };
+    const catAxis = { grid: { display: false }, border: { color: axis }, ticks: { color: ink2, autoSkip: !horiz, autoSkipPadding: 10, maxRotation: 0, callback: function (v) { const l = String(this.getLabelForValue(v)); return l.length > 26 ? l.slice(0, 25) + "…" : l; } } };
+    charts.push(new Chart(el, {
+      type: t === "line" ? "line" : "bar",
+      data: { labels, datasets },
+      options: {
+        indexAxis: horiz ? "y" : "x", responsive: true, maintainAspectRatio: false, animation: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: { legend: { display: false },
+          tooltip: { backgroundColor: css("--ink"), titleColor: surface, bodyColor: surface, padding: 10, cornerRadius: 6, displayColors: p.chart.y.length > 1,
+            callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed[horiz ? "x" : "y"], p.chart.y[c.datasetIndex], p.chart)}` } } },
+        scales: horiz ? { x: valueAxis, y: catAxis } : { x: catAxis, y: valueAxis }
+      }
+    }));
+  });
+}
+
+build();
+const mq = window.matchMedia("(prefers-color-scheme: dark)");
+mq.addEventListener && mq.addEventListener("change", drawCharts);
+new MutationObserver(drawCharts).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>
+</body>
+</html>

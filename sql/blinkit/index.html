@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Blinkit Grocery Sales Analysis</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: analyst's workbook. Header, KPI strip, then two-column panels; each panel flips between chart, table and the SQL that produced it. */
+:root {
+  --page: #f4f5f7;
+  --surface: #fcfcfb;
+  --ink: #0b0b0b;
+  --ink-2: #52514e;
+  --muted: #7d7b75;
+  --grid: #e1e0d9;
+  --axis: #c3c2b7;
+  --line: rgba(11,11,11,0.10);
+  --accent: #2a78d6;
+  --code-bg: #eef1f5;
+  --code-kw: #1c5cab;
+  --code-str: #8a4b12;
+  --code-cm: #6f7a6a;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100;
+  --font-ui: "Instrument Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --page: #0f0f0e; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #95938c;
+    --grid: #2c2c2a; --axis: #383835; --line: rgba(255,255,255,0.10); --accent: #3987e5;
+    --code-bg: #141a22; --code-kw: #86b6ef; --code-str: #e8a86b; --code-cm: #8c9688;
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --page: #0f0f0e; --surface: #1a1a19; --ink: #f0efec; --ink-2: #c3c2b7; --muted: #95938c;
+  --grid: #2c2c2a; --axis: #383835; --line: rgba(255,255,255,0.10); --accent: #3987e5;
+  --code-bg: #141a22; --code-kw: #86b6ef; --code-str: #e8a86b; --code-cm: #8c9688;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--page); color: var(--ink);
+  font: 15px/1.5 var(--font-ui);
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 28px 56px;
+}
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 28px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font: 500 12px/1 var(--font-mono); letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+h1 { margin: 0; font-size: clamp(26px, 4vw, 38px); line-height: 1.12; font-weight: 700; letter-spacing: -0.015em; text-wrap: balance; }
+.sub { margin: 0; max-width: 68ch; color: var(--ink-2); font-size: 16px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 18px; font-size: 13px; color: var(--ink-2); }
+.meta a { color: var(--accent); text-decoration: none; border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent); }
+.meta a:hover { border-bottom-color: var(--accent); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font: 500 12px/1 var(--font-mono); padding: 6px 8px; border-radius: 4px; background: var(--code-bg); color: var(--ink-2); }
+section { display: grid; gap: 14px; }
+h2 { margin: 0; font-size: 13px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--ink-2); padding-bottom: 8px; border-bottom: 1px solid var(--grid); }
+.kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.kpi { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 4px; }
+.kpi .label { font-size: 13px; color: var(--ink-2); }
+.kpi .value { font-size: 28px; font-weight: 600; letter-spacing: -0.01em; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 480px), 1fr)); gap: 14px; }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 16px; display: grid; gap: 10px; min-width: 0; align-content: start; }
+.panel.full { grid-column: 1 / -1; }
+.panel-head { display: flex; justify-content: space-between; align-items: start; gap: 12px; flex-wrap: wrap; }
+.panel h3 { margin: 0; font-size: 16px; font-weight: 600; text-wrap: balance; }
+.insight { margin: 0; color: var(--ink-2); font-size: 14px; max-width: 70ch; }
+.tabs { display: inline-flex; gap: 2px; background: var(--code-bg); padding: 2px; border-radius: 6px; }
+.tabs button { font: 500 12px/1 var(--font-ui); border: 0; background: transparent; color: var(--ink-2); padding: 6px 10px; border-radius: 4px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+.tabs button:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.view { min-width: 0; }
+.chart-box { position: relative; width: 100%; }
+.table-box, .sql-box { overflow-x: auto; max-height: 420px; overflow-y: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+th { font-weight: 600; color: var(--ink-2); position: sticky; top: 0; background: var(--surface); }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+pre { margin: 0; background: var(--code-bg); border-radius: 6px; padding: 12px 14px; font: 12.5px/1.55 var(--font-mono); color: var(--ink); white-space: pre; }
+.kw { color: var(--code-kw); font-weight: 500; } .str { color: var(--code-str); } .cm { color: var(--code-cm); font-style: italic; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; font-size: 12px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+footer { font-size: 13px; color: var(--muted); border-top: 1px solid var(--grid); padding-top: 14px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+const DATA = {"title": "Blinkit Grocery Sales Analysis", "subtitle": "Sales KPIs for 1,559 grocery products across 10 Blinkit outlets: which categories, outlet formats, city tiers and products drive revenue, and what actually explains the gaps between stores.", "dataset": {"name": "Blinkit Grocery Dataset (Kaggle, Mukesh Gadri)", "url": "https://www.kaggle.com/datasets/mukeshgadri/blinkit-dataset", "rows": "8,523 item-outlet rows"}, "author": "Malhar Patel", "repo": "https://github.com/malharpatel78/blinkit-sales-sql-analysis", "currency": "₹", "stack": ["SQLite", "KPI design", "Window functions", "Pareto analysis", "Pivot with CASE", "Chart.js"], "panels": [{"name": "overview", "section": "Sales KPIs", "title": "Headline KPIs", "insight": "₹1.20M in recorded sales from 1,559 products across 10 outlets. Each row is one product at one outlet, and the average listing sells ₹141.", "chart": {"type": "kpi", "money": ["total_sales", "avg_sales_per_listing"]}, "sql": "SELECT ROUND(SUM(sales), 0)              AS total_sales,\n       COUNT(DISTINCT product_id)        AS products,\n       COUNT(DISTINCT outlet_id)         AS outlets,\n       COUNT(*)                          AS product_listings,\n       ROUND(AVG(sales), 2)              AS avg_sales_per_listing,\n       ROUND(AVG(rating), 2)             AS avg_rating\nFROM sales;", "columns": ["total_sales", "products", "outlets", "product_listings", "avg_sales_per_listing", "avg_rating"], "rows": [[1201681.0, 1559, 10, 8523, 140.99, 3.97]]}, {"name": "category_sales", "section": "Categories", "title": "Sales by category, with running share (Pareto)", "insight": "Fruits and vegetables and snack foods lead with about 15% of sales each. Four categories (add household and frozen foods) make up half of all sales.", "chart": {"type": "hbar", "x": "category", "y": ["total_sales"], "money": ["total_sales"]}, "sql": "WITH cat AS (\n    SELECT category, SUM(sales) AS total_sales, COUNT(*) AS listings\n    FROM sales\n    GROUP BY category\n)\nSELECT category,\n       ROUND(total_sales, 0)                                        AS total_sales,\n       listings,\n       ROUND(100.0 * total_sales / SUM(total_sales) OVER (), 1)     AS share_pct,\n       ROUND(100.0 * SUM(total_sales) OVER (ORDER BY total_sales DESC\n                     ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW)\n             / SUM(total_sales) OVER (), 1)                         AS cumulative_pct\nFROM cat\nORDER BY total_sales DESC;", "columns": ["category", "total_sales", "listings", "share_pct", "cumulative_pct"], "rows": [["Fruits and Vegetables", 178124.0, 1232, 14.8, 14.8], ["Snack Foods", 175434.0, 1200, 14.6, 29.4], ["Household", 135977.0, 910, 11.3, 40.7], ["Frozen Foods", 118559.0, 856, 9.9, 50.6], ["Dairy", 101276.0, 682, 8.4, 59.0], ["Canned", 90707.0, 649, 7.5, 66.6], ["Baking Goods", 81895.0, 648, 6.8, 73.4], ["Health and Hygiene", 68026.0, 520, 5.7, 79.1], ["Meat", 59450.0, 425, 4.9, 84.0], ["Soft Drinks", 58514.0, 445, 4.9, 88.9], ["Breads", 35379.0, 251, 2.9, 91.8], ["Hard Drinks", 29335.0, 214, 2.4, 94.3], ["Others", 22452.0, 169, 1.9, 96.1], ["Starchy Foods", 21880.0, 148, 1.8, 97.9], ["Breakfast", 15597.0, 110, 1.3, 99.2], ["Seafood", 9078.0, 64, 0.8, 100.0]]}, {"name": "category_productivity", "section": "Categories", "title": "Average sales per product listing, by category", "insight": "Category totals mostly reflect how many products a category carries. Per listing, household (₹149) and dairy (₹149) sell best; baking goods (₹126) and health and hygiene (₹131) sell least.", "chart": {"type": "hbar", "x": "category", "y": ["avg_sales_per_listing"], "money": ["avg_sales_per_listing"]}, "sql": "SELECT category,\n       COUNT(*)              AS listings,\n       ROUND(AVG(sales), 1)  AS avg_sales_per_listing,\n       ROUND(AVG(sales) - (SELECT AVG(sales) FROM sales), 1) AS vs_store_avg\nFROM sales\nGROUP BY category\nORDER BY avg_sales_per_listing DESC;", "columns": ["category", "listings", "avg_sales_per_listing", "vs_store_avg"], "rows": [["Household", 910, 149.4, 8.4], ["Dairy", 682, 148.5, 7.5], ["Starchy Foods", 148, 147.8, 6.8], ["Snack Foods", 1200, 146.2, 5.2], ["Fruits and Vegetables", 1232, 144.6, 3.6], ["Seafood", 64, 141.8, 0.8], ["Breakfast", 110, 141.8, 0.8], ["Breads", 251, 141.0, 0.0], ["Meat", 425, 139.9, -1.1], ["Canned", 649, 139.8, -1.2], ["Frozen Foods", 856, 138.5, -2.5], ["Hard Drinks", 214, 137.1, -3.9], ["Others", 169, 132.9, -8.1], ["Soft Drinks", 445, 131.5, -9.5], ["Health and Hygiene", 520, 130.8, -10.2], ["Baking Goods", 648, 126.4, -14.6]]}, {"name": "fat_content", "section": "Categories", "title": "Sales by fat content", "insight": "Once non-food items are taken out, low-fat products account for 46% of sales and regular products 35%. Per listing the two sell almost the same (₹140 vs ₹142), so the gap comes from range size, not customer preference.", "chart": {"type": "bar", "x": "fat_content", "y": ["total_sales"], "money": ["total_sales", "avg_sales_per_listing"]}, "sql": "SELECT fat_content,\n       COUNT(*)                                                   AS listings,\n       ROUND(SUM(sales), 0)                                       AS total_sales,\n       ROUND(100.0 * SUM(sales) / (SELECT SUM(sales) FROM sales), 1) AS share_pct,\n       ROUND(AVG(sales), 1)                                       AS avg_sales_per_listing\nFROM sales\nGROUP BY fat_content\nORDER BY total_sales DESC;", "columns": ["fat_content", "listings", "total_sales", "share_pct", "avg_sales_per_listing"], "rows": [["Low Fat", 3918, 549865.0, 45.8, 140.3], ["Regular", 3006, 425362.0, 35.4, 141.5], ["Not applicable", 1599, 226454.0, 18.8, 141.6]]}, {"name": "fat_mix_by_category", "section": "Categories", "title": "Low-fat share of sales within each food and drink category", "insight": "Low-fat lines dominate soft drinks (85% of sales) and lead in snacks and dairy. Regular lines lead in meat (62.5%) and breakfast foods.", "chart": {"type": "hbar", "x": "category", "y": ["low_fat_share_pct"]}, "sql": "SELECT category,\n       ROUND(SUM(CASE WHEN fat_content = 'Low Fat' THEN sales ELSE 0 END), 0) AS low_fat_sales,\n       ROUND(SUM(CASE WHEN fat_content = 'Regular' THEN sales ELSE 0 END), 0) AS regular_sales,\n       ROUND(100.0 * SUM(CASE WHEN fat_content = 'Low Fat' THEN sales ELSE 0 END) / SUM(sales), 1) AS low_fat_share_pct\nFROM sales\nWHERE fat_content <> 'Not applicable'\nGROUP BY category\nORDER BY low_fat_share_pct DESC;", "columns": ["category", "low_fat_sales", "regular_sales", "low_fat_share_pct"], "rows": [["Hard Drinks", 29335.0, 0.0, 100.0], ["Soft Drinks", 49868.0, 8646.0, 85.2], ["Snack Foods", 108297.0, 67137.0, 61.7], ["Dairy", 61494.0, 39782.0, 60.7], ["Starchy Foods", 12954.0, 8926.0, 59.2], ["Breads", 18842.0, 16538.0, 53.3], ["Frozen Foods", 62559.0, 56000.0, 52.8], ["Canned", 47587.0, 43119.0, 52.5], ["Baking Goods", 39653.0, 42242.0, 48.4], ["Fruits and Vegetables", 86032.0, 92092.0, 48.3], ["Seafood", 4200.0, 4878.0, 46.3], ["Breakfast", 6776.0, 8821.0, 43.4], ["Meat", 22270.0, 37180.0, 37.5]]}, {"name": "outlet_ranking", "section": "Outlets", "title": "Outlet league table", "insight": "Eight supermarkets each sell ₹129K to ₹133K, within about 3% of one another. The two grocery stores sell ₹74K to ₹78K, about 42% less.", "chart": {"type": "hbar", "x": "outlet", "y": ["total_sales"], "money": ["total_sales"]}, "sql": "SELECT s.outlet_id || ' · ' || o.outlet_type                 AS outlet,\n       RANK() OVER (ORDER BY SUM(s.sales) DESC)              AS sales_rank,\n       ROUND(SUM(s.sales), 0)                                AS total_sales,\n       o.products_stocked,\n       ROUND(SUM(s.sales) / o.products_stocked, 1)           AS sales_per_product,\n       o.location_tier, o.outlet_size, o.outlet_year\nFROM sales s\nJOIN outlets o ON o.outlet_id = s.outlet_id\nGROUP BY s.outlet_id\nORDER BY total_sales DESC;", "columns": ["outlet", "sales_rank", "total_sales", "products_stocked", "sales_per_product", "location_tier", "outlet_size", "outlet_year"], "rows": [["OUT035 · Supermarket Type1", 1, 133104.0, 930, 143.1, "Tier 2", "Small", 2017], ["OUT046 · Supermarket Type1", 2, 132113.0, 930, 142.1, "Tier 1", "Small", 2010], ["OUT013 · Supermarket Type1", 3, 131809.0, 932, 141.4, "Tier 3", "High", 2000], ["OUT018 · Supermarket Type2", 4, 131478.0, 928, 141.7, "Tier 3", "Medium", 2022], ["OUT045 · Supermarket Type1", 5, 130943.0, 929, 141.0, "Tier 2", "Unknown", 2015], ["OUT027 · Supermarket Type3", 6, 130715.0, 935, 139.8, "Tier 3", "Medium", 1998], ["OUT049 · Supermarket Type1", 7, 130477.0, 930, 140.3, "Tier 1", "Medium", 2012], ["OUT017 · Supermarket Type1", 8, 129104.0, 926, 139.4, "Tier 2", "Unknown", 2020], ["OUT010 · Grocery Store", 9, 78132.0, 555, 140.8, "Tier 3", "Unknown", 2011], ["OUT019 · Grocery Store", 10, 73808.0, 528, 139.8, "Tier 1", "Small", 1998]]}, {"name": "sales_per_product_by_outlet", "section": "Outlets", "title": "Sales per product stocked, by outlet", "insight": "Every outlet sells ₹139 to ₹143 per product stocked. Grocery stores are not weaker sellers; they stock about 540 products against about 930 in a supermarket.", "chart": {"type": "bar", "x": "outlet_id", "y": ["sales_per_product"], "money": ["sales_per_product"]}, "sql": "SELECT o.outlet_id,\n       o.outlet_type,\n       o.products_stocked,\n       ROUND(SUM(s.sales) / o.products_stocked, 1) AS sales_per_product\nFROM sales s\nJOIN outlets o ON o.outlet_id = s.outlet_id\nGROUP BY o.outlet_id\nORDER BY sales_per_product DESC;", "columns": ["outlet_id", "outlet_type", "products_stocked", "sales_per_product"], "rows": [["OUT035", "Supermarket Type1", 930, 143.1], ["OUT046", "Supermarket Type1", 930, 142.1], ["OUT018", "Supermarket Type2", 928, 141.7], ["OUT013", "Supermarket Type1", 932, 141.4], ["OUT045", "Supermarket Type1", 929, 141.0], ["OUT010", "Grocery Store", 555, 140.8], ["OUT049", "Supermarket Type1", 930, 140.3], ["OUT027", "Supermarket Type3", 935, 139.8], ["OUT019", "Grocery Store", 528, 139.8], ["OUT017", "Supermarket Type1", 926, 139.4]]}, {"name": "outlet_type", "section": "Outlets", "title": "Average sales per outlet, by outlet format", "insight": "Supermarket types 1, 2 and 3 perform the same (₹131K per outlet). The grocery store format trails only because of its smaller range.", "chart": {"type": "bar", "x": "outlet_type", "y": ["sales_per_outlet"], "money": ["total_sales", "sales_per_outlet", "sales_per_product"]}, "sql": "SELECT o.outlet_type,\n       COUNT(DISTINCT o.outlet_id)                                    AS outlets,\n       ROUND(SUM(s.sales), 0)                                         AS total_sales,\n       ROUND(SUM(s.sales) / COUNT(DISTINCT o.outlet_id), 0)           AS sales_per_outlet,\n       ROUND(1.0 * COUNT(*) / COUNT(DISTINCT o.outlet_id), 0)         AS products_per_outlet,\n       ROUND(AVG(s.sales), 1)                                         AS sales_per_product\nFROM sales s\nJOIN outlets o ON o.outlet_id = s.outlet_id\nGROUP BY o.outlet_type\nORDER BY sales_per_outlet DESC;", "columns": ["outlet_type", "outlets", "total_sales", "sales_per_outlet", "products_per_outlet", "sales_per_product"], "rows": [["Supermarket Type2", 1, 131478.0, 131478.0, 928.0, 141.7], ["Supermarket Type1", 6, 787550.0, 131258.0, 930.0, 141.2], ["Supermarket Type3", 1, 130715.0, 130715.0, 935.0, 139.8], ["Grocery Store", 2, 151939.0, 75970.0, 542.0, 140.3]]}, {"name": "location_tier", "section": "Outlets", "title": "Sales by city tier: total and per outlet", "insight": "Tier 2 leads per outlet (₹131K) because all three of its outlets are supermarkets. Tier 1 and Tier 3 each include one grocery store, which pulls their averages down; per product, all three tiers sell ₹141.", "chart": {"type": "bar", "x": "location_tier", "y": ["sales_per_outlet"], "money": ["total_sales", "sales_per_outlet"]}, "sql": "SELECT o.location_tier,\n       COUNT(DISTINCT o.outlet_id)                            AS outlets,\n       ROUND(SUM(s.sales), 0)                                 AS total_sales,\n       ROUND(SUM(s.sales) / COUNT(DISTINCT o.outlet_id), 0)   AS sales_per_outlet,\n       ROUND(AVG(s.sales), 1)                                 AS sales_per_product\nFROM sales s\nJOIN outlets o ON o.outlet_id = s.outlet_id\nGROUP BY o.location_tier\nORDER BY o.location_tier;", "columns": ["location_tier", "outlets", "total_sales", "sales_per_outlet", "sales_per_product"], "rows": [["Tier 1", 3, 336398.0, 112133.0, 140.9], ["Tier 2", 3, 393151.0, 131050.0, 141.2], ["Tier 3", 4, 472133.0, 118033.0, 140.9]]}, {"name": "outlet_size", "section": "Outlets", "title": "Sales per outlet by outlet size (3 outlets have no reliable size)", "insight": "Size tells little once the data is fixed: medium and high outlets sell about ₹131K each, small outlets ₹113K because one of the three is a grocery store. Three outlets had sizes randomly mixed across rows and are shown as Unknown.", "chart": {"type": "bar", "x": "outlet_size", "y": ["sales_per_outlet"], "money": ["total_sales", "sales_per_outlet"]}, "sql": "SELECT o.outlet_size,\n       COUNT(DISTINCT o.outlet_id)                            AS outlets,\n       ROUND(SUM(s.sales), 0)                                 AS total_sales,\n       ROUND(SUM(s.sales) / COUNT(DISTINCT o.outlet_id), 0)   AS sales_per_outlet\nFROM sales s\nJOIN outlets o ON o.outlet_id = s.outlet_id\nGROUP BY o.outlet_size\nORDER BY CASE o.outlet_size WHEN 'Small' THEN 1 WHEN 'Medium' THEN 2 WHEN 'High' THEN 3 ELSE 4 END;", "columns": ["outlet_size", "outlets", "total_sales", "sales_per_outlet"], "rows": [["Small", 3, 339025.0, 113008.0], ["Medium", 3, 392669.0, 130890.0], ["High", 1, 131809.0, 131809.0], ["Unknown", 3, 338178.0, 112726.0]]}, {"name": "visibility", "section": "Shelf and ratings", "title": "Average sales per listing by shelf visibility", "insight": "Shelf visibility has no clear link to sales: every band sells between ₹136 and ₹147 per listing.", "chart": {"type": "bar", "x": "visibility_band", "y": ["avg_sales_per_listing"], "money": ["avg_sales_per_listing"]}, "sql": "SELECT CASE\n           WHEN item_visibility < 0.03 THEN 'Under 3%'\n           WHEN item_visibility < 0.06 THEN '3-6%'\n           WHEN item_visibility < 0.10 THEN '6-10%'\n           WHEN item_visibility < 0.15 THEN '10-15%'\n           ELSE '15%+'\n       END                     AS visibility_band,\n       COUNT(*)                AS listings,\n       ROUND(AVG(sales), 1)    AS avg_sales_per_listing\nFROM sales\nGROUP BY visibility_band\nORDER BY MIN(item_visibility);", "columns": ["visibility_band", "listings", "avg_sales_per_listing"], "rows": [["Under 3%", 1961, 140.5], ["3-6%", 2429, 138.9], ["6-10%", 2054, 147.1], ["10-15%", 1371, 138.9], ["15%+", 708, 136.1]]}, {"name": "ratings", "section": "Shelf and ratings", "title": "Average sales per listing by customer rating", "insight": "Ratings do not separate strong and weak sellers either. 39% of rows carry exactly 4.0, which looks like a default value rather than a real customer score.", "chart": {"type": "bar", "x": "rating_band", "y": ["avg_sales_per_listing"], "money": ["avg_sales_per_listing"]}, "sql": "SELECT CASE\n           WHEN rating < 3   THEN 'Below 3.0'\n           WHEN rating < 4   THEN '3.0-3.9'\n           WHEN rating = 4   THEN 'Exactly 4.0'\n           WHEN rating < 4.5 THEN '4.1-4.4'\n           ELSE '4.5-5.0'\n       END                                                  AS rating_band,\n       COUNT(*)                                             AS listings,\n       ROUND(100.0 * COUNT(*) / SUM(COUNT(*)) OVER (), 1)   AS share_pct,\n       ROUND(AVG(sales), 1)                                 AS avg_sales_per_listing\nFROM sales\nGROUP BY rating_band\nORDER BY MIN(rating);", "columns": ["rating_band", "listings", "share_pct", "avg_sales_per_listing"], "rows": [["Below 3.0", 424, 5.0, 139.2], ["3.0-3.9", 1588, 18.6, 140.5], ["Exactly 4.0", 3339, 39.2, 142.5], ["4.1-4.4", 2231, 26.2, 138.9], ["4.5-5.0", 941, 11.0, 142.3]]}, {"name": "top_products", "section": "Products", "title": "Top 12 products by sales across all outlets", "insight": "The top products each sell ₹2,050 to ₹2,370 in total, and all are stocked in 8 or 9 of the 10 outlets.", "chart": {"type": "hbar", "x": "product", "y": ["total_sales"], "money": ["total_sales"]}, "sql": "SELECT product_id || ' · ' || MAX(category)   AS product,\n       COUNT(*)                               AS outlets_stocking,\n       ROUND(SUM(sales), 0)                   AS total_sales,\n       ROUND(AVG(sales), 1)                   AS avg_sales_per_outlet\nFROM sales\nGROUP BY product_id\nORDER BY total_sales DESC\nLIMIT 12;", "columns": ["product", "outlets_stocking", "total_sales", "avg_sales_per_outlet"], "rows": [["FDU12 · Baking Goods", 9, 2371.0, 263.4], ["FDT07 · Fruits and Vegetables", 9, 2307.0, 256.3], ["NCQ06 · Household", 9, 2295.0, 255.0], ["FDL58 · Snack Foods", 8, 2112.0, 264.0], ["NCB31 · Household", 8, 2105.0, 263.1], ["FDX31 · Fruits and Vegetables", 9, 2104.0, 233.8], ["FDF05 · Frozen Foods", 8, 2103.0, 262.9], ["FDR59 · Breads", 8, 2097.0, 262.1], ["FDP28 · Frozen Foods", 8, 2088.0, 261.0], ["FDA04 · Frozen Foods", 8, 2072.0, 259.0], ["FDF04 · Frozen Foods", 8, 2065.0, 258.1], ["FDY55 · Fruits and Vegetables", 8, 2058.0, 257.3]]}, {"name": "product_reach", "section": "Products", "title": "How many outlets stock each product", "insight": "Distribution drives product sales: products stocked in 9 outlets average ₹1,521, against ₹137 for the 9 products found in a single outlet. Only 2 products are stocked everywhere.", "chart": {"type": "bar", "x": "outlets_stocking", "y": ["products"]}, "sql": "WITH reach AS (\n    SELECT product_id, COUNT(*) AS outlets_stocking, SUM(sales) AS total_sales\n    FROM sales\n    GROUP BY product_id\n)\nSELECT outlets_stocking,\n       COUNT(*)                     AS products,\n       ROUND(AVG(total_sales), 0)   AS avg_sales_per_product\nFROM reach\nGROUP BY outlets_stocking\nORDER BY outlets_stocking;", "columns": ["outlets_stocking", "products", "avg_sales_per_product"], "rows": [[1, 9, 137.0], [2, 35, 313.0], [3, 113, 413.0], [4, 234, 564.0], [5, 395, 708.0], [6, 383, 846.0], [7, 253, 953.0], [8, 110, 1141.0], [9, 25, 1521.0], [10, 2, 1118.0]]}, {"name": "data_quality", "section": "Data quality", "title": "What the cleaning step found and fixed", "insight": "The outlet size fix changes the story: on the raw column, one store's sales were split across three sizes, which is how the original tutorial reached its outlet-size conclusions.", "chart": {"type": "table"}, "sql": "SELECT check_name, rows_affected, action\nFROM data_quality_log;", "columns": ["check_name", "rows_affected", "action"], "rows": [["Raw rows loaded", 8523, "none"], ["Duplicate product + outlet rows", 0, "none needed"], ["Fat content spelled inconsistently (LF, low fat, reg)", 545, "standardised to Low Fat / Regular"], ["Non-food items (NC codes) labelled Low Fat", 1599, "fat content set to Not applicable"], ["Item weight missing", 1463, "filled from same product at other outlets"], ["Item visibility recorded as 0", 526, "filled with product's average visibility elsewhere"], ["Rating exactly 4.0 (likely a default value)", 3339, "kept, flagged in analysis"], ["Rows in outlets with conflicting sizes (OUT010, OUT017, OUT045)", 2410, "outlet size set to Unknown"], ["Weight still missing after fill (product sold at one outlet only)", 4, "left NULL"], ["Clean rows", 8523, "final table"]]}]};
+const charts = [];
+const css = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const pretty = c => c.replace(/_/g, " ").replace(/\bpct\b/i, "%").replace(/\bavg\b/i, "avg").replace(/^./, s => s.toUpperCase());
+const CUR = DATA.currency || "";
+
+function fmt(v, col, chart) {
+  if (v === null || v === undefined) return "–";
+  if (typeof v !== "number") return String(v);
+  const money = chart && chart.money && chart.money.includes(col);
+  const pct = /_pct$/i.test(col) || (chart && chart.pct && chart.pct.includes(col));
+  let s;
+  const a = Math.abs(v);
+  if (a >= 1e7 && money && CUR === "₹") s = (v / 1e7).toFixed(2) + " Cr";
+  else if (a >= 1e6) s = (v / 1e6).toFixed(a >= 1e8 ? 0 : 2) + "M";
+  else if (a >= 1e5) s = (v / 1e3).toFixed(0) + "K";
+  else if (a >= 1e4) s = (v / 1e3).toFixed(1) + "K";
+  else if (Number.isInteger(v)) s = v.toLocaleString("en-US");
+  else s = v.toLocaleString("en-US", { maximumFractionDigits: a < 10 ? 2 : 1 });
+  if (money) s = CUR + s;
+  if (pct) s = s + "%";
+  return s;
+}
+function fmtFull(v, col, chart) {
+  if (typeof v !== "number") return v === null ? "–" : String(v);
+  if (/(_id|_year|^year)$/i.test(col)) return String(v);
+  const money = chart && chart.money && chart.money.includes(col);
+  const pct = /_pct$/i.test(col) || (chart && chart.pct && chart.pct.includes(col));
+  const s = v.toLocaleString("en-US", { maximumFractionDigits: Number.isInteger(v) ? 0 : 2 });
+  return (money ? CUR : "") + s + (pct ? "%" : "");
+}
+
+function highlightSQL(sql) {
+  const kw = /\b(WITH|RECURSIVE|SELECT|FROM|WHERE|GROUP BY|ORDER BY|HAVING|LIMIT|JOIN|LEFT JOIN|INNER JOIN|ON|AS|AND|OR|NOT|IN|IS|NULL|CASE|WHEN|THEN|ELSE|END|DISTINCT|OVER|PARTITION BY|UNION ALL|UNION|DESC|ASC|BETWEEN|LIKE|CAST|ROUND|COUNT|SUM|AVG|MIN|MAX|NTILE|RANK|DENSE_RANK|ROW_NUMBER|LAG|LEAD|COALESCE|NULLIF|SUBSTR|INSTR|TRIM|REPLACE|LOWER|UPPER|LENGTH|REAL|INTEGER|TEXT|JULIANDAY|STRFTIME|DATE|PRINTF|IIF|EXISTS|FILTER)\b/g;
+  return sql.split("\n").map(line => {
+    const i = line.indexOf("--");
+    let code = i >= 0 ? line.slice(0, i) : line, cm = i >= 0 ? line.slice(i) : "";
+    code = esc(code).replace(/('[^']*')/g, '<span class="str">$1</span>');
+    code = code.replace(/(<span class="str">.*?<\/span>)|([^<]+)/g, (m, s, t) => s ? s : t.replace(kw, '<span class="kw">$1</span>'));
+    return code + (cm ? `<span class="cm">${esc(cm)}</span>` : "");
+  }).join("\n");
+}
+
+function tableHTML(p) {
+  const numCols = p.columns.map((c, i) => p.rows.some(r => typeof r[i] === "number"));
+  const head = p.columns.map((c, i) => `<th class="${numCols[i] ? "num" : ""}">${esc(pretty(c))}</th>`).join("");
+  const body = p.rows.slice(0, 200).map(r => "<tr>" + r.map((v, i) => `<td class="${numCols[i] ? "num" : ""}">${esc(fmtFull(v, p.columns[i], p.chart))}</td>`).join("") + "</tr>").join("");
+  return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+}
+
+function renderKPI(p) {
+  const row = p.rows[0] || [];
+  return (p.insight ? `<p class="insight">${esc(p.insight)}</p>` : "") + `<div class="kpis">${p.columns.map((c, i) => `<div class="kpi"><span class="label">${esc(pretty(c))}</span><span class="value">${esc(fmt(row[i], c, p.chart))}</span></div>`).join("")}</div>`;
+}
+
+function panelHTML(p, idx) {
+  const full = p.chart.w === "full" || p.chart.type === "table" ? " full" : "";
+  const hasChart = !["table"].includes(p.chart.type);
+  const ys = p.chart.y || [];
+  const legend = ys.length > 1 ? `<div class="legend">${ys.map((y, i) => `<span><i style="background:var(--s${i + 1})"></i>${esc(pretty(y))}</span>`).join("")}</div>` : "";
+  return `<article class="panel${full}" id="${esc(p.name)}">
+    <div class="panel-head"><h3>${esc(p.title)}</h3>
+      <div class="tabs" role="tablist">
+        ${hasChart ? `<button role="tab" aria-selected="true" data-v="chart">Chart</button>` : ""}
+        <button role="tab" aria-selected="${hasChart ? "false" : "true"}" data-v="table">Table</button>
+        <button role="tab" aria-selected="false" data-v="sql">SQL</button>
+      </div></div>
+    ${p.insight ? `<p class="insight">${esc(p.insight)}</p>` : ""}
+    ${hasChart ? `<div class="view" data-view="chart">${legend}<div class="chart-box" style="height:${chartHeight(p)}px"><canvas id="c${idx}" role="img" aria-label="${esc(p.title)}"></canvas></div></div>` : ""}
+    <div class="view table-box" data-view="table" ${hasChart ? "hidden" : ""}>${tableHTML(p)}</div>
+    <div class="view sql-box" data-view="sql" hidden><pre><code>${highlightSQL(p.sql)}</code></pre></div>
+  </article>`;
+}
+function chartHeight(p) {
+  if (p.chart.type === "hbar") return Math.max(180, p.rows.length * (p.chart.y.length > 1 ? 34 : 28) + 40);
+  return 280;
+}
+
+function build() {
+  const app = document.getElementById("app");
+  const d = DATA.dataset || {};
+  let html = `<header>
+    <span class="eyebrow">SQL portfolio project · ${esc(DATA.author || "")}</span>
+    <h1>${esc(DATA.title)}</h1>
+    <p class="sub">${esc(DATA.subtitle || "")}</p>
+    <div class="meta">
+      ${d.name ? `<span>Data: <a href="${esc(d.url)}" target="_blank" rel="noopener">${esc(d.name)}</a>${d.rows ? " · " + esc(d.rows) : ""}</span>` : ""}
+      ${DATA.repo ? `<span>Code: <a href="${esc(DATA.repo)}" target="_blank" rel="noopener">GitHub repository</a></span>` : ""}
+    </div>
+    ${DATA.stack ? `<div class="chips">${DATA.stack.map(s => `<span class="chip">${esc(s)}</span>`).join("")}</div>` : ""}
+  </header>`;
+  const sections = [];
+  DATA.panels.forEach((p, i) => {
+    const name = p.section || "Analysis";
+    let s = sections.find(x => x.name === name);
+    if (!s) sections.push(s = { name, items: [] });
+    s.items.push([p, i]);
+  });
+  for (const s of sections) {
+    const kpis = s.items.filter(([p]) => p.chart.type === "kpi");
+    const rest = s.items.filter(([p]) => p.chart.type !== "kpi");
+    html += `<section><h2>${esc(s.name)}</h2>`;
+    html += kpis.map(([p]) => renderKPI(p)).join("");
+    // a section with an odd number of half-width panels lets the last one span the row
+    const half = rest.filter(([p]) => !(p.chart.w === "full" || p.chart.type === "table"));
+    if (half.length % 2 === 1) half[half.length - 1][0].chart.w = "full";
+    if (rest.length) html += `<div class="grid">${rest.map(([p, i]) => panelHTML(p, i)).join("")}</div>`;
+    html += `</section>`;
+  }
+  html += `<footer>Every number on this page comes from the SQL shown in each panel, run against SQLite. Built by ${esc(DATA.author || "")}.</footer>`;
+  app.innerHTML = html;
+  app.addEventListener("click", e => {
+    const b = e.target.closest(".tabs button"); if (!b) return;
+    const panel = b.closest(".panel");
+    panel.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-selected", x === b ? "true" : "false"));
+    panel.querySelectorAll(".view").forEach(v => v.hidden = v.dataset.view !== b.dataset.v);
+  });
+  drawCharts();
+}
+
+function drawCharts() {
+  if (!window.Chart) return;
+  charts.splice(0).forEach(c => c.destroy());
+  const ink2 = css("--ink-2"), muted = css("--muted"), grid = css("--grid"), axis = css("--axis"), surface = css("--surface");
+  const series = [css("--s1"), css("--s2"), css("--s3"), css("--s4")];
+  Chart.defaults.font.family = css("--font-ui");
+  Chart.defaults.font.size = 12;
+  Chart.defaults.color = muted;
+  DATA.panels.forEach((p, idx) => {
+    const el = document.getElementById("c" + idx); if (!el) return;
+    const t = p.chart.type, xi = p.columns.indexOf(p.chart.x);
+    const labels = p.rows.map(r => r[xi]);
+    const horiz = t === "hbar";
+    const datasets = (p.chart.y || []).map((y, k) => {
+      const yi = p.columns.indexOf(y);
+      const base = { label: pretty(y), data: p.rows.map(r => r[yi]), backgroundColor: series[k], borderColor: series[k] };
+      if (t === "line") return { ...base, borderWidth: 2, pointRadius: 3, pointHoverRadius: 5, pointBorderColor: surface, pointBorderWidth: 2, tension: 0, fill: (p.chart.y.length === 1) ? { target: "origin", above: series[k] + "1a" } : false };
+      return { ...base, borderWidth: 0, borderRadius: 4, borderSkipped: "start", maxBarThickness: 22, categoryPercentage: 0.8, barPercentage: 0.9 };
+    });
+    const valueAxis = { grid: { color: grid, drawTicks: false }, border: { display: false }, ticks: { color: muted, padding: 6, maxRotation: 0, autoSkipPadding: 14, callback: v => fmt(v, p.chart.y[0], p.chart) }, beginAtZero: t !== "line" || p.chart.zero === "yes" };
+    const catAxis = { grid: { display: false }, border: { color: axis }, ticks: { color: ink2, autoSkip: !horiz, autoSkipPadding: 10, maxRotation: 0, callback: function (v) { const l = String(this.getLabelForValue(v)); return l.length > 26 ? l.slice(0, 25) + "…" : l; } } };
+    charts.push(new Chart(el, {
+      type: t === "line" ? "line" : "bar",
+      data: { labels, datasets },
+      options: {
+        indexAxis: horiz ? "y" : "x", responsive: true, maintainAspectRatio: false, animation: false,
+        interaction: { mode: "index", intersect: false },
+        plugins: { legend: { display: false },
+          tooltip: { backgroundColor: css("--ink"), titleColor: surface, bodyColor: surface, padding: 10, cornerRadius: 6, displayColors: p.chart.y.length > 1,
+            callbacks: { label: c => ` ${c.dataset.label}: ${fmtFull(c.parsed[horiz ? "x" : "y"], p.chart.y[c.datasetIndex], p.chart)}` } } },
+        scales: horiz ? { x: valueAxis, y: catAxis } : { x: catAxis, y: valueAxis }
+      }
+    }));
+  });
+}
+
+build();
+const mq = window.matchMedia("(prefers-color-scheme: dark)");
+mq.addEventListener && mq.addEventListener("change", drawCharts);
+new MutationObserver(drawCharts).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+</script>
+</body>
+</html>
