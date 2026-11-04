@@ -275,6 +275,8 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
 .term-in input:focus-visible{outline:none}
 @media(prefers-reduced-motion:reduce){.term{transition:none}}
 
+.ad-av{width:48px;height:48px;overflow:hidden;background:var(--ink);border:2px solid var(--ink)}.ad-av img{width:100%;height:100%;object-fit:cover;display:block}
+.prompt{display:flex;align-items:center;gap:12px}.prompt .me{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2.5px solid var(--ink);box-shadow:3px 3px 0 var(--ink)}
 /* ===== CAR + SMALL DETAILS ===== */
 .car{position:fixed;left:0;top:0;width:56px;height:28px;z-index:70;pointer-events:none;will-change:transform;opacity:0;transition:opacity .4s}
 .car.on{opacity:1}
@@ -310,7 +312,7 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
 
 <section class="hero" id="top"><div class="page"><div class="win wy"><div class="win-bar"><span><i class="sp-k">✦</i>campaign://malhar-patel</span><span class="dots"><i></i><i></i><i></i></span></div><div class="win-body hero-body"><div class="blob a"></div><div class="blob b"></div><div class="hero-grid">
     <div>
-      <div class="prompt">&gt; whoami</div>
+      <div class="prompt"><img class="me" src="headshot.webp" alt="" width="56" height="56" loading="eager"><span>&gt; whoami</span></div>
       <div class="eyebrow">Now booking · full-time roles · mid-2027 · <span data-clock></span></div>
       <h1>The marketer who can <span class="r">prove it.</span></h1>
       <p class="lede">I built a brand's entire go-to-market from zero: <b>500+ campaigns, 19,600+ leads, 1.81M people reached</b> on about $4K. Now I'm adding SQL, Tableau and R, so every idea comes with the numbers behind it.</p>
@@ -322,7 +324,7 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
     <div class="ad-wrap">
       <div class="sticker">Open to roles</div>
       <div class="ad" aria-label="Illustrative ad unit">
-        <div class="ad-h"><div class="ad-av">MP</div><div><div class="ad-n">Malhar Patel</div><div class="ad-s">Sponsored · Marketing Analytics + GTM</div></div></div>
+        <div class="ad-h"><div class="ad-av"><img src="headshot.webp" alt="Portrait of Malhar Patel" width="48" height="48"></div><div><div class="ad-n">Malhar Patel</div><div class="ad-s">Sponsored · Marketing Analytics + GTM</div></div></div>
         <div class="ad-copy">Strategy and analytics in one hire. Built a go-to-market from zero. Now adding the data layer.</div>
         <div class="ad-img"><div class="big">19,600+</div><div class="sm">leads on a ~$4K budget</div></div>
         <div class="ad-f"><span>1.81M reached · 500+ campaigns</span><a href="#contact" class="btn sm blue">Hire now</a></div>
