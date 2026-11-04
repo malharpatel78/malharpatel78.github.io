@@ -295,6 +295,20 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
 .win-bar .dots i:first-child{cursor:pointer}
 .win-bar .dots i:first-child:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
 @media(prefers-reduced-motion:reduce){.car,.puff{display:none}}
+
+.rs-lede{max-width:680px}.rs-cases{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:26px 0}
+.rs-case{background:#fff;border:var(--bd);border-radius:18px;padding:16px;box-shadow:3px 3px 0 var(--ink);display:flex;flex-direction:column;gap:6px}
+.rs-case .tag{font:500 11px var(--f-m);letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.rs-case h3{font:400 24px/1.05 var(--f-d);text-transform:uppercase}.rs-case .big{font:400 44px/1 var(--f-d);color:var(--red)}
+.rs-case p{font-size:14px;color:var(--ink-2)}.rs-case .cmpbox{margin-top:auto}
+.rs-case .tr{height:12px;background:#efe5cf;border:2px solid var(--ink);border-radius:8px;overflow:hidden;margin:3px 0 6px}.rs-case .tr i{display:block;height:100%}
+.rs-case .ml{display:flex;justify-content:space-between;font:500 11px var(--f-m)}
+.rs-charts{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}.rs-charts .ch{background:#fff;border:var(--bd);border-radius:18px;padding:16px;box-shadow:3px 3px 0 var(--ink);min-width:0}.rs-charts .ch.full{grid-column:1/-1}
+.rs-charts h3{font:400 22px/1.1 var(--f-d);text-transform:uppercase;margin-bottom:2px}.rs-charts .n{font-size:14px;color:var(--ink-2);margin-bottom:10px}
+.rs-charts svg{display:block;width:100%;height:auto;overflow:visible}.rs-charts svg text{font:500 12px var(--f-m);fill:var(--ink)}.rs-charts svg .mut{fill:var(--muted)}
+.rs-leg{display:flex;gap:14px;flex-wrap:wrap;font:500 12px var(--f-m);margin-bottom:6px}.rs-leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;border:1.5px solid var(--ink)}
+#rs-type text,#rs-ctry text{font-size:14px}.rs-foot{margin-top:18px;display:flex;gap:14px;align-items:center;flex-wrap:wrap}.rs-foot small{color:var(--muted);font-size:13px;max-width:560px}
+@media(max-width:960px){.rs-cases{grid-template-columns:repeat(2,1fr)}}@media(max-width:620px){.rs-cases,.rs-charts{grid-template-columns:1fr}}.rs-charts .ch>div[id]{overflow-x:auto;-webkit-overflow-scrolling:touch}@media(max-width:620px){.rs-charts svg{min-width:500px}#rs-time svg{min-width:700px}}
 </style>
 </head>
 <body>
@@ -373,6 +387,19 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
     </div>
     <p class="fnote">Funnel not to scale. Lead share is my calculation from the totals above.</p></div></div></div></section>
 
+<section class="band" id="results"><div class="page"><div class="win reveal wp "><div class="win-bar"><span><i class="sp-k">✦</i>results.dashboard</span><span class="dots"><i></i><i></i><i></i></span></div><div class="win-body">
+    <div class="kicker"><b>02b</b> The campaign data</div>
+    <h2>The numbers, <mark>campaign by campaign.</mark></h2>
+    <p class="sub rs-lede">Straight from my Meta Ads Manager export: 426 campaigns, ₹2.65L of spend, about 16,000 leads from Oct 2023 onward. Four standout campaigns first, then the patterns across all of them. Campaign names are removed.</p>
+    <div class="rs-cases"><div class="rs-case"><span class="tag">Local recruitment · Q1 2024</span><h3>The efficiency winner</h3><div class="big">₹1.50</div><p>223 leads from ₹334 of spend.</p><div class="cmpbox"><div class="ml"><span>This campaign</span><span>₹1.5</span></div><div class="tr"><i style="width:9%;background:var(--red)"></i></div><div class="ml"><span>Account average</span><span>₹16.40</span></div><div class="tr"><i style="width:100%;background:var(--blue)"></i></div><p><b>10.9x cheaper</b> than the account average. 12.5K impressions.</p></div></div><div class="rs-case"><span class="tag">Local recruitment · Q1 2026</span><h3>The volume winner</h3><div class="big">628</div><p>leads from ₹2,395 of spend, at ₹3.81 each.</p><div class="cmpbox"><div class="ml"><span>This campaign</span><span>₹3.81</span></div><div class="tr"><i style="width:23%;background:var(--red)"></i></div><div class="ml"><span>Account average</span><span>₹16.40</span></div><div class="tr"><i style="width:100%;background:var(--blue)"></i></div><p><b>4.3x cheaper</b> than the account average. 156K impressions.</p></div></div><div class="rs-case"><span class="tag">Visa services · New Zealand · Q4 2023</span><h3>The best visa campaign</h3><div class="big">₹4.29</div><p>138 leads from ₹592 of spend.</p><div class="cmpbox"><div class="ml"><span>This campaign</span><span>₹4.29</span></div><div class="tr"><i style="width:26%;background:var(--red)"></i></div><div class="ml"><span>Account average</span><span>₹16.40</span></div><div class="tr"><i style="width:100%;background:var(--blue)"></i></div><p><b>3.8x cheaper</b> than the account average. 14.4K impressions.</p></div></div><div class="rs-case"><span class="tag">Coaching · IELTS and English</span><h3>The coaching campaign</h3><div class="big">₹5.52</div><p>207 leads from ₹1,143 of spend.</p><div class="cmpbox"><div class="ml"><span>This campaign</span><span>₹5.52</span></div><div class="tr"><i style="width:34%;background:var(--red)"></i></div><div class="ml"><span>Account average</span><span>₹16.40</span></div><div class="tr"><i style="width:100%;background:var(--blue)"></i></div><p><b>3.0x cheaper</b> than the account average. 73K impressions.</p></div></div></div>
+    <div class="rs-charts">
+      <div class="ch"><h3>Where the leads came from</h3><p class="n">Share of leads versus share of spend, by campaign type.</p><div class="rs-leg"><span><i style="background:#2B44FF"></i>% of leads</span><span><i style="background:#FFD23F"></i>% of spend</span></div><div id="rs-type"></div></div>
+      <div class="ch"><h3>Cost per lead by country</h3><p class="n">Visa campaigns, countries with 5+ campaigns. Lower is better.</p><div id="rs-ctry"></div></div>
+      <div class="ch full"><h3>Cost per lead over time</h3><p class="n">By quarter, from campaigns whose names carry a date. Dot size is the number of campaigns. Part of the drop is budget moving to cheaper recruitment campaigns, not only better targeting.</p><div id="rs-time"></div></div>
+    </div>
+    <div class="rs-foot"><a class="btn sm blue" href="dashboard.html">Explore all 426 campaigns</a><small>Filter by type, country or quarter, sort the table and open any campaign. Results are lead-form leads; cost in rupees (about ₹83 to the dollar).</small></div>
+  </div></div></div></section>
+
 <section class="band" id="work"><div class="page"><div class="win reveal wb "><div class="win-bar"><span><i class="sp-k">✦</i>creative/</span><span class="dots"><i></i><i></i><i></i></span></div><div class="win-body">
     <div class="kicker"><b>03</b> The creative</div>
     <h2>From zero to a working <mark>go-to-market engine.</mark></h2>
@@ -385,10 +412,10 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
         <div class="tc"><div class="l">The result</div><p>Consistent month-over-month growth in inbound inquiries, and a pipeline that turned a ₹3.35L (~$4K) ad budget into 19,600+ leads. Website traffic grew 40% and sign-ups rose 30%.</p></div>
       </div>
       <div class="poster-stats">
-        <div class="ps"><div class="n">500+</div><div class="c">campaigns run</div></div>
+        <div class="ps"><div class="n">500+</div><div class="c">campaigns (ad account total)</div></div>
         <div class="ps"><div class="n">1.81M</div><div class="c">users reached</div></div>
         <div class="ps"><div class="n">19,600+</div><div class="c">leads generated</div></div>
-        <div class="ps"><div class="n">₹1.50</div><div class="c">best cost per lead</div></div>
+        <div class="ps"><div class="n">₹1.50</div><div class="c">best cost per lead (ad account)</div></div>
       </div>
       <div class="chips"><span class="chip">Meta Ads</span><span class="chip">A/B testing</span><span class="chip">Audience segmentation</span><span class="chip">Landing page optimization</span><span class="chip">Brand positioning</span></div>
     </article>
@@ -798,6 +825,26 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
   document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else if(on)start()});
   window.__car={toggle:function(){show(!on);return on?'car: engine on.':'car: parked in the garage.'},vroom:function(){if(!on)return false;donutUntil=performance.now()+1500;return true}};
   show(on);
+})();
+
+(function(){
+var D={"cats": [{"name": "Visa and immigration", "campaigns": 294, "spend": 164702, "leads": 6805, "cpl": 24.2}, {"name": "Local recruitment", "campaigns": 66, "spend": 44519, "leads": 6610, "cpl": 6.74}, {"name": "Other / unlabeled", "campaigns": 48, "spend": 37746, "leads": 1962, "cpl": 19.24}, {"name": "Coaching", "campaigns": 13, "spend": 14177, "leads": 608, "cpl": 23.32}, {"name": "B2B", "campaigns": 5, "spend": 3909, "leads": 178, "cpl": 21.96}], "countries": [{"name": "New Zealand", "campaigns": 48, "spend": 23823, "leads": 2218, "cpl": 10.74}, {"name": "UK", "campaigns": 33, "spend": 12655, "leads": 469, "cpl": 26.98}, {"name": "Canada", "campaigns": 107, "spend": 61006, "leads": 2260, "cpl": 26.99}, {"name": "Germany", "campaigns": 20, "spend": 18589, "leads": 636, "cpl": 29.23}, {"name": "USA", "campaigns": 32, "spend": 17794, "leads": 396, "cpl": 44.93}], "quarters": [{"q": "2023Q4", "campaigns": 54, "spend": 39741, "leads": 2269, "cpl": 17.51}, {"q": "2024Q1", "campaigns": 37, "spend": 31603, "leads": 2035, "cpl": 15.53}, {"q": "2024Q2", "campaigns": 51, "spend": 28938, "leads": 1170, "cpl": 24.73}, {"q": "2024Q3", "campaigns": 12, "spend": 8070, "leads": 367, "cpl": 21.99}, {"q": "2024Q4", "campaigns": 23, "spend": 16029, "leads": 853, "cpl": 18.79}, {"q": "2025Q1", "campaigns": 14, "spend": 9370, "leads": 346, "cpl": 27.08}, {"q": "2025Q2", "campaigns": 8, "spend": 8475, "leads": 495, "cpl": 17.12}, {"q": "2025Q3", "campaigns": 5, "spend": 4288, "leads": 657, "cpl": 6.53}, {"q": "2025Q4", "campaigns": 2, "spend": 883, "leads": 170, "cpl": 5.19}, {"q": "2026Q1", "campaigns": 8, "spend": 5726, "leads": 1032, "cpl": 5.55}, {"q": "2026Q2", "campaigns": 1, "spend": 1043, "leads": 154, "cpl": 6.77}, {"q": "2026Q3", "campaigns": 1, "spend": 706, "leads": 78, "cpl": 9.05}, {"q": "2026Q4", "campaigns": 1, "spend": 716, "leads": 125, "cpl": 5.73}]},NS='http://www.w3.org/2000/svg';
+function el(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e}
+function txt(p,x,y,s,a){var t=el('text',{x:x,y:y},p);t.textContent=s;for(var k in(a||{}))t.setAttribute(k,a[k]);return t}
+function ttl(e,s){var t=document.createElementNS(NS,'title');t.textContent=s;e.appendChild(t)}
+function mk(id,w,h){var c=document.getElementById(id);if(!c)return null;c.innerHTML='';return el('svg',{viewBox:'0 0 '+w+' '+h,role:'img'},c)}
+var f0=function(n){return n.toLocaleString('en-IN',{maximumFractionDigits:0})},fr=function(n){return '₹'+(n<10?n.toFixed(2):n.toFixed(1))};
+var TS=0,TL=0;D.cats.forEach(function(c){TS+=c.spend;TL+=c.leads});
+var s=mk('rs-type',560,D.cats.length*56+8);if(s){var L=165,mw=560-L-46;D.cats.forEach(function(c,i){var y=i*56+4,pl=c.leads/TL*100,ps=c.spend/TS*100,mx=70;
+txt(s,0,y+20,c.name.replace(' and immigration','').replace(' / unlabeled',''));txt(s,0,y+36,c.campaigns+' campaigns',{class:'mut'});
+var a=el('rect',{x:L,y:y,width:pl/mx*mw,height:19,fill:'#2B44FF',stroke:'#14110F','stroke-width':2},s),b=el('rect',{x:L,y:y+22,width:ps/mx*mw,height:19,fill:'#FFD23F',stroke:'#14110F','stroke-width':2},s);
+txt(s,L+pl/mx*mw+6,y+14,pl.toFixed(0)+'%');txt(s,L+ps/mx*mw+6,y+36,ps.toFixed(0)+'%');
+var m=c.name+': '+f0(c.leads)+' leads ('+pl.toFixed(1)+'%), ₹'+f0(c.spend)+' spend ('+ps.toFixed(1)+'%), '+fr(c.cpl)+' per lead';ttl(a,m);ttl(b,m)})}
+s=mk('rs-ctry',560,D.countries.length*44+8);if(s){var L2=110,mw2=560-L2-70,mx2=Math.max.apply(null,D.countries.map(function(c){return c.cpl}));D.countries.forEach(function(c,i){var y=i*44+4;txt(s,0,y+22,c.name);var r=el('rect',{x:L2,y:y+4,width:c.cpl/mx2*mw2,height:26,fill:'#2B44FF',stroke:'#14110F','stroke-width':2},s);txt(s,L2+c.cpl/mx2*mw2+6,y+23,fr(c.cpl));ttl(r,c.name+': '+fr(c.cpl)+' per lead, '+c.campaigns+' campaigns, '+f0(c.leads)+' leads')})}
+s=mk('rs-time',980,290);if(s){var W=980,H=290,P={l:60,r:24,t:20,b:44},q=D.quarters,mx3=30,x=function(i){return P.l+i*(W-P.l-P.r)/(q.length-1)},y=function(v){return H-P.b-v/mx3*(H-P.t-P.b)};
+[0,10,20,30].forEach(function(g){el('line',{x1:P.l-8,x2:W-P.r,y1:y(g),y2:y(g),stroke:'#e6d9c0','stroke-width':1.5},s);txt(s,P.l-14,y(g)+4,'₹'+g,{'text-anchor':'end',class:'mut'})});
+el('path',{d:q.map(function(d,i){return(i?'L':'M')+x(i)+' '+y(d.cpl)}).join(''),fill:'none',stroke:'#14110F','stroke-width':3},s);
+q.forEach(function(d,i){var c=el('circle',{cx:x(i),cy:y(d.cpl),r:5+Math.sqrt(d.campaigns)*2.2,fill:d.cpl<10?'#FF4A1C':'#FFD23F',stroke:'#14110F','stroke-width':2.5},s);ttl(c,d.q+': '+fr(d.cpl)+' per lead, '+d.campaigns+' campaigns, '+f0(d.leads)+' leads');txt(s,x(i),H-P.b+20,d.q.replace('20','').replace('Q',' Q'),{'text-anchor':'middle',class:'mut'})})}
 })();
 </script>
 </body>
