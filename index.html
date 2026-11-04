@@ -12,6 +12,14 @@
 <meta property="og:image" content="https://malharpatel78.github.io/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#FFF8EC">
+<link rel="canonical" href="https://malharpatel78.github.io/">
+<meta property="og:site_name" content="Malhar Patel">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Malhar Patel: the marketer who can prove it. 500+ campaigns, 19,600+ leads, 1.81M reached.">
+<meta name="twitter:title" content="Malhar Patel | The marketer who can prove it">
+<meta name="twitter:image" content="https://malharpatel78.github.io/og.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 32'%3E%3Crect x='4' y='6' width='56' height='22' rx='10' fill='%23FF4A1C' stroke='%2314110F' stroke-width='3'/%3E%3Crect x='22' y='10' width='18' height='14' rx='4' fill='%2314110F'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -266,6 +274,25 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
 .term-in input{flex:1;background:none;border:0;outline:none;color:var(--paper);font:inherit;padding:0;border-radius:0;width:auto}
 .term-in input:focus-visible{outline:none}
 @media(prefers-reduced-motion:reduce){.term{transition:none}}
+
+/* ===== CAR + SMALL DETAILS ===== */
+.car{position:fixed;left:0;top:0;width:56px;height:28px;z-index:70;pointer-events:none;will-change:transform;opacity:0;transition:opacity .4s}
+.car.on{opacity:1}
+.car svg{width:56px;height:28px;overflow:visible;filter:drop-shadow(0 3px 2px rgba(20,17,15,.28))}
+.car .beam{opacity:0;transition:opacity .25s}
+.car[data-s=drive] .beam{opacity:.38}
+.car .tail{fill:#8a1010;transition:fill .15s}
+.car[data-s=park] .tail,.car[data-s=hazard] .tail{fill:#ff2d2d}
+.car[data-s=hazard] .hz{animation:hz .8s steps(1) infinite}
+@keyframes hz{0%{fill:#ffb000}50%{fill:#ffe9a8}}
+.car .hz{fill:#ffe9a8;opacity:0}
+.car[data-s=hazard] .hz{opacity:1}
+.puff{position:fixed;left:0;top:0;width:8px;height:8px;border-radius:50%;background:rgba(20,17,15,.18);z-index:69;pointer-events:none;animation:puff .7s ease-out forwards}
+@keyframes puff{to{transform:translate(var(--dx),var(--dy)) scale(2.6);opacity:0}}
+.win.is-min>.win-body{display:none}
+.win-bar .dots i:first-child{cursor:pointer}
+.win-bar .dots i:first-child:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.car,.puff{display:none}}
 </style>
 </head>
 <body>
@@ -284,7 +311,7 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
 <section class="hero" id="top"><div class="page"><div class="win wy"><div class="win-bar"><span><i class="sp-k">✦</i>campaign://malhar-patel</span><span class="dots"><i></i><i></i><i></i></span></div><div class="win-body hero-body"><div class="blob a"></div><div class="blob b"></div><div class="hero-grid">
     <div>
       <div class="prompt">&gt; whoami</div>
-      <div class="eyebrow">Now booking · full-time roles · mid-2027</div>
+      <div class="eyebrow">Now booking · full-time roles · mid-2027 · <span data-clock></span></div>
       <h1>The marketer who can <span class="r">prove it.</span></h1>
       <p class="lede">I built a brand's entire go-to-market from zero: <b>500+ campaigns, 19,600+ leads, 1.81M people reached</b> on about $4K. Now I'm adding SQL, Tableau and R, so every idea comes with the numbers behind it.</p>
       <div class="cta">
@@ -670,7 +697,7 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
   var $=function(i){return document.getElementById(i)};
   var term=$('term'),log=$('term-log'),inp=$('term-input');
   var OUT={
-    help:'commands:\n  brief      the campaign brief\n  proof      my numbers\n  work       case studies\n  skills     the stack\n  hire       the call to action\n  clear      clear screen\n  exit       close',
+    help:'commands:\n  brief      the campaign brief\n  proof      my numbers\n  work       case studies\n  skills     the stack\n  hire       the call to action\n  clear      clear screen\n  car        car on / off\n  vroom      rev the engine\n  exit       close',
     brief:'product    malhar patel\naudience   hiring teams in marketing analytics, product marketing, gtm\npromise    i build the campaign and read the data that proves it worked',
     proof:'budget     ~$4K (₹3.35L)\ncampaigns  500+\nreached    1.81M\nleads      19,600+\nbest CPL   ₹1.50\nb2b lift   20% engagement and repeat purchases',
     work:'01 uniq synergy: go-to-market from scratch\n02 mybyk: retention analytics (sql, r, tableau)\n03 khadi: brand repositioning capstone\n04 consumer behavior study (350+ respondents)',
@@ -692,8 +719,80 @@ body{background-color:var(--paper);background-image:radial-gradient(rgba(20,17,1
     add('$ '+c,'r');
     if(c==='clear'){log.innerHTML='';return}
     if(c==='exit'){close();return}
+    if(c==='car'){add(window.__car?window.__car.toggle():'car unavailable (reduced motion is on)','d');return}
+    if(c==='vroom'){add(window.__car&&window.__car.vroom()?'vrooom.':'car is off. type car first.','d');return}
+    if(/^sudo\s+hire/.test(c)){add('permission granted. opening contact...','d');setTimeout(function(){close();location.hash='#contact'},500);return}
     add(OUT[c]||('command not found: '+c+'. try help'),OUT[c]?'':'d');
   });
+})();
+</script>
+
+<script>
+(function(){
+  /* minimize windows via first dot */
+  document.querySelectorAll('.win-bar .dots i:first-child').forEach(function(d){
+    var w=d.closest('.win'); if(!w) return;
+    d.setAttribute('role','button'); d.setAttribute('tabindex','0'); d.setAttribute('aria-label','Minimize window'); d.setAttribute('aria-expanded','true'); d.title='Minimize';
+    function t(){var m=w.classList.toggle('is-min');d.setAttribute('aria-expanded',String(!m));d.setAttribute('aria-label',m?'Restore window':'Minimize window')}
+    d.addEventListener('click',t);
+    d.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();t()}});
+  });
+  /* live ET clock */
+  var ck=document.querySelector('[data-clock]');
+  if(ck){var f;try{f=new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit',timeZone:'America/New_York'})}catch(e){f=null}
+    var u=function(){ck.textContent=f?f.format(new Date).toLowerCase()+' et':'et'};u();setInterval(u,20000)}
+  /* the car */
+  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var fine=matchMedia('(hover: hover) and (pointer: fine)').matches;
+  var KEY='car',on=true;try{on=localStorage.getItem(KEY)!=='off'}catch(e){}
+  if(reduce){return}
+  var el=document.createElement('div');el.className='car';el.setAttribute('aria-hidden','true');
+  el.innerHTML='<svg viewBox="0 0 56 28"><polygon class="beam" points="54,9 82,1 82,17" fill="#FFF3B0"/><polygon class="beam" points="54,19 82,11 82,27" fill="#FFF3B0"/>'
+   +'<rect x="9" y="1" width="9" height="4.5" rx="2" fill="#14110F"/><rect x="9" y="22.5" width="9" height="4.5" rx="2" fill="#14110F"/><rect x="38" y="1" width="9" height="4.5" rx="2" fill="#14110F"/><rect x="38" y="22.5" width="9" height="4.5" rx="2" fill="#14110F"/>'
+   +'<rect x="2" y="4" width="52" height="20" rx="9" fill="#FF4A1C" stroke="#14110F" stroke-width="2.2"/>'
+   +'<rect x="6" y="12.4" width="44" height="3.2" rx="1.6" fill="#FFD23F"/>'
+   +'<rect x="16" y="7" width="17" height="14" rx="4" fill="#14110F"/><rect x="30" y="8.5" width="3.2" height="11" rx="1.6" fill="#BFE3FF"/><rect x="16.6" y="8.5" width="2.6" height="11" rx="1.3" fill="#7fa7c4"/>'
+   +'<rect x="0.5" y="4.5" width="3.6" height="19" rx="1.6" fill="#14110F"/>'
+   +'<ellipse cx="53" cy="8.5" rx="2" ry="2.4" fill="#FFF3B0"/><ellipse cx="53" cy="19.5" rx="2" ry="2.4" fill="#FFF3B0"/>'
+   +'<rect class="tail" x="3.2" y="6" width="2.4" height="4" rx="1"/><rect class="tail" x="3.2" y="18" width="2.4" height="4" rx="1"/>'
+   +'<circle class="hz" cx="52" cy="6" r="1.7"/><circle class="hz" cx="52" cy="22" r="1.7"/></svg>';
+  document.body.appendChild(el);
+  var W=innerWidth,H=innerHeight;addEventListener('resize',function(){W=innerWidth;H=innerHeight});
+  var x=-80,y=H-60,ang=0,tx=W*.5,ty=H-60,speed=0,last=performance.now(),idleSince=performance.now(),donutUntil=0,patrolSide=1,lastPuff=0,raf=0;
+  function setState(s){if(el.dataset.s!==s)el.dataset.s=s}
+  function wrap(a){while(a>Math.PI)a-=2*Math.PI;while(a<-Math.PI)a+=2*Math.PI;return a}
+  function puff(px,py){var p=document.createElement('i');p.className='puff';p.style.transform='translate('+px+'px,'+py+'px)';p.style.setProperty('--dx',(Math.random()*16-8)+'px');p.style.setProperty('--dy',(Math.random()*-14-4)+'px');document.body.appendChild(p);setTimeout(function(){p.remove()},750)}
+  function frame(t){
+    raf=requestAnimationFrame(frame);
+    var now=t,dt=Math.min(32,now-last);last=now;
+    var k=dt/16.7;
+    if(!fine){ // touch: patrol the bottom edge
+      var tgx=patrolSide>0?W-60:60; ty=H-34; tx=tgx;
+      if(Math.hypot(tx-x,ty-y)<70){patrolSide*=-1}
+    }
+    var dx=tx-x,dy=ty-y,d=Math.hypot(dx,dy);
+    if(now<donutUntil){ang+=0.17*k;speed=6.5;setState('drive');if(now-lastPuff>70){lastPuff=now;puff(x-Math.cos(ang)*22+20,y-Math.sin(ang)*22+8)}}
+    else if(d>(fine?58:40)){
+      var want=Math.atan2(dy,dx),diff=wrap(want-ang);
+      ang+=diff*Math.min(1,0.1*k);
+      var sp=Math.min(9,1.4+(d-58)*0.045);
+      sp*=1-Math.min(1,Math.abs(diff)/2.2)*0.65;
+      speed=sp;setState('drive');idleSince=now;
+    }else{
+      speed*=0.82; if(speed<.05)speed=0;
+      if(speed===0){setState(now-idleSince>7000?'hazard':'park')}
+    }
+    x+=Math.cos(ang)*speed*k;y+=Math.sin(ang)*speed*k;
+    if(on&&speed>0)el.style.transform='translate3d('+(x-28)+'px,'+(y-14)+'px,0) rotate('+ang+'rad)';
+    else if(on)el.style.transform='translate3d('+(x-28)+'px,'+(y-14)+'px,0) rotate('+ang+'rad)';
+  }
+  function start(){if(!raf){last=performance.now();raf=requestAnimationFrame(frame)}}
+  function stop(){if(raf){cancelAnimationFrame(raf);raf=0}}
+  function show(v){on=v;el.classList.toggle('on',v);try{localStorage.setItem(KEY,v?'on':'off')}catch(e){}if(v){start()}else{stop()}}
+  addEventListener('pointermove',function(e){if(e.pointerType&&e.pointerType!=='mouse')return;tx=e.clientX;ty=e.clientY;idleSince=performance.now();if(x<-60&&on){x=-60;y=Math.min(Math.max(e.clientY,60),H-60)}},{passive:true});
+  document.addEventListener('visibilitychange',function(){if(document.hidden)stop();else if(on)start()});
+  window.__car={toggle:function(){show(!on);return on?'car: engine on.':'car: parked in the garage.'},vroom:function(){if(!on)return false;donutUntil=performance.now()+1500;return true}};
+  show(on);
 })();
 </script>
 </body>
