@@ -1,0 +1,427 @@
+id,category,country,quarter,spend_inr,leads,impressions,cost_per_lead_inr
+C001,Visa and immigration,Canada,2023Q4,277.73,12.0,6486,23.14
+C002,Visa and immigration,Canada,2023Q4,279.34,9.0,4376,31.04
+C003,Visa and immigration,UK,,290.8,16.0,5326,18.18
+C004,Visa and immigration,New Zealand,,286.33,29.0,5695,9.87
+C005,Visa and immigration,,,272.02,8.0,7902,34.0
+C006,Visa and immigration,Canada,,284.06,7.0,5276,40.58
+C007,Visa and immigration,Canada,,273.14,7.0,5053,39.02
+C008,Visa and immigration,UK,,274.9,8.0,6925,34.36
+C009,Visa and immigration,New Zealand,,276.32,13.0,5031,21.26
+C010,Visa and immigration,,,268.82,11.0,7737,24.44
+C011,Visa and immigration,Canada,,273.22,5.0,4678,54.64
+C012,Visa and immigration,Canada,,265.17,8.0,4987,33.15
+C013,Visa and immigration,UK,,266.75,21.0,7171,12.7
+C014,Visa and immigration,New Zealand,,271.35,12.0,3847,22.61
+C015,Visa and immigration,,,262.2,11.0,8978,23.84
+C016,Visa and immigration,Canada,,274.27,5.0,5011,54.85
+C017,Visa and immigration,Canada,,264.25,5.0,4337,52.85
+C018,Visa and immigration,UK,,265.3,8.0,7910,33.16
+C019,Visa and immigration,New Zealand,,262.64,12.0,5307,21.89
+C020,Visa and immigration,,,275.1,5.0,3609,55.02
+C021,Visa and immigration,Canada,,261.42,4.0,3608,65.36
+C022,Visa and immigration,Canada,,257.79,9.0,3426,28.64
+C023,Visa and immigration,UK,,252.99,18.0,8137,14.06
+C024,Visa and immigration,New Zealand,,261.94,14.0,3840,18.71
+C025,Visa and immigration,,,251.58,20.0,7583,12.58
+C026,Other / unlabeled,,,288.9,5.0,1791,57.78
+C027,Other / unlabeled,,,651.14,208.0,16829,3.13
+C028,Visa and immigration,New Zealand,,398.03,25.0,9098,15.92
+C029,Visa and immigration,UK,,384.55,20.0,10723,19.23
+C030,Visa and immigration,Canada,,392.68,7.0,4947,56.1
+C031,Visa and immigration,Canada,,388.06,8.0,8197,48.51
+C032,Visa and immigration,,,361.11,19.0,14391,19.01
+C033,Visa and immigration,Australia,,943.76,13.0,6556,72.6
+C034,Visa and immigration,USA,2023Q4,930.05,13.0,9078,71.54
+C035,Visa and immigration,Canada,,978.08,17.0,14944,57.53
+C036,Visa and immigration,Canada,,743.39,15.0,9681,49.56
+C037,Visa and immigration,UK,,733.87,23.0,17605,31.91
+C038,Visa and immigration,New Zealand,,740.67,51.0,15931,14.52
+C039,Visa and immigration,,,737.81,13.0,16025,56.75
+C040,Visa and immigration,Canada,,473.51,6.0,10905,78.92
+C041,Visa and immigration,UK,,470.24,9.0,10889,52.25
+C042,Visa and immigration,New Zealand,,483.08,18.0,9528,26.84
+C043,Visa and immigration,,,465.94,1.0,10171,465.94
+C044,Visa and immigration,Canada,,472.95,7.0,6911,67.56
+C045,Visa and immigration,,,609.67,26.0,15585,23.45
+C046,Visa and immigration,New Zealand,,395.22,22.0,8848,17.96
+C047,Visa and immigration,UK,,406.18,27.0,11041,15.04
+C048,Visa and immigration,Canada,,408.37,16.0,7184,25.52
+C049,Visa and immigration,Canada,,390.92,12.0,3310,32.58
+C050,Visa and immigration,UK,,382.43,15.0,7686,25.5
+C051,Visa and immigration,Canada,,391.26,11.0,8431,35.57
+C052,Visa and immigration,New Zealand,,376.66,16.0,6969,23.54
+C053,Visa and immigration,Canada,,384.49,8.0,7489,48.06
+C054,Visa and immigration,,,363.48,9.0,7171,40.39
+C055,Visa and immigration,Canada,,552.03,7.0,10230,78.86
+C056,Visa and immigration,Canada,,570.43,27.0,13809,21.13
+C057,Visa and immigration,UK,,566.39,24.0,17370,23.6
+C058,Visa and immigration,New Zealand,,566.27,37.0,10747,15.3
+C059,Visa and immigration,,,563.94,17.0,13530,33.17
+C060,Visa and immigration,Canada,,515.33,14.0,9137,36.81
+C061,Visa and immigration,Canada,,542.17,20.0,9279,27.11
+C062,Visa and immigration,UK,,551.57,20.0,14081,27.58
+C063,Visa and immigration,New Zealand,,562.04,55.0,12815,10.22
+C064,Visa and immigration,,,513.64,17.0,9827,30.21
+C065,Visa and immigration,Canada,,428.05,10.0,7391,42.8
+C066,Visa and immigration,Canada,,429.26,15.0,6935,28.62
+C067,Visa and immigration,UK,,423.27,12.0,8756,35.27
+C068,Visa and immigration,New Zealand,,421.14,21.0,9737,20.05
+C069,Visa and immigration,,,416.27,10.0,9898,41.63
+C070,Visa and immigration,Canada,,407.04,9.0,5349,45.23
+C071,Visa and immigration,Canada,,406.97,20.0,5351,20.35
+C072,Visa and immigration,UK,,422.77,26.0,6414,16.26
+C073,Visa and immigration,New Zealand,,441.04,71.0,8748,6.21
+C074,Visa and immigration,,,399.02,12.0,6813,33.25
+C075,Visa and immigration,Canada,,561.5,10.0,10785,56.15
+C076,Visa and immigration,Canada,,393.56,5.0,6780,78.71
+C077,Visa and immigration,Canada,,591.6,11.0,10214,53.78
+C078,Visa and immigration,Canada,,414.0,8.0,6106,51.75
+C079,Visa and immigration,UK,,399.44,14.0,9135,28.53
+C080,Visa and immigration,UK,,372.96,12.0,8149,31.08
+C081,Visa and immigration,New Zealand,,391.1,20.0,8708,19.56
+C082,Visa and immigration,,,399.9,13.0,11394,30.76
+C083,Visa and immigration,New Zealand,,390.58,27.0,6731,14.47
+C084,Visa and immigration,Canada,,383.91,2.0,7025,191.96
+C085,Visa and immigration,Canada,,394.12,4.0,8543,98.53
+C086,Visa and immigration,,,570.45,13.0,11412,43.88
+C087,Visa and immigration,Canada,,411.51,15.0,10562,27.43
+C088,Visa and immigration,UK,,397.59,9.0,7958,44.18
+C089,Visa and immigration,New Zealand,,403.18,20.0,9353,20.16
+C090,Visa and immigration,Canada,,407.54,26.0,11843,15.67
+C091,Visa and immigration,,,382.16,7.0,10510,54.59
+C092,Visa and immigration,Canada,,701.22,7.0,11077,100.17
+C093,Visa and immigration,Canada,,705.17,12.0,11935,58.76
+C094,Visa and immigration,UK,,694.65,19.0,19071,36.56
+C095,Visa and immigration,New Zealand,,691.51,51.0,14245,13.56
+C096,Visa and immigration,,,689.43,10.0,14521,68.94
+C097,Visa and immigration,Canada,,327.29,6.0,6437,54.55
+C098,Visa and immigration,Canada,,346.36,15.0,6776,23.09
+C099,Visa and immigration,UK,,316.11,6.0,6632,52.68
+C100,Visa and immigration,New Zealand,,328.94,36.0,6562,9.14
+C101,Visa and immigration,UK,,201.81,9.0,4111,22.42
+C102,Visa and immigration,,,321.96,10.0,7421,32.2
+C103,Visa and immigration,Canada,,334.81,8.0,8294,41.85
+C104,Visa and immigration,Canada,,345.7,11.0,7321,31.43
+C105,Visa and immigration,UK,,320.27,15.0,9574,21.35
+C106,Visa and immigration,New Zealand,,345.66,21.0,9229,16.46
+C107,Visa and immigration,,,336.23,12.0,10568,28.02
+C108,Visa and immigration,Canada,,376.39,0.0,5017,
+C109,Visa and immigration,Canada,,370.01,3.0,4916,123.34
+C110,Visa and immigration,UK,,370.0,10.0,5775,37.0
+C111,Visa and immigration,New Zealand,,420.71,17.0,4911,24.75
+C112,Visa and immigration,,,301.01,3.0,4759,100.34
+C113,Visa and immigration,Canada,,170.46,3.0,3848,56.82
+C114,Visa and immigration,Canada,,187.52,2.0,3380,93.76
+C115,Visa and immigration,UK,,200.05,4.0,4088,50.01
+C116,Visa and immigration,New Zealand,,204.57,6.0,3747,34.1
+C117,Visa and immigration,,,188.16,3.0,4360,62.72
+C118,Visa and immigration,Canada,,181.23,1.0,2809,181.23
+C119,Visa and immigration,Canada,,188.5,5.0,2853,37.7
+C120,Visa and immigration,UK,,180.62,4.0,3148,45.16
+C121,Visa and immigration,New Zealand,,202.32,8.0,2458,25.29
+C122,Visa and immigration,,,174.85,3.0,2795,58.28
+C123,Visa and immigration,Canada,,171.41,2.0,3037,85.7
+C124,Visa and immigration,UK,,174.33,1.0,2801,174.33
+C125,Visa and immigration,New Zealand,,191.91,10.0,3009,19.19
+C126,Visa and immigration,,,173.88,5.0,3232,34.78
+C127,Visa and immigration,Canada,,354.41,15.0,9549,23.63
+C128,Visa and immigration,Canada,,201.98,5.0,3224,40.4
+C129,Visa and immigration,UK,,213.81,6.0,3604,35.64
+C130,Visa and immigration,New Zealand,,247.42,9.0,4360,27.49
+C131,Visa and immigration,,,256.46,7.0,6408,36.64
+C132,Visa and immigration,Canada,,281.93,1.0,4828,281.93
+C133,Visa and immigration,Canada,,281.57,6.0,5878,46.93
+C134,Visa and immigration,UK,,192.23,5.0,4583,38.45
+C135,Visa and immigration,New Zealand,,32.62,1.0,724,32.62
+C136,Local recruitment,,2023Q4,584.19,64.0,10171,9.13
+C137,Visa and immigration,Canada,,280.06,6.0,3676,46.68
+C138,Visa and immigration,Canada,,770.54,28.0,12653,27.52
+C139,Visa and immigration,UK,,654.62,37.0,14817,17.69
+C140,Visa and immigration,New Zealand,,778.94,117.0,15925,6.66
+C141,Visa and immigration,,,261.37,9.0,6063,29.04
+C142,Visa and immigration,UK,,428.36,14.0,10275,30.6
+C143,Visa and immigration,New Zealand,,440.37,30.0,9237,14.68
+C144,Visa and immigration,Canada,,434.88,15.0,10967,28.99
+C145,Visa and immigration,UK,,429.2,12.0,12508,35.77
+C146,Visa and immigration,New Zealand,,418.68,9.0,11177,46.52
+C147,Visa and immigration,Canada,,414.09,11.0,9099,37.64
+C148,Visa and immigration,UK,,415.96,16.0,12833,26.0
+C149,Visa and immigration,New Zealand,,406.85,18.0,9184,22.6
+C150,Visa and immigration,Canada,,403.18,4.0,9470,100.8
+C151,Visa and immigration,Canada,,291.51,8.0,4743,36.44
+C152,Visa and immigration,New Zealand,,291.64,20.0,4990,14.58
+C153,Visa and immigration,UK,,325.0,13.0,7867,25.0
+C154,B2B,,2023Q4,659.42,41.0,6404,16.08
+C155,B2B,,2023Q4,658.13,28.0,4158,23.5
+C156,B2B,,2023Q4,664.58,18.0,9757,36.92
+C157,B2B,,2023Q4,979.77,47.0,12719,20.85
+C158,B2B,,2023Q4,947.45,44.0,10067,21.53
+C159,Visa and immigration,New Zealand,2023Q4,550.04,58.0,16363,9.48
+C160,Visa and immigration,Canada,2023Q4,566.21,20.0,11095,28.31
+C161,Visa and immigration,,2023Q4,558.39,28.0,15502,19.94
+C162,Visa and immigration,New Zealand,2023Q4,536.21,37.0,10759,14.49
+C163,Visa and immigration,New Zealand,2023Q4,555.64,126.0,8939,4.41
+C164,Visa and immigration,Canada,,563.34,77.0,6067,7.32
+C165,Visa and immigration,Canada,2023Q4,560.36,15.0,8318,37.36
+C166,Visa and immigration,,2023Q4,551.97,15.0,12410,36.8
+C167,Visa and immigration,,2023Q4,550.02,27.0,7879,20.37
+C168,Visa and immigration,,2023Q4,604.82,23.0,10515,26.3
+C169,Visa and immigration,New Zealand,2023Q4,609.78,105.0,12938,5.81
+C170,Visa and immigration,Canada,2023Q4,606.76,49.0,6760,12.38
+C171,Visa and immigration,,2023Q4,581.47,20.0,7691,29.07
+C172,Visa and immigration,New Zealand,2023Q4,592.11,138.0,14380,4.29
+C173,Visa and immigration,Canada,,598.24,78.0,8134,7.67
+C174,Coaching,,2023Q4,361.65,7.0,5209,51.66
+C175,Coaching,,2023Q4,183.48,1.0,1320,183.48
+C176,Coaching,,2023Q4,378.67,4.0,2196,94.67
+C177,Visa and immigration,New Zealand,2023Q4,1051.05,116.0,20978,9.06
+C178,Visa and immigration,USA,2024Q4,1049.58,36.0,14480,29.15
+C179,Visa and immigration,New Zealand,2023Q4,781.84,121.0,24224,6.46
+C180,Visa and immigration,USA,2023Q4,770.38,19.0,12605,40.55
+C181,Visa and immigration,Canada,,768.04,55.0,15087,13.96
+C182,Visa and immigration,Canada,,766.65,52.0,21269,14.74
+C183,Visa and immigration,,2023Q4,659.53,21.0,7994,31.41
+C184,Visa and immigration,Canada,2023Q4,668.42,22.0,11055,30.38
+C185,Visa and immigration,New Zealand,2023Q4,726.5,146.0,14152,4.98
+C186,Visa and immigration,USA,2023Q4,726.58,29.0,8655,25.05
+C187,Visa and immigration,Canada,2023Q4,723.13,62.0,7955,11.66
+C188,Visa and immigration,Canada,2023Q4,718.37,100.0,19070,7.18
+C189,Visa and immigration,Canada,2023Q4,406.68,22.0,8393,18.49
+C190,Visa and immigration,,2023Q4,584.96,43.0,19973,13.6
+C191,Visa and immigration,USA,2023Q4,571.13,10.0,10698,57.11
+C192,Visa and immigration,New Zealand,2023Q4,582.22,58.0,17356,10.04
+C193,Coaching,Canada,,799.36,31.0,14477,25.79
+C194,Visa and immigration,Canada,,841.38,83.0,18109,10.14
+C195,Visa and immigration,Canada,,783.49,15.0,8969,52.23
+C196,Visa and immigration,Germany,2023Q4,523.69,21.0,7747,24.94
+C197,Visa and immigration,Germany,2023Q4,853.44,13.0,14583,65.65
+C198,Coaching,,2023Q4,860.95,69.0,23734,12.48
+C199,Visa and immigration,Germany,2023Q4,528.7,6.0,5376,88.12
+C200,Coaching,,2023Q4,519.39,8.0,11515,64.92
+C201,Visa and immigration,USA,2023Q4,1449.61,11.0,16069,131.78
+C202,Visa and immigration,Canada,2023Q4,1447.64,4.0,13131,361.91
+C203,Visa and immigration,Australia,2023Q4,1463.86,9.0,16960,162.65
+C204,Other / unlabeled,,2023Q4,10.85,0.0,89,
+C205,Other / unlabeled,,,166.09,6.0,2020,27.68
+C206,Visa and immigration,Germany,2023Q4,3047.45,172.0,57861,17.72
+C207,Coaching,,2023Q4,2107.35,33.0,31737,63.86
+C208,Visa and immigration,Canada,,894.12,48.0,18753,18.63
+C209,Visa and immigration,New Zealand,2023Q4,854.59,61.0,16219,14.01
+C210,Visa and immigration,Germany,2023Q4,845.5,16.0,23750,52.84
+C211,Visa and immigration,Canada,,848.93,58.0,18677,14.64
+C212,Visa and immigration,New Zealand,2023Q4,644.16,68.0,11682,9.47
+C213,Visa and immigration,Germany,,636.0,19.0,12108,33.47
+C214,Visa and immigration,Canada,2023Q4,654.12,42.0,13244,15.57
+C215,Visa and immigration,New Zealand,,633.89,55.0,10551,11.53
+C216,Visa and immigration,Germany,2023Q4,630.83,18.0,14139,35.05
+C217,Coaching,,2023Q1,3015.32,170.0,108318,17.74
+C218,Visa and immigration,Canada,2024Q1,773.62,42.0,15493,18.42
+C219,Visa and immigration,New Zealand,,763.72,61.0,14839,12.52
+C220,Visa and immigration,Germany,,773.58,16.0,12503,48.35
+C221,Visa and immigration,Germany,2024Q1,809.62,22.0,16974,36.8
+C222,Visa and immigration,Canada,2024Q1,801.14,27.0,15421,29.67
+C223,Visa and immigration,USA,2024Q1,902.64,36.0,15351,25.07
+C224,Visa and immigration,New Zealand,2024Q1,803.5,55.0,19305,14.61
+C225,Visa and immigration,USA,2024Q1,740.75,41.0,11331,18.07
+C226,Visa and immigration,New Zealand,2024Q1,740.31,105.0,14763,7.05
+C227,Visa and immigration,Canada,2024Q1,737.17,72.0,11253,10.24
+C228,Visa and immigration,Canada,2024Q1,729.62,29.0,12702,25.16
+C229,Visa and immigration,USA,2024Q1,726.59,17.0,11718,42.74
+C230,Visa and immigration,New Zealand,2024Q1,730.56,61.0,18789,11.98
+C231,Visa and immigration,Canada,2024Q1,733.83,28.0,16084,26.21
+C232,Visa and immigration,USA,2024Q1,727.83,14.0,18143,51.99
+C233,Visa and immigration,New Zealand,2024Q1,736.69,31.0,24529,23.76
+C234,Local recruitment,,2024Q1,334.31,223.0,12462,1.5
+C235,Local recruitment,,2024Q1,334.75,150.0,15128,2.23
+C236,Local recruitment,,2024Q1,421.86,159.0,19577,2.65
+C237,Visa and immigration,USA,2024Q1,789.32,6.0,17873,131.55
+C238,Local recruitment,,2024Q1,46.4,4.0,1053,11.6
+C239,Local recruitment,,2024Q1,679.47,185.0,38547,3.67
+C240,Visa and immigration,Germany,2024Q1,1762.72,95.0,27077,18.55
+C241,Visa and immigration,Germany,,1077.08,29.0,14757,37.14
+C242,Visa and immigration,Canada,,1084.72,84.0,25537,12.91
+C243,Visa and immigration,Germany,,556.05,16.0,10627,34.75
+C244,Visa and immigration,Canada,2024Q1,551.65,53.0,16717,10.41
+C245,Visa and immigration,Germany,2024Q1,2661.84,110.0,42252,24.2
+C246,Local recruitment,,2024Q1,447.97,66.0,19201,6.79
+C247,Visa and immigration,Germany,2024Q1,672.04,13.0,3528,51.7
+C248,Coaching,,2024Q1,1610.2,42.0,42828,38.34
+C249,Local recruitment,,2024Q1,864.7,131.0,41383,6.6
+C250,Visa and immigration,Canada,2024Q1,1425.88,18.0,10749,79.22
+C251,Visa and immigration,USA,2024Q1,1401.97,31.0,18911,45.22
+C252,Visa and immigration,UK,2024Q1,675.98,16.0,9058,42.25
+C253,Visa and immigration,,,400.86,9.0,2969,44.54
+C254,Other / unlabeled,,,1940.76,61.0,67735,31.82
+C255,Other / unlabeled,,,1961.49,38.0,32376,51.62
+C256,Coaching,,2024Q1,1974.9,25.0,42251,79.0
+C257,Other / unlabeled,,2024Q1,1436.01,16.0,28593,89.75
+C258,Local recruitment,,2024Q1,650.64,90.0,30698,7.23
+C259,Other / unlabeled,,2024Q1,546.94,5.0,21056,109.39
+C260,Other / unlabeled,,2024Q1,518.43,5.0,16019,103.69
+C261,Other / unlabeled,,2024Q1,522.29,1.0,17282,522.29
+C262,Visa and immigration,USA,2024Q2,30.98,2.0,199,15.49
+C263,Visa and immigration,Canada,,1789.96,75.0,18513,23.87
+C264,Visa and immigration,USA,2024Q2,1102.42,56.0,18889,19.69
+C265,Coaching,,,740.71,4.0,10709,185.18
+C266,Local recruitment,,,955.66,50.0,26578,19.11
+C267,Other / unlabeled,,2024Q2,1298.8,17.0,40055,76.4
+C268,Other / unlabeled,,2024Q2,793.26,23.0,20392,34.49
+C269,Visa and immigration,,2024Q2,2590.62,119.0,32672,21.77
+C270,Visa and immigration,,,555.96,7.0,8354,79.42
+C271,Visa and immigration,,2024Q2,571.9,14.0,10106,40.85
+C272,Visa and immigration,Canada,2024Q2,504.67,19.0,9036,26.56
+C273,Other / unlabeled,,2024Q2,601.22,18.0,18527,33.4
+C274,Other / unlabeled,,2024Q2,604.74,36.0,21725,16.8
+C275,Other / unlabeled,,,612.05,28.0,16665,21.86
+C276,Other / unlabeled,,2024Q2,1025.54,35.0,10486,29.3
+C277,Other / unlabeled,,2024Q2,1813.12,453.0,106798,4.0
+C278,Visa and immigration,,2024Q2,591.54,10.0,12854,59.15
+C279,Visa and immigration,,2024Q2,603.94,7.0,15304,86.28
+C280,Visa and immigration,Germany,2024Q2,619.6,20.0,7065,30.98
+C281,Visa and immigration,Canada,2024Q2,610.07,27.0,21379,22.6
+C282,Other / unlabeled,,2024Q2,1201.7,36.0,48546,33.38
+C283,Other / unlabeled,,2024Q2,557.38,13.0,24952,42.88
+C284,Other / unlabeled,,2024Q2,559.49,29.0,32717,19.29
+C285,Other / unlabeled,,2024Q2,577.54,25.0,28825,23.1
+C286,Other / unlabeled,,2024Q2,760.88,13.0,34965,58.53
+C287,Other / unlabeled,,2024Q2,774.92,14.0,42497,55.35
+C288,Other / unlabeled,,2024Q2,773.48,24.0,51596,32.23
+C289,Other / unlabeled,,2024Q2,355.92,4.0,20870,88.98
+C290,Other / unlabeled,,2024Q2,1511.24,17.0,68996,88.9
+C291,Other / unlabeled,,2024Q2,337.12,1.0,10116,337.12
+C292,Coaching,,2024Q2,481.99,7.0,21288,68.86
+C293,Visa and immigration,,2024Q2,327.3,5.0,7332,65.46
+C294,Visa and immigration,,2024Q2,332.87,6.0,8185,55.48
+C295,Visa and immigration,Canada,2024Q2,337.98,13.0,10959,26.0
+C296,Visa and immigration,Germany,2024Q2,347.29,13.0,4293,26.71
+C297,Other / unlabeled,,2024Q2,290.47,5.0,5428,58.09
+C298,Other / unlabeled,,2024Q2,386.18,15.0,11419,25.75
+C299,Visa and immigration,Germany,2024Q2,183.53,14.0,1632,13.11
+C300,Visa and immigration,USA,2024Q2,150.42,3.0,1848,50.14
+C301,Visa and immigration,Canada,2024Q2,171.65,1.0,3162,171.65
+C302,Visa and immigration,Germany,2024Q2,168.14,5.0,3302,33.63
+C303,Other / unlabeled,,2024Q2,209.11,2.0,6926,104.56
+C304,Other / unlabeled,,2024Q2,206.5,3.0,7808,68.83
+C305,Visa and immigration,,2024Q2,1489.01,17.0,19278,87.59
+C306,Visa and immigration,USA,2024Q2,424.63,3.0,9124,141.54
+C307,Visa and immigration,USA,2024Q2,221.68,2.0,7872,110.84
+C308,Visa and immigration,USA,2024Q2,227.66,2.0,6729,113.83
+C309,Visa and immigration,USA,2024Q2,435.18,3.0,9787,145.06
+C310,Visa and immigration,USA,2024Q2,218.71,6.0,3187,36.45
+C311,Visa and immigration,USA,2024Q2,49.31,0.0,1941,
+C312,Visa and immigration,USA,2024Q2,814.74,6.0,66548,135.79
+C313,Visa and immigration,USA,,318.23,6.0,3438,53.04
+C314,Visa and immigration,USA,2024Q2,165.05,2.0,1911,82.52
+C315,Visa and immigration,USA,2024Q2,169.73,1.0,2246,169.73
+C316,Visa and immigration,USA,2024Q2,163.12,2.0,1645,81.56
+C317,Visa and immigration,USA,2024Q2,145.79,2.0,2282,72.9
+C318,Visa and immigration,USA,2024Q2,47.5,0.0,434,
+C319,Local recruitment,,2024Q3,427.43,56.0,15589,7.63
+C320,Visa and immigration,USA,2024Q3,415.39,14.0,4416,29.67
+C321,Visa and immigration,Canada,2024Q3,425.48,1.0,14019,425.48
+C322,Visa and immigration,,2024Q3,444.67,8.0,1670,55.58
+C323,Local recruitment,,2024Q3,896.89,137.0,42873,6.55
+C324,Visa and immigration,Canada,2024Q3,973.6,15.0,16386,64.91
+C325,Visa and immigration,USA,2024Q3,956.13,12.0,24039,79.68
+C326,Visa and immigration,Germany,2024Q3,983.56,15.0,6712,65.57
+C327,Local recruitment,,2024Q3,1274.81,54.0,38793,23.61
+C328,Local recruitment,,2024Q3,564.66,48.0,30723,11.76
+C329,Visa and immigration,USA,2024Q3,388.35,3.0,4827,129.45
+C330,Visa and immigration,,2024Q3,318.97,4.0,2506,79.74
+C331,Visa and immigration,Germany,2024Q4,908.32,3.0,23383,302.77
+C332,Local recruitment,,2024Q4,786.23,62.0,38538,12.68
+C333,Local recruitment,,2024Q4,489.69,164.0,22802,2.99
+C334,Visa and immigration,Canada,,762.79,15.0,12492,50.85
+C335,Visa and immigration,Canada,,764.96,28.0,10452,27.32
+C336,Visa and immigration,Canada,2024Q4,756.13,27.0,11837,28.0
+C337,Local recruitment,,2024Q4,755.2,66.0,30798,11.44
+C338,Local recruitment,,2024Q4,356.15,31.0,14570,11.49
+C339,Local recruitment,,2024Q4,356.02,37.0,14935,9.62
+C340,Visa and immigration,Canada,2024Q4,569.55,35.0,19334,16.27
+C341,Visa and immigration,Canada,2024Q4,563.3,4.0,16163,140.82
+C342,Visa and immigration,USA,2024Q4,562.45,8.0,10671,70.31
+C343,Local recruitment,Canada,2024Q4,824.13,28.0,23718,29.43
+C344,Visa and immigration,Canada,2024Q4,870.78,76.0,7942,11.46
+C345,Visa and immigration,Canada,2024Q4,1029.03,12.0,18092,85.75
+C346,Visa and immigration,Canada,2024Q4,1032.64,58.0,19026,17.8
+C347,Other / unlabeled,,2024Q4,480.7,9.0,20301,53.41
+C348,Visa and immigration,Canada,2024Q4,584.02,15.0,7929,38.93
+C349,Local recruitment,Canada,2024Q4,601.16,10.0,16863,60.12
+C350,Visa and immigration,Canada,2024Q1,578.6,11.0,12243,52.6
+C351,Visa and immigration,Canada,2024Q4,579.85,8.0,24774,72.48
+C352,Local recruitment,,2024Q4,622.47,38.0,17685,16.38
+C353,Local recruitment,,2024Q4,847.45,58.0,30941,14.61
+C354,Local recruitment,,2024Q4,1122.98,58.0,43790,19.36
+C355,Local recruitment,,2024Q4,281.16,10.0,8049,28.12
+C356,Local recruitment,,2025Q1,710.13,70.0,36248,10.14
+C357,Local recruitment,,2025Q1,322.47,31.0,14228,10.4
+C358,Local recruitment,,2025Q1,443.09,25.0,20429,17.72
+C359,Local recruitment,,2025Q1,933.7,2.0,13354,466.85
+C360,Local recruitment,,,666.98,29.0,21753,23.0
+C361,Local recruitment,Canada,2025Q1,1248.21,30.0,44834,41.61
+C362,Visa and immigration,,2025Q1,627.17,5.0,20949,125.43
+C363,Visa and immigration,Canada,,1372.29,20.0,48625,68.61
+C364,Visa and immigration,Canada,,1164.32,23.0,47456,50.62
+C365,Visa and immigration,Canada,,1139.82,24.0,42397,47.49
+C366,Local recruitment,,,560.86,124.0,29497,4.52
+C367,Visa and immigration,Canada,,1255.22,29.0,43819,43.28
+C368,Visa and immigration,Australia,,1184.29,28.0,23554,42.3
+C369,Visa and immigration,Australia,,950.31,18.0,20248,52.79
+C370,Other / unlabeled,,2025Q1,708.5,23.0,14753,30.8
+C371,Visa and immigration,Canada,2025Q1,652.37,14.0,12176,46.6
+C372,Visa and immigration,,2025Q1,722.49,20.0,15539,36.12
+C373,Visa and immigration,,2025Q1,704.57,17.0,12047,41.45
+C374,Visa and immigration,,2025Q1,712.45,15.0,13302,47.5
+C375,Visa and immigration,,2025Q1,710.21,26.0,12790,27.32
+C376,Visa and immigration,,2025Q1,680.98,18.0,14889,37.83
+C377,Local recruitment,,2025Q1,193.18,50.0,4578,3.86
+C378,Local recruitment,,2025Q2,611.68,114.0,25296,5.37
+C379,Other / unlabeled,,2025Q2,865.25,5.0,23864,173.05
+C380,Local recruitment,,2025Q2,217.99,69.0,13446,3.16
+C381,Other / unlabeled,,2025Q2,1372.68,31.0,36867,44.28
+C382,Local recruitment,,2025Q2,406.37,92.0,25572,4.42
+C383,Other / unlabeled,,2025Q2,1891.68,137.0,84052,13.81
+C384,Other / unlabeled,,2025Q2,1538.04,24.0,66121,64.08
+C385,Other / unlabeled,,2025Q2,1570.91,23.0,62941,68.3
+C386,Local recruitment,,2025Q3,890.11,233.0,48998,3.82
+C387,Local recruitment,,2025Q3,1531.84,51.0,41158,30.04
+C388,Local recruitment,,2025Q3,900.82,266.0,52139,3.39
+C389,Local recruitment,,2025Q3,476.64,99.0,28878,4.81
+C390,Local recruitment,,2025Q3,488.91,8.0,12145,61.11
+C391,Local recruitment,,,796.37,11.0,32122,72.4
+C392,Local recruitment,,,810.57,7.0,24394,115.8
+C393,Local recruitment,,,884.44,226.0,59605,3.91
+C394,Local recruitment,,,1254.85,210.0,61787,5.98
+C395,Local recruitment,,,1287.66,185.0,72900,6.96
+C396,Local recruitment,,2025Q4,517.09,80.0,22134,6.46
+C397,Local recruitment,,2025Q4,365.74,90.0,17844,4.06
+C398,Local recruitment,,,366.62,79.0,19674,4.64
+C399,Local recruitment,,2026Q1,458.66,81.0,32266,5.66
+C400,Local recruitment,,2026Q1,356.51,34.0,12749,10.49
+C401,Local recruitment,,,259.26,16.0,6413,16.2
+C402,Other / unlabeled,,2026Q1,370.41,1.0,7559,370.41
+C403,Other / unlabeled,,2026Q1,464.39,57.0,8421,8.15
+C404,Local recruitment,,2026Q1,514.6,101.0,20804,5.1
+C405,Local recruitment,,2026Q1,2395.12,628.0,156492,3.81
+C406,Local recruitment,,2026Q1,595.25,70.0,31632,8.5
+C407,Local recruitment,,2026Q1,571.51,60.0,31997,9.53
+C408,Local recruitment,,,564.97,94.0,34385,6.01
+C409,Local recruitment,,,564.48,174.0,20264,3.24
+C410,Local recruitment,,,955.75,183.0,38560,5.22
+C411,Other / unlabeled,,,609.81,22.0,35494,27.72
+C412,Other / unlabeled,,,505.83,24.0,30846,21.08
+C413,Other / unlabeled,,,591.76,38.0,37272,15.57
+C414,Other / unlabeled,,,567.44,25.0,40714,22.7
+C415,Other / unlabeled,,,567.98,28.0,33568,20.28
+C416,Local recruitment,,,548.81,25.0,29499,21.95
+C417,Local recruitment,,,638.71,161.0,33813,3.97
+C418,Other / unlabeled,,2026Q2,1042.73,154.0,51064,6.77
+C419,Local recruitment,,,714.28,239.0,43456,2.99
+C420,Local recruitment,,,994.0,269.0,62950,3.7
+C421,Local recruitment,,,552.17,112.0,32836,4.93
+C422,Coaching,,,1142.74,207.0,73420,5.52
+C423,Local recruitment,,2026Q3,706.16,78.0,42653,9.05
+C424,Local recruitment,,2026Q4,716.33,125.0,36037,5.73
+C425,Other / unlabeled,,,498.6,78.0,19122,6.39
+C426,Other / unlabeled,,,805.23,127.0,35367,6.34
