@@ -1,0 +1,149 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Khadi Consumer Survey Dashboard · Malhar Patel</title>
+<meta name="description" content="Interactive analysis of a 455-person consumer survey on Khadi: 78% know the brand, only 29% prefer to wear it. What drives preference, advocacy and purchase.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFF8EC;--ink:#14110F;--red:#FF4A1C;--blue:#2B44FF;--yellow:#FFD23F;--peach:#FFE3D6;--mut:#5b534b;--soft:#e9dcc3;--grey:#cfc3ad}
+*{box-sizing:border-box}html{overflow-x:clip}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 'DM Sans',system-ui,sans-serif;background-image:radial-gradient(#e9dcc3 1px,transparent 1px);background-size:22px 22px}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 60px}
+a{color:var(--blue)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}
+.btn{display:inline-block;border:2.5px solid var(--ink);background:var(--yellow);color:var(--ink);padding:8px 14px;font:700 14px 'DM Sans';border-radius:999px;text-decoration:none;box-shadow:3px 3px 0 var(--ink)}
+.eyebrow{font:500 12px 'DM Mono',monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mut)}
+h1{font:400 clamp(40px,8vw,84px)/.95 Anton,Impact,sans-serif;text-transform:uppercase;margin:6px 0 10px}
+h1 em{font-style:normal;background:var(--yellow);padding:0 .15em}
+h2{font:400 26px/1.1 Anton,Impact,sans-serif;text-transform:uppercase;margin:0 0 4px}
+.lede{max-width:72ch;color:var(--mut)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:22px 0}
+.kpi{border:2.5px solid var(--ink);background:#fff;box-shadow:4px 4px 0 var(--ink);padding:12px 14px;border-radius:12px}
+.kpi.hot{background:var(--yellow)}
+.kpi b{display:block;font:400 30px/1 Anton,Impact,sans-serif}.kpi span{font:500 12px 'DM Mono',monospace;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}}
+.card{border:2.5px solid var(--ink);background:#fff;box-shadow:5px 5px 0 var(--ink);border-radius:14px;padding:16px;min-width:0}
+.card.full{grid-column:1/-1}.card p.n{margin:2px 0 12px;color:var(--mut);font-size:14px}
+svg{display:block;width:100%;height:auto;overflow:visible}
+svg text{font:500 12px 'DM Mono',monospace;fill:var(--ink)}svg .mut{fill:var(--mut)}
+.leg{display:flex;gap:14px;flex-wrap:wrap;font:500 12px 'DM Mono',monospace;margin-bottom:8px}.leg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;border:1.5px solid var(--ink)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 12px}
+.seg{border:2px solid var(--ink);background:#fff;border-radius:999px;padding:3px 12px;font:500 12px 'DM Mono',monospace;cursor:pointer}
+.seg[aria-pressed=true]{background:var(--yellow)}
+.tip{position:fixed;pointer-events:none;background:var(--ink);color:#fff;font:500 12px 'DM Mono',monospace;padding:6px 9px;border-radius:6px;opacity:0;transition:opacity .1s;z-index:9;max-width:260px}
+.hit{cursor:pointer}
+.take{border:2.5px solid var(--ink);background:var(--yellow);box-shadow:5px 5px 0 var(--ink);border-radius:14px;padding:16px 18px;margin:0 0 18px;font-size:18px;line-height:1.45}
+.recs{margin:0;padding-left:1.2em}.recs li{margin:0 0 10px}
+.notes{margin-top:22px;border:2.5px dashed var(--ink);border-radius:14px;padding:14px 16px;background:var(--peach);font-size:14px}.notes li{margin:4px 0}
+table{width:100%;border-collapse:collapse;font-size:14px;margin-top:6px}td{padding:6px;border-bottom:1.5px solid #e6c9b8}td.r{text-align:right;font-family:'DM Mono',monospace}
+</style></head><body><div class="wrap">
+<div class="top"><span class="eyebrow">research://khadi · consumer survey, April to May 2023 · BBA capstone, Ahmedabad University</span><a class="btn" href="index.html">Back to portfolio</a></div>
+<h1>Known by most. <em>Chosen by few.</em></h1>
+<p class="lede">I designed and fielded a consumer survey on Khadi, India's heritage handspun fabric, for my undergraduate marketing capstone. This is a fresh analysis of all <b id="nTotal"></b> responses: who knows the brand, who actually wants it, and what would close the gap. Hover or tap any bar for the detail.</p>
+
+<div class="kpis" id="kpis"></div>
+<div class="take" id="take"></div>
+
+<div class="grid">
+  <div class="card full"><h2>Most know Khadi. Few choose it.</h2><p class="n">Share of all respondents at each stage. The biggest drop is between having bought Khadi and preferring it.</p><div id="cFunnel"></div></div>
+  <div class="card"><h2>Familiarity drives preference</h2><p class="n">Share who prefer Khadi clothing, by self-rated familiarity with Khadi products.</p><div id="cFam"></div></div>
+  <div class="card"><h2>Trying it creates advocates</h2><p class="n">"Would you recommend Khadi?" by whether the person has bought it.</p><div class="leg"><span><i style="background:var(--blue)"></i>Yes</span><span><i style="background:var(--grey)"></i>Maybe</span><span><i style="background:#fff"></i>No</span></div><div id="cAdv"></div></div>
+  <div class="card"><h2>Quality buyers are the loyal ones</h2><p class="n">Share who prefer Khadi clothing, by main reason for buying Khadi. Tradition, the brand's usual message, converts poorly.</p><div id="cMot"></div></div>
+  <div class="card"><h2>What stops non-buyers</h2><p class="n">Share of the <b id="nNon"></b> respondents who have never bought Khadi; more than one answer allowed.</p><div id="cBar"></div></div>
+  <div class="card full"><h2>Fans pay more for comfort and green credentials</h2><p class="n">Share agreeing with each statement: people who prefer Khadi vs everyone else, sorted by the gap. Fans are more likely to call Khadi expensive, and choose it anyway.</p><div class="leg"><span><i style="background:var(--red)"></i>Prefer Khadi</span><span><i style="background:var(--grey)"></i>Everyone else</span><span>Gap in points on the right</span></div><div id="cBel"></div></div>
+  <div class="card"><h2>Who prefers Khadi</h2><p class="n">Share who prefer Khadi clothing in each group.</p><div class="chips" role="group" aria-label="Break down by"><button class="seg" data-s="Age" aria-pressed="true">Age</button><button class="seg" data-s="Gender" aria-pressed="false">Gender</button><button class="seg" data-s="Occupation" aria-pressed="false">Occupation</button></div><div id="cSeg"></div></div>
+  <div class="card"><h2>What people would buy</h2><p class="n">Share of all respondents choosing each product type; more than one answer allowed.</p><div id="cProd"></div></div>
+  <div class="card full"><h2>What this means for Khadi</h2>
+    <ol class="recs">
+      <li><b>Sell quality and comfort, not heritage.</b> Buyers motivated by quality prefer Khadi far more than those buying for tradition, and fans stand out most on Khadi being a cool fabric for India's heat.</li>
+      <li><b>Get Khadi into people's hands.</b> Buyers are much more likely to recommend it than non-buyers, and lack of awareness and availability block many who have never tried it. Sampling, retail presence and online availability matter more than more brand advertising.</li>
+      <li><b>Lead with home décor, then accessories.</b> Home décor draws more interest than clothing, and accessories come close behind; both avoid the "kurta only" image.</li>
+      <li><b>Win over 26 to 35 year olds with modern styles.</b> They are the least convinced age group and the core of the working-age market.</li>
+    </ol>
+  </div>
+</div>
+
+<div class="notes"><b>About the data.</b>
+  <ul>
+    <li>Online questionnaire covering demographics, awareness, buying behaviour and 15 attitude statements on a 5-point scale, shared through personal and social networks. A convenience sample, so groups are not represented in proportion to India's population.</li>
+    <li>"Prefer Khadi" means answering Yes to "Do you prefer clothing made from Khadi fabric?". Agreement means Agree or Strongly agree. Percentages are rounded.</li>
+    <li>The original 2023 SPSS work covered frequencies only; the comparisons between groups here are new. Only summary figures are published on this page, not individual responses.</li>
+    <li>Some answers contradict each other, which is common in self-reported surveys. They are kept as given:
+      <table id="dq"></table></li>
+  </ul>
+</div>
+<div class="tip" id="tip"></div>
+</div>
+<script>
+const D = {"total": 455, "funnel": [{"k": "aware", "label": "Aware of Khadi", "n": 353, "pct": 78}, {"k": "bought", "label": "Have bought Khadi", "n": 256, "pct": 56}, {"k": "prefer", "label": "Prefer to wear Khadi", "n": 133, "pct": 29}, {"k": "recommend", "label": "Would recommend Khadi", "n": 128, "pct": 28}], "familiarity": [{"label": "1 · Not at all familiar", "n": 48, "pct": 15}, {"label": "2", "n": 118, "pct": 21}, {"label": "3", "n": 158, "pct": 28}, {"label": "4", "n": 86, "pct": 40}, {"label": "5 · Very familiar", "n": 45, "pct": 49}], "advocacy": [{"label": "Have bought Khadi", "n": 256, "yes": 39, "maybe": 24, "no": 37}, {"label": "Never bought Khadi", "n": 199, "yes": 15, "maybe": 33, "no": 53}], "motivation": [{"label": "Quality", "n": 55, "pct": 62}, {"label": "Eco-friendliness", "n": 118, "pct": 31}, {"label": "Price", "n": 71, "pct": 28}, {"label": "Tradition", "n": 126, "pct": 25}, {"label": "Fashion", "n": 46, "pct": 20}], "segments": {"Age": [{"label": "Under 18", "n": 37, "pct": 38}, {"label": "18-25", "n": 188, "pct": 31}, {"label": "26-35", "n": 187, "pct": 22}, {"label": "Over 35", "n": 43, "pct": 44}], "Gender": [{"label": "Female", "n": 321, "pct": 27}, {"label": "Male", "n": 134, "pct": 34}], "Occupation": [{"label": "Student", "n": 127, "pct": 28}, {"label": "Self-employed", "n": 103, "pct": 34}, {"label": "Employed part time", "n": 70, "pct": 23}, {"label": "Employed full time", "n": 65, "pct": 35}, {"label": "Homemaker", "n": 59, "pct": 29}, {"label": "Retired", "n": 20, "pct": 20}, {"label": "Unemployed", "n": 11, "pct": 18}]}, "nonBuyers": 199, "barriers": [{"label": "Lack of awareness", "n": 81, "pct": 41}, {"label": "Price", "n": 58, "pct": 29}, {"label": "Lack of availability", "n": 46, "pct": 23}, {"label": "Quality", "n": 42, "pct": 21}, {"label": "Fashion", "n": 27, "pct": 14}], "products": [{"label": "Home décor", "n": 167, "pct": 37}, {"label": "Clothing", "n": 156, "pct": 34}, {"label": "Accessories", "n": 139, "pct": 31}], "beliefs": [{"label": "Expensive vs other garments", "statement": "I feel that Khadi garments are expensive as compared to other garments.", "fans": 51, "others": 27, "gap": 24}, {"label": "Cool fabric for India’s heat", "statement": "I believe that considering the heat and working condition of India, Khadi is a very cool fabric.", "fans": 48, "others": 26, "gap": 22}, {"label": "Limited to social occasions", "statement": "I feel Khadi suffers from limitation in usage occasions as it is mostly used in social occasions.", "fans": 52, "others": 32, "gap": 20}, {"label": "Green positioning can move it upmarket", "statement": "I believe that positioning Khadi products as organic and green is an opportunity to move the brand up the value chain.", "fans": 49, "others": 30, "gap": 19}, {"label": "A symbol of simplicity", "statement": "I think Khadi is Perceived as a symbol of simplicity", "fans": 53, "others": 35, "gap": 18}, {"label": "Would prefer it for being eco-friendly", "statement": "I think I would prefer Khadi products because of its environment friendly component", "fans": 46, "others": 29, "gap": 17}, {"label": "Non-polluting", "statement": "I think khadi fabric is non-polluting.", "fans": 44, "others": 29, "gap": 15}, {"label": "Handspun, handwoven natural fabric", "statement": "I think Khadi is a traditional Indian fabric that is handspun and handwoven using natural fibers", "fans": 32, "others": 17, "gap": 15}, {"label": "The “USP of India”", "statement": "I believe that in a way it can be said that khadi is the “USP of India”.", "fans": 41, "others": 27, "gap": 14}, {"label": "More than what politicians wear", "statement": "I believe Khadi garments are much more than something politicians wear.", "fans": 48, "others": 35, "gap": 13}, {"label": "Organic fabric", "statement": "I think khadi fabric is very organic.", "fans": 35, "others": 23, "gap": 12}, {"label": "Should move beyond kurtas to modern styles", "statement": "I believe that Khadi should move out of the kurta mood to a more cutting edge modern style garment.", "fans": 42, "others": 30, "gap": 12}, {"label": "Political image hurts it", "statement": "I feel Khadi's association with politics is very strong which does not give it a very clean image.", "fans": 39, "others": 28, "gap": 11}, {"label": "Biodegradable", "statement": "I think khadi is biodegradable.", "fans": 43, "others": 33, "gap": 10}, {"label": "Government drives its promotion", "statement": "I believe that the government plays a huge role in the promotion of khadi products.", "fans": 42, "others": 33, "gap": 9}], "dq": [["Said they are not aware of Khadi, but have bought it", 38], ["Never bought Khadi, but gave a regular buying frequency", 148], ["Have bought Khadi, but also answered the non-buyer barrier question", 256]]};
+const NS='http://www.w3.org/2000/svg', tip=document.getElementById('tip');
+const el=(t,a={},txt)=>{const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(txt!=null)e.textContent=txt;return e;};
+const cv=document.createElement('canvas').getContext('2d');cv.font="500 12px 'DM Mono', monospace";
+const tw=s=>cv.measureText(s).width;
+const showTip=(ev,html)=>{tip.innerHTML=html;tip.style.opacity=1;const x=Math.min(ev.clientX+14,innerWidth-tip.offsetWidth-8);tip.style.left=x+'px';tip.style.top=(ev.clientY+14)+'px';};
+const hideTip=()=>{tip.style.opacity=0;};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function hit(svg,x,y,w,h,html){const r=el('rect',{x,y,width:w,height:h,fill:'transparent',class:'hit'});r.addEventListener('pointermove',e=>showTip(e,html));r.addEventListener('pointerdown',e=>showTip(e,html));r.addEventListener('pointerleave',hideTip);svg.appendChild(r);}
+function bars(id,rows,o={}){
+  const box=document.getElementById(id);box.innerHTML='';
+  const W=Math.max(280,box.clientWidth),bh=20,need=Math.max(...rows.map(r=>tw(r.label)))+14,narrow=need>W*.42,rowH=narrow?46:34;
+  const lw=narrow?0:need;
+  const max=o.max||Math.max(...rows.map(r=>r.pct)),x1=W-46,sx=v=>lw+(x1-lw)*v/max;
+  const H=rows.length*rowH,svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':o.aria||''});
+  rows.forEach((r,i)=>{const y=i*rowH,by=narrow?y+20:y+(rowH-bh)/2;
+    svg.appendChild(el('text',{x:0,y:narrow?y+13:y+rowH/2+4},r.label));
+    svg.appendChild(el('rect',{x:lw+1,y:by,width:Math.max(2,sx(r.pct)-lw),height:bh,rx:4,fill:(o.hi?o.hi(r):true)?(o.color||'var(--blue)'):'var(--grey)',stroke:'var(--ink)','stroke-width':2}));
+    svg.appendChild(el('text',{x:sx(r.pct)+8,y:by+bh/2+4},r.pct+'%'));
+    hit(svg,0,y,W,rowH,`<b>${esc(r.label)}</b><br>${r.pct}% ${o.unit||''}<br>${r.n} ${o.nlabel||'respondents'}`);});
+  box.appendChild(svg);}
+function adv(){
+  const box=document.getElementById('cAdv');box.innerHTML='';
+  const W=Math.max(280,box.clientWidth),narrow=W<460,rowH=narrow?60:46,bh=28;
+  const lw=narrow?0:Math.max(...D.advocacy.map(r=>tw(r.label)))+14;
+  const svg=el('svg',{viewBox:`0 0 ${W} ${D.advocacy.length*rowH}`,role:'img','aria-label':'Would recommend Khadi, buyers vs non-buyers'});
+  D.advocacy.forEach((r,i)=>{const y=narrow?i*rowH+22:i*rowH+(rowH-bh)/2;
+    svg.appendChild(el('text',{x:0,y:narrow?i*rowH+13:i*rowH+rowH/2+4},r.label));
+    let acc=0;[['yes','var(--blue)','#fff'],['maybe','var(--grey)','var(--ink)'],['no','#fff','var(--ink)']].forEach(([k,f,tc])=>{
+      const x0=lw+1+(W-lw-2)*acc/100,w=(W-lw-2)*r[k]/100;
+      svg.appendChild(el('rect',{x:x0,y,width:Math.max(0,w),height:bh,fill:f,stroke:'var(--ink)','stroke-width':2}));
+      if(w>36){const t=el('text',{x:x0+8,y:y+bh/2+4},r[k]+'%');t.style.fill=tc;svg.appendChild(t);} acc+=r[k];});
+    hit(svg,0,i*rowH,W,rowH,`<b>${esc(r.label)}</b><br>Yes ${r.yes}% · Maybe ${r.maybe}% · No ${r.no}%<br>${r.n} respondents`);});
+  box.appendChild(svg);}
+function beliefs(){
+  const box=document.getElementById('cBel');box.innerHTML='';
+  const W=Math.max(280,box.clientWidth),narrow=W<640,rowH=narrow?46:30,head=22;
+  const lw=narrow?6:Math.min(Math.max(...D.beliefs.map(r=>tw(r.label)))+18,W*.42),x1=W-40;
+  const top=Math.max(60,Math.ceil(Math.max(...D.beliefs.map(r=>r.fans))/10)*10),sx=v=>lw+(x1-lw)*v/top;
+  const H=head+D.beliefs.length*rowH,svg=el('svg',{viewBox:`0 0 ${W} ${H}`,role:'img','aria-label':'Agreement with Khadi statements, fans vs everyone else'});
+  for(let v=0;v<=top;v+=20){svg.appendChild(el('line',{x1:sx(v),x2:sx(v),y1:head-4,y2:H,stroke:'var(--soft)'}));const t=el('text',{x:sx(v),y:head-8,'text-anchor':'middle',class:'mut'},v+'%');svg.appendChild(t);}
+  D.beliefs.forEach((r,i)=>{const y=head+i*rowH,cy=narrow?y+31:y+rowH/2;
+    svg.appendChild(el('text',{x:0,y:narrow?y+13:y+rowH/2+4},r.label));
+    svg.appendChild(el('line',{x1:sx(r.others),x2:sx(r.fans),y1:cy,y2:cy,stroke:'var(--ink)','stroke-width':2}));
+    svg.appendChild(el('circle',{cx:sx(r.others),cy,r:6,fill:'var(--grey)',stroke:'var(--ink)','stroke-width':2}));
+    svg.appendChild(el('circle',{cx:sx(r.fans),cy,r:6,fill:'var(--red)',stroke:'var(--ink)','stroke-width':2}));
+    svg.appendChild(el('text',{x:W,y:cy+4,'text-anchor':'end'},(r.gap>0?'+':'')+r.gap));
+    hit(svg,0,y,W,rowH,`<b>${esc(r.statement)}</b><br>Prefer Khadi: ${r.fans}% agree<br>Everyone else: ${r.others}% agree`);});
+  box.appendChild(svg);}
+let seg='Age';
+function draw(){
+  bars('cFunnel',D.funnel,{max:100,hi:r=>r.k==='prefer',unit:'of respondents',nlabel:'people',aria:'Funnel from awareness to recommendation'});
+  bars('cFam',D.familiarity,{unit:'prefer Khadi',aria:'Preference by familiarity'});
+  adv();
+  bars('cMot',D.motivation,{hi:r=>r.label==='Quality',unit:'prefer Khadi',aria:'Preference by main reason for buying'});
+  bars('cBar',D.barriers,{color:'var(--red)',unit:'of non-buyers',nlabel:'people',aria:'Barriers named by non-buyers'});
+  beliefs();
+  const all=Object.values(D.segments).flat();
+  bars('cSeg',D.segments[seg],{max:Math.max(...all.map(r=>r.pct)),unit:'prefer Khadi',aria:'Preference by '+seg});
+  bars('cProd',D.products,{unit:'of respondents',nlabel:'people',aria:'Products respondents would buy'});
+}
+const f=k=>D.funnel.find(r=>r.k===k);
+document.getElementById('nTotal').textContent=D.total;
+document.getElementById('nNon').textContent=D.nonBuyers;
+document.getElementById('kpis').innerHTML=[['Respondents',D.total,''],['Aware of Khadi',f('aware').pct+'%',''],['Have bought it',f('bought').pct+'%',''],['Prefer to wear it',f('prefer').pct+'%','hot'],['Would recommend it',f('recommend').pct+'%','']].map(([l,v,c])=>`<div class="kpi ${c}"><b>${v}</b><span>${l}</span></div>`).join('');
+document.getElementById('take').innerHTML=`<b>${f('aware').pct}%</b> of respondents know Khadi, but only <b>${f('prefer').pct}%</b> prefer to wear it and <b>${f('recommend').pct}%</b> would recommend it. Khadi's problem is not awareness but conversion.`;
+document.getElementById('dq').innerHTML=D.dq.map(([c,n])=>`<tr><td>${esc(c)}</td><td class="r">${n}</td></tr>`).join('');
+document.querySelectorAll('.seg').forEach(b=>b.addEventListener('click',()=>{seg=b.dataset.s;document.querySelectorAll('.seg').forEach(x=>x.setAttribute('aria-pressed',x===b));draw();}));
+let rt;addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(draw,120);});
+(document.fonts?document.fonts.ready:Promise.resolve()).then(draw);draw();
+</script>
+</body></html>
